@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{740FD672-4DDD-42CD-A4C4-33752A754400}</ProjectGuid>
+    <RootNamespace>Torrent</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\boost\boost_1_53_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_53_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="bencode.h" />
+    <ClInclude Include="BencodeConsumerInterface.h" />
+    <ClInclude Include="BencodeDictionary.h" />
+    <ClInclude Include="BencodeElement.h" />
+    <ClInclude Include="BencodeInteger.h" />
+    <ClInclude Include="BencodeList.h" />
+    <ClInclude Include="BencodeParser.h" />
+    <ClInclude Include="BencodeProviderInterface.h" />
+    <ClInclude Include="BencodeStreamConsumer.h" />
+    <ClInclude Include="BencodeStreamProvider.h" />
+    <ClInclude Include="BencodeString.h" />
+    <ClInclude Include="BencodeStringConsumer.h" />
+    <ClInclude Include="BencodeVectorConsumer.h" />
+    <ClInclude Include="BencodeVectorProvider.h" />
+    <ClInclude Include="bencode_comparator.h" />
+    <ClInclude Include="BlockProviderInterface.h" />
+    <ClInclude Include="BlockStreamProvider.h" />
+    <ClInclude Include="BlockStringProvider.h" />
+    <ClInclude Include="BlockVectorProvider.h" />
+    <ClInclude Include="Cancel.h" />
+    <ClInclude Include="Choke.h" />
+    <ClInclude Include="FinalFile.h" />
+    <ClInclude Include="Handshake.h" />
+    <ClInclude Include="Have.h" />
+    <ClInclude Include="HttpParser.h" />
+    <ClInclude Include="Interested.h" />
+    <ClInclude Include="KeepAlive.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="HttpAddressParser.h" />
+    <ClInclude Include="HttpProtocol.h" />
+    <ClInclude Include="MessageInterface.h" />
+    <ClInclude Include="network.h" />
+    <ClInclude Include="NotInterested.h" />
+    <ClInclude Include="pair.h" />
+    <ClInclude Include="Peer.h" />
+    <ClInclude Include="PeerParser.h" />
+    <ClInclude Include="PeerWireProtocol.h" />
+    <ClInclude Include="PercentEncoding.h" />
+    <ClInclude Include="Piece.h" />
+    <ClInclude Include="PieceControl.h" />
+    <ClInclude Include="RandomStringGenerator.h" />
+    <ClInclude Include="Request.h" />
+    <ClInclude Include="ResponsibleInterface.h" />
+    <ClInclude Include="SecureHashAlgorithm.h" />
+    <ClInclude Include="TcpProtocol.h" />
+    <ClInclude Include="TorrentFileProvider.h" />
+    <ClInclude Include="TrackerProtocol.h" />
+    <ClInclude Include="TrackerResponse.h" />
+    <ClInclude Include="UdpProtocol.h" />
+    <ClInclude Include="Unchoke.h" />
+    <ClInclude Include="Utf8Encoder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BencodeDictionary.cpp" />
+    <ClCompile Include="BencodeElement.cpp" />
+    <ClCompile Include="BencodeInteger.cpp" />
+    <ClCompile Include="BencodeList.cpp" />
+    <ClCompile Include="BencodeParser.cpp" />
+    <ClCompile Include="BencodeStreamConsumer.cpp" />
+    <ClCompile Include="BencodeStreamProvider.cpp" />
+    <ClCompile Include="BencodeString.cpp" />
+    <ClCompile Include="BencodeStringConsumer.cpp" />
+    <ClCompile Include="BencodeVectorConsumer.cpp" />
+    <ClCompile Include="BencodeVectorProvider.cpp" />
+    <ClCompile Include="BlockStreamProvider.cpp" />
+    <ClCompile Include="BlockVectorProvider.cpp" />
+    <ClCompile Include="Cancel.cpp" />
+    <ClCompile Include="Choke.cpp" />
+    <ClCompile Include="FinalFile.cpp" />
+    <ClCompile Include="Handshake.cpp" />
+    <ClCompile Include="Have.cpp" />
+    <ClCompile Include="HttpAddressParser.cpp" />
+    <ClCompile Include="HttpParser.cpp" />
+    <ClCompile Include="HttpProtocol.cpp" />
+    <ClCompile Include="Interested.cpp" />
+    <ClCompile Include="KeepAlive.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="BlockStringProvider.cpp" />
+    <ClCompile Include="NotInterested.cpp" />
+    <ClCompile Include="Peer.cpp" />
+    <ClCompile Include="PeerParser.cpp" />
+    <ClCompile Include="PeerWireProtocol.cpp" />
+    <ClCompile Include="PercentEncoding.cpp" />
+    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="PieceControl.cpp" />
+    <ClCompile Include="RandomStringGenerator.cpp" />
+    <ClCompile Include="Request.cpp" />
+    <ClCompile Include="SequreHashAlgorithm.cpp" />
+    <ClCompile Include="TcpProtocol.cpp" />
+    <ClCompile Include="TorrentFileProvider.cpp" />
+    <ClCompile Include="TrackerProtocol.cpp" />
+    <ClCompile Include="TrackerResponse.cpp" />
+    <ClCompile Include="UdpProtocol.cpp" />
+    <ClCompile Include="Unchoke.cpp" />
+    <ClCompile Include="Utf8Encoder.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

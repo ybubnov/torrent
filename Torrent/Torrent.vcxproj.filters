@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\SecureHashAlgorithm">
+      <UniqueIdentifier>{0cebf2c3-3dc8-4394-907b-d68f2bcebb16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bencode">
+      <UniqueIdentifier>{91a8c500-4ee2-4863-8633-ba0c04df1e1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bencode\BencodeTypes">
+      <UniqueIdentifier>{b0f3f117-3009-439c-9462-a4cd7c339b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cryptography">
+      <UniqueIdentifier>{3112dfa8-3f8b-441f-ba97-a079a8306419}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{cfce852c-cafe-4235-a4c9-6260fd21db37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\HTTP">
+      <UniqueIdentifier>{4d27aa02-1d80-4481-8273-2e459ed7f231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bencode\BencodeConsumer">
+      <UniqueIdentifier>{c4005b2c-326f-480d-85f7-5de10248df66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bencode\BencodeProvider">
+      <UniqueIdentifier>{605989a5-4b54-4801-98ff-a2fefddbcd18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\TCP">
+      <UniqueIdentifier>{8f2a6903-8145-4d4d-bd50-b7a289b52fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\UDP">
+      <UniqueIdentifier>{5f16a0b8-a388-477c-b5ea-29921b15fa33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\BitTorrent">
+      <UniqueIdentifier>{3ada68e0-f622-4b6f-b558-151c5a56c829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\BitTorrent\Messages">
+      <UniqueIdentifier>{7b944688-29dd-4fd6-95bc-134abe5f062b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\BitTorrent\Peer">
+      <UniqueIdentifier>{14ebecfe-598f-40cf-a9d7-495f1a77841a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\BitTorrent\Piece">
+      <UniqueIdentifier>{1ea3bc1f-710b-4a07-be35-9c3113b9c040}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BencodeInteger.h">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeElement.h">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeString.h">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeList.h">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeDictionary.h">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="SecureHashAlgorithm.h">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockProviderInterface.h">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockStringProvider.h">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeParser.h">
+      <Filter>Source Files\Bencode</Filter>
+    </ClInclude>
+    <ClInclude Include="Utf8Encoder.h">
+      <Filter>Source Files\Cryptography</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockStreamProvider.h">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockVectorProvider.h">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="PercentEncoding.h">
+      <Filter>Source Files\Cryptography</Filter>
+    </ClInclude>
+    <ClInclude Include="TorrentFileProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResponsibleInterface.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomStringGenerator.h">
+      <Filter>Source Files\Cryptography</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackerProtocol.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>Source Files\Bencode</Filter>
+    </ClInclude>
+    <ClInclude Include="list.h">
+      <Filter>Source Files\Bencode</Filter>
+    </ClInclude>
+    <ClInclude Include="pair.h">
+      <Filter>Source Files\Bencode</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpAddressParser.h">
+      <Filter>Source Files\Network\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpProtocol.h">
+      <Filter>Source Files\Network\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpParser.h">
+      <Filter>Source Files\Network\HTTP</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode.h">
+      <Filter>Source Files\Bencode</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode_comparator.h">
+      <Filter>Source Files\Bencode</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeConsumerInterface.h">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeStreamConsumer.h">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeStringConsumer.h">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeVectorConsumer.h">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeProviderInterface.h">
+      <Filter>Source Files\Bencode\BencodeProvider</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeStreamProvider.h">
+      <Filter>Source Files\Bencode\BencodeProvider</Filter>
+    </ClInclude>
+    <ClInclude Include="BencodeVectorProvider.h">
+      <Filter>Source Files\Bencode\BencodeProvider</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackerResponse.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpProtocol.h">
+      <Filter>Source Files\Network\TCP</Filter>
+    </ClInclude>
+    <ClInclude Include="UdpProtocol.h">
+      <Filter>Source Files\Network\UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Piece.h">
+      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
+    </ClInclude>
+    <ClInclude Include="PieceControl.h">
+      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
+    </ClInclude>
+    <ClInclude Include="Cancel.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Choke.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Handshake.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Have.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Interested.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="KeepAlive.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageInterface.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="NotInterested.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Request.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Unchoke.h">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Peer.h">
+      <Filter>Source Files\Network\BitTorrent\Peer</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerParser.h">
+      <Filter>Source Files\Network\BitTorrent\Peer</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerWireProtocol.h">
+      <Filter>Source Files\Network\BitTorrent\Peer</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalFile.h">
+      <Filter>Source Files\Network</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeString.cpp">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeInteger.cpp">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeList.cpp">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeDictionary.cpp">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="SequreHashAlgorithm.cpp">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockStringProvider.cpp">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeParser.cpp">
+      <Filter>Source Files\Bencode</Filter>
+    </ClCompile>
+    <ClCompile Include="Utf8Encoder.cpp">
+      <Filter>Source Files\Cryptography</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockStreamProvider.cpp">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockVectorProvider.cpp">
+      <Filter>Source Files\SecureHashAlgorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="PercentEncoding.cpp">
+      <Filter>Source Files\Cryptography</Filter>
+    </ClCompile>
+    <ClCompile Include="TorrentFileProvider.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomStringGenerator.cpp">
+      <Filter>Source Files\Cryptography</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackerProtocol.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeElement.cpp">
+      <Filter>Source Files\Bencode\BencodeTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpAddressParser.cpp">
+      <Filter>Source Files\Network\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpProtocol.cpp">
+      <Filter>Source Files\Network\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpParser.cpp">
+      <Filter>Source Files\Network\HTTP</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeStreamConsumer.cpp">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeStringConsumer.cpp">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeVectorConsumer.cpp">
+      <Filter>Source Files\Bencode\BencodeConsumer</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeStreamProvider.cpp">
+      <Filter>Source Files\Bencode\BencodeProvider</Filter>
+    </ClCompile>
+    <ClCompile Include="BencodeVectorProvider.cpp">
+      <Filter>Source Files\Bencode\BencodeProvider</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackerResponse.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpProtocol.cpp">
+      <Filter>Source Files\Network\TCP</Filter>
+    </ClCompile>
+    <ClCompile Include="UdpProtocol.cpp">
+      <Filter>Source Files\Network\UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="Piece.cpp">
+      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
+    </ClCompile>
+    <ClCompile Include="PieceControl.cpp">
+      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
+    </ClCompile>
+    <ClCompile Include="Cancel.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Choke.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Handshake.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Have.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Interested.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="KeepAlive.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="NotInterested.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Request.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Unchoke.cpp">
+      <Filter>Source Files\Network\BitTorrent\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Peer.cpp">
+      <Filter>Source Files\Network\BitTorrent\Peer</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerParser.cpp">
+      <Filter>Source Files\Network\BitTorrent\Peer</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerWireProtocol.cpp">
+      <Filter>Source Files\Network\BitTorrent\Peer</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalFile.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
