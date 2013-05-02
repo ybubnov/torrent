@@ -13,12 +13,15 @@ namespace network{
 
 					peer_wire::peer _peer;
 					message::type _last_message;
-					boost::thread _conversation;
+					boost::thread* _conversation;
 
 					PieceControl* _piece_control;
 					network::tcp::protocol* _tcp;
 
 					void conversation();
+					void request();
+
+
 				public:
 					PeerWireProtocol(
 						peer_wire::peer stranger, 
@@ -32,6 +35,13 @@ namespace network{
 						PieceControl* piece_control, 
 						std::string info_hash, 
 						std::string peer_id
+					);
+
+					PeerWireProtocol(
+						peer_wire::peer stranger, 
+						PieceControl* piece_control, 
+						std::string info_hash, 
+						std::vector<char> peer_id
 					);
 
 					~PeerWireProtocol();

@@ -12,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <list>
+#include <stack>
 
 class Response : public network::responsible{
 	public:
@@ -33,6 +34,8 @@ class Response : public network::responsible{
 class TrackerProtocol : protected network::responsible{
 	private:
 		static const char question_mark;							//const value of question mark letter
+		static const int active_thread;
+		static const int finish_thread;
 
 		std::list<network::http::protocol*> httpList;				//list of announce http addresses
 		std::vector<char> responseData;								//http-style response on http protocol announce request
@@ -45,21 +48,22 @@ class TrackerProtocol : protected network::responsible{
 
 		FinalFile* downloadFile;									//real data file
 
-		boost::thread trackerRequest;								//thread for tracker requests
+		boost::thread* trackerRequest;								//thread for tracker requests
+		boost::thread* peerConversation;							//thread for conversations with peers
 
 		std::string info_hash;
 		std::string peer_id;
+		std::vector<char> raw_peer_id;
 		std::string key;											//announe request field
 
 		PieceControl* pieceControl;
-		network::bittorrent::peer_wire::protocol* peerWireProtocol;
+		std::list<network::bittorrent::peer_wire::protocol*> peerWireProtocolList;
 
-
-		/*Response _handle;
-		network::tcp::protocol* _tcp;*/
+		std::stack<int> threadStack;
 
 	protected:
 		void announce_request();
+		void execute_downloading();
 
 	public:
 		TrackerProtocol(TorrentFileProvider file);

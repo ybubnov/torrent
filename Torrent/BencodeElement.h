@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 
-typedef long long int64_t;
+#include "global.h"
 
 namespace bencode{
 	typedef class BencodeElement{

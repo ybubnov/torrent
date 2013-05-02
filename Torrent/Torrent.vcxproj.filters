@@ -165,9 +165,6 @@
     <ClInclude Include="network.h">
       <Filter>Source Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="Piece.h">
-      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
-    </ClInclude>
     <ClInclude Include="PieceControl.h">
       <Filter>Source Files\Network\BitTorrent\Piece</Filter>
     </ClInclude>
@@ -212,6 +209,12 @@
     </ClInclude>
     <ClInclude Include="FinalFile.h">
       <Filter>Source Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TorrentPiece.h">
+      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -296,9 +299,6 @@
     <ClCompile Include="UdpProtocol.cpp">
       <Filter>Source Files\Network\UDP</Filter>
     </ClCompile>
-    <ClCompile Include="Piece.cpp">
-      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
-    </ClCompile>
     <ClCompile Include="PieceControl.cpp">
       <Filter>Source Files\Network\BitTorrent\Piece</Filter>
     </ClCompile>
@@ -340,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="FinalFile.cpp">
       <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="TorrentPiece.cpp">
+      <Filter>Source Files\Network\BitTorrent\Piece</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

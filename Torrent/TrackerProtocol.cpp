@@ -1,16 +1,20 @@
 #include "TrackerProtocol.h"
 
 const char TrackerProtocol::question_mark = '?';
+const int TrackerProtocol::active_thread = 0;
+const int TrackerProtocol::finish_thread = -1;
 
-TrackerProtocol::TrackerProtocol(TorrentFileProvider file) : 
-	torrentFile(file),
-	trackerRequest(boost::bind(&TrackerProtocol::announce_request, this)){
+TrackerProtocol::TrackerProtocol(TorrentFileProvider file) : torrentFile(file){
 
 	RandomStringGenerator generator;
-
 	key = generator.ascii_string(8);
+
+	std::vector<char> appendix = generator.random_string(12);
 	peer_id = "-UT3300-";
-	peer_id += generator.ascii_string(12);
+	raw_peer_id.insert(raw_peer_id.end(), peer_id.begin(), peer_id.end());
+	raw_peer_id.insert(raw_peer_id.end(), appendix.begin(), appendix.end());
+
+	peer_id += PercentEncoding::encode(appendix);
 }
 
 TrackerProtocol::~TrackerProtocol(){
@@ -18,14 +22,40 @@ TrackerProtocol::~TrackerProtocol(){
 }
 
 void TrackerProtocol::yeild(){
-	trackerRequest.yield();
+	trackerRequest = new boost::thread(boost::bind(&TrackerProtocol::announce_request, this));
+	trackerRequest->yield();
 }
+
+void TrackerProtocol::execute_downloading(){
+	std::cout << "EXECUTE" << std::endl;
+	std::cout << "PEER " << peerList.size() << std::endl;
+
+	if(peerList.size() == 0){
+		return;
+	}
+
+	pieceControl = new PieceControl(torrentFile.pieces(), torrentFile.piece_length());
+
+	for(std::list<network::bittorrent::peer_wire::peer>::iterator it = peerList.begin();
+		it != peerList.end(); it++){
+	
+		network::bittorrent::peer_wire::protocol* peerWireProtocol = 
+			new network::bittorrent::peer_wire::protocol((*it), pieceControl, info_hash, raw_peer_id);
+
+		peerWireProtocolList.push_back(peerWireProtocol);
+
+		peerWireProtocol->yeild();
+
+	}
+}
+
 
 void TrackerProtocol::response_handle(std::istream* response){
 	std::cout << "response handle" << std::endl;
 	std::string item;
 	responseData.clear();
 
+	threadStack.pop();
 
 	network::http::parser hparser(response);									//parse to HTTP response format
 	hparser.parse();
@@ -33,6 +63,7 @@ void TrackerProtocol::response_handle(std::istream* response){
 	responseData = hparser.http_data();		
 
 	if(hparser.bad()){															//normal HTTP response status: {"HTTP 1.1", "200", "OK"}
+		std::cout << "HTTP BAD" << std::endl;
 		return;
 	}
 
@@ -53,16 +84,18 @@ void TrackerProtocol::response_handle(std::istream* response){
 		std::list<network::bittorrent::peer_wire::peer> additionalPeers = peerParser.peers();
 		peerList.insert(peerList.end(), additionalPeers.begin(), additionalPeers.end());
 
-		if(!additionalPeers.size()){											//if response without peer list
-			return;
-		}
-
-		pieceControl = new PieceControl(torrentFile.pieces(), torrentFile.piece_length());
-		peerWireProtocol = new network::bittorrent::peer_wire::protocol(*peerList.begin(), pieceControl, info_hash, peer_id);
-
-		peerWireProtocol->yeild();
 	}catch(std::exception e){
 		std::cout << e.what();
+	}
+
+	std::cout << "peer list " << peerList.size() << std::endl;
+	std::cout << "active " << threadStack.size() << std::endl;
+
+	int nextAction = threadStack.top();
+
+	if(nextAction == TrackerProtocol::finish_thread){
+		peerConversation = new boost::thread(boost::bind(&TrackerProtocol::execute_downloading, this));
+		peerConversation->yield();
 	}
 }
 
@@ -73,10 +106,18 @@ void TrackerProtocol::announce_request(){
 	std::string httpRequest;
 
 	fileList = torrentFile.files();
+	/*DownloadFile dFile = *fileList.begin();
+	downloadFile = new FinalFile("e:\\" + dFile.path, dFile.length, torrentFile.piece_length());*/
+
+
+	threadStack.push(finish_thread);
 	
 	for(unsigned int i = 0; i < torrentFile.announce_size(); i++){
 		httpList.push_back(new network::http::protocol(this));
+		threadStack.push(active_thread);
 	}
+
+	std::cout << "STACK SIZE " << threadStack.size() << std::endl;
 
 	std::list<network::http::protocol*>::iterator httpItem = httpList.begin();
 	info_hash = torrentFile.info_hash();
@@ -109,7 +150,7 @@ void TrackerProtocol::announce_request(){
 			<< "&corrupt=0"
 			<< "&key=" << key
 			<< "&event=started"
-			<< "&numwant=50"
+			<< "&numwant=20"
 			<< "&compact=1"
 			<< "&no_peer_id=1";
 
@@ -117,6 +158,8 @@ void TrackerProtocol::announce_request(){
 
 		httpRequest = request.str();
 		http->get(httpDomain, httpRequest);
+
+		//
 
 		std::cout << "http" << std::endl;
 

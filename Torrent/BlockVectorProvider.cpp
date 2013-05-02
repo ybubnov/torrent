@@ -7,7 +7,7 @@ BlockVectorProvider::BlockVectorProvider(std::vector<char> source){
 	long qbyte = 0;
 	long mask = 0x38;
 
-	for(int i = 0; i < source.size(); i++){
+	for(unsigned int i = 0; i < source.size(); i++){
 		qbyte |= (static_cast<long>(source[i]) & 0xff) << mask;
 
 		if(mask == 0){
@@ -65,7 +65,7 @@ std::list<long> BlockVectorProvider::block(){
 			bytelist = std::list<long>(14);	
 		}
 
-		byteblock.push_back((length * 8) / std::pow(2.0, 32.0));
+		byteblock.push_back((long)((length * 8) / std::pow(2.0, 32.0)));
 		byteblock.push_back(length * 8);
 
 		length = -1;

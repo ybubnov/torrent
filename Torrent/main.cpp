@@ -20,36 +20,24 @@
 class Temp : public network::responsible{
 	public:
 		void response_handle(std::istream* response){
-			/*HttpParser parser(response);
-			parser.parse();*/
-
-			std::stringstream string_flow;
 			std::string string;
+			std::cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << std::endl;
 			while(!response->eof()){
 				*response >> string;
 				std::cout << string;
 			}
 			std::cout << "done" << std::endl;
+			std::cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << std::endl;
 		}
 };
 
 int main(){
-	/*Temp t;
+	
+	/*char data[256] = {"hello, world"};
+	std::vector<char> buffer(data, data + 13);
 
-	network::tcp::protocol _tcp("127.0.0.1", "17100");
-	network::bittorrent::message::interface& handshake = network::bittorrent::message::handshake::create("9d2031f14363000fffd17511de2b01babf2f2881", "-UT3310-123456789123");
-
-	_tcp.send(&t, handshake.message());*/
-
-	/*Temp t;
-
-	network::tcp::protocol tcp("192.168.0.100", "3000");
-	tcp.get(&t);
-
-	while(true){
-		std::cout << "out" << std::endl;
-		Sleep(500);
-	}*/
+	network::tcp::protocol tcp("wikipedia.org", "80");
+	tcp.send(buffer);*/
 
 	/*bencode::provider::stream streamprovider("announce.php");
 	bencode::parser parser(streamprovider);
@@ -69,24 +57,31 @@ int main(){
 	PeerParser p(_peers);
 	std::list<Peer> peers = p.peers();*/
 
-	bencode::provider::stream streamprovider("b.torrent");
+	/*Temp t;
+
+	network::tcp::protocol tcp("192.168.0.100", "6881");
+	//tcp.get(&t);
+	boost::thread tr(boost::bind(&network::tcp::protocol::get, &tcp, &t));
+	tr.yield();*/
+
+
+	//std::ofstream log("log.txt", std::ios::trunc | std::ios::binary);
+	//std::cout.rdbuf(log.rdbuf());
+
+	bencode::provider::stream streamprovider("hul.torrent");
 
 	bencode::parser parser(streamprovider);
 	bencode::element* result = parser.node();
 	TorrentFileProvider tfile(result);
 
-	/*std::vector<char> pieces = tfile.pieces();
-	size_t length = tfile.piece_length();
-
-	PieceControl(pieces, length);*/
-
+	system("pause");
 
 	TrackerProtocol protocol(tfile);
 	protocol.yeild();
 
 	while(true){
 		std::cout << "out" << std::endl;
-		Sleep(1000);
+		Sleep(500);
 	}
 	
 	system("pause");

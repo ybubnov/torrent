@@ -19,7 +19,7 @@ PieceControl::PieceControl(std::vector<char> pieces, size_t piece_length){
 	}
 }
 
-void PieceControl::downloaded(Piece piece){
+void PieceControl::downloaded(TorrentPiece piece){
 	_piece_map.erase(piece.index());
 }
 
@@ -27,9 +27,9 @@ int PieceControl::piece_length(){
 	return _piece_length;
 }
 
-Piece PieceControl::next_piece(){
+TorrentPiece PieceControl::next_piece(){
 	int index = _piece_map.begin()->first;
 	std::vector<char> piece = _piece_map.begin()->second;
 
-	return Piece::create(piece, index);
+	return TorrentPiece::create(piece, index);
 }

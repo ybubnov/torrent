@@ -9,6 +9,13 @@ TcpProtocol::TcpProtocol(const std::string& address, const std::string& port) :
 
 	this->address = address;
 	this->port = port;
+
+	boost::asio::ip::tcp::resolver resolver(io_service);
+	boost::asio::ip::tcp::resolver::query query(address, port);
+	boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
+
+	std::cout << endpoint << std::endl;
+	_socket.connect(endpoint);
 }
 
 void TcpProtocol::get(network::responsible* callback){
@@ -36,20 +43,20 @@ void TcpProtocol::get(network::responsible* callback){
 	io_service.run();
 }
 
+void TcpProtocol::send(std::vector<char> buffer){
+	io_service.reset();
+
+	//boost::asio::write(_socket, boost::asio::buffer(buffer));
+	_socket.send(boost::asio::buffer(buffer));
+
+	io_service.run();
+}
+
 void TcpProtocol::send(network::responsible* callback, std::vector<char> buffer){
 	send_callback = callback;
 	io_service.reset();
 
-	boost::asio::ip::tcp::resolver resolver(io_service);
-	boost::asio::ip::tcp::resolver::query query(address, port);
-	boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
-
-	std::cout << endpoint;
-
-	_socket.close();
-	_socket.connect(endpoint);
-
-	boost::asio::write(_socket, boost::asio::buffer(buffer));
+	//boost::asio::write(_socket, boost::asio::buffer(buffer));
 
 	_socket.async_send(
 		boost::asio::buffer(buffer),
@@ -65,7 +72,14 @@ void TcpProtocol::send(network::responsible* callback, std::vector<char> buffer)
 
 void TcpProtocol::send_handle(const boost::system::error_code& error){
 	io_service.stop();
-	send_callback->response_handle(0);
+
+	size_t bytes_transfered;
+	bytes_transfered = _socket.read_some(boost::asio::buffer(_tcp_response));
+	
+	boost::asio::streambuf response;
+	response.sputn(_tcp_response.data(), bytes_transfered);
+
+	send_callback->response_handle(new std::istream(&response));
 }
 
 void TcpProtocol::get_handle(const boost::system::error_code& error){

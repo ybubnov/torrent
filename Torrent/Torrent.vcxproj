@@ -84,6 +84,7 @@
     <ClInclude Include="Cancel.h" />
     <ClInclude Include="Choke.h" />
     <ClInclude Include="FinalFile.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="Handshake.h" />
     <ClInclude Include="Have.h" />
     <ClInclude Include="HttpParser.h" />
@@ -101,7 +102,7 @@
     <ClInclude Include="PeerParser.h" />
     <ClInclude Include="PeerWireProtocol.h" />
     <ClInclude Include="PercentEncoding.h" />
-    <ClInclude Include="Piece.h" />
+    <ClInclude Include="TorrentPiece.h" />
     <ClInclude Include="PieceControl.h" />
     <ClInclude Include="RandomStringGenerator.h" />
     <ClInclude Include="Request.h" />
@@ -146,7 +147,7 @@
     <ClCompile Include="PeerParser.cpp" />
     <ClCompile Include="PeerWireProtocol.cpp" />
     <ClCompile Include="PercentEncoding.cpp" />
-    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="TorrentPiece.cpp" />
     <ClCompile Include="PieceControl.cpp" />
     <ClCompile Include="RandomStringGenerator.cpp" />
     <ClCompile Include="Request.cpp" />

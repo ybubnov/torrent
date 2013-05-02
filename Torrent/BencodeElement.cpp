@@ -18,5 +18,5 @@ int BencodeElement::compare(BencodeElement* belement){
 }
 
 int BencodeElement::get_hash(){
-	return hash;
+	return (int)hash;
 }

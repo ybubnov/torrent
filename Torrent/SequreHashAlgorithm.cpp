@@ -29,10 +29,10 @@ std::string SecureHashAlgorithm::url_hash(){
 	char code3;
 
 	for(std::list<long>::iterator it = hashes.begin(); it != hashes.end(); it++){
-		code0 = ((*it) & 0xff000000) >> 0x18;
-		code1 = ((*it) & 0x00ff0000) >> 0x10;
-		code2 = ((*it) & 0x0000ff00) >> 0x8;
-		code3 = ((*it) & 0x000000ff);
+		code0 = (char)(((*it) & 0xff000000) >> 0x18);
+		code1 = (char)(((*it) & 0x00ff0000) >> 0x10);
+		code2 = (char)(((*it) & 0x0000ff00) >> 0x8);
+		code3 = (char)(((*it) & 0x000000ff));
 
 		result.push_back(code0);
 		result.push_back(code1);

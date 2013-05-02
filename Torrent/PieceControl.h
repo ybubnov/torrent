@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 
-#include "Piece.h"
+#include "TorrentPiece.h"
 
 class PieceControl{
 	private:
@@ -15,7 +15,7 @@ class PieceControl{
 	public:
 		PieceControl(std::vector<char> pieces, size_t piece_length);
 		
-		void downloaded(Piece piece);
+		void downloaded(TorrentPiece piece);
 		int piece_length();
-		Piece next_piece();
+		TorrentPiece next_piece();
 };

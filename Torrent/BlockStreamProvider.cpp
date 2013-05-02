@@ -10,7 +10,7 @@ BlockStreamProvider::BlockStreamProvider(std::string path){
 	}
 
 	stream.seekp(0, std::fstream::end);
-	length = stream.tellp();
+	length = (int)stream.tellp();
 	stream.seekg(0, std::fstream::beg);
 
 	char value[5];
@@ -67,7 +67,7 @@ std::list<long> BlockStreamProvider::block(){
 			bytelist = std::list<long>(14);	
 		}
 
-		byteblock.push_back((length * 8) / std::pow(2.0, 32.0));
+		byteblock.push_back((long)((length * 8) / std::pow(2.0, 32.0)));
 		byteblock.push_back(length * 8);
 
 		length = -1;

@@ -40,6 +40,7 @@ namespace network{
 
 				void get(network::responsible* callback);
 				void send(network::responsible* callback, std::vector<char> buffer);
+				void send(std::vector<char> buffer);
 
 				void stop();
 		}protocol;
