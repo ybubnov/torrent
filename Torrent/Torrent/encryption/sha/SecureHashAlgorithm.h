@@ -1,0 +1,19 @@
+#pragma once
+
+#include "BlockProviderInterface.h"
+
+namespace encryption{
+	namespace sha{
+		typedef class SecureHashAlgorithm{
+			private:
+				provider::interface* source;
+				std::list<long> hashes;
+				long leftrotate(long value, long n);
+
+			public:
+				SecureHashAlgorithm(provider::interface* source);
+				std::string hash();
+				std::string url_hash();
+		}algorithm;
+	}
+}
