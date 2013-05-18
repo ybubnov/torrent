@@ -225,6 +225,9 @@
     <ClInclude Include="bencode\type\BencodeComparator.h">
       <Filter>Source Files\bencode\type</Filter>
     </ClInclude>
+    <ClInclude Include="BitField.h">
+      <Filter>Source Files\network\bittorrent\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -355,6 +358,9 @@
     </ClCompile>
     <ClCompile Include="bencode\provider\BencodeStreamProvider.cpp">
       <Filter>Source Files\bencode\provider</Filter>
+    </ClCompile>
+    <ClCompile Include="BitField.cpp">
+      <Filter>Source Files\network\bittorrent\Messages</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -14,8 +14,9 @@ namespace network{
 					static Piece create(long index, long begin, std::vector<char> bulk);
 					std::vector<char> message();
 					type what();
-
-					static std::vector<char> block(std::vector<char> incoming);
+					static bool is(std::vector<char>& incoming);
+					static std::vector<char> block(std::vector<char>& incoming);
+					static std::vector<char> block(std::vector<char>& incomimg, long length);
 			}piece;
 		}
 	}

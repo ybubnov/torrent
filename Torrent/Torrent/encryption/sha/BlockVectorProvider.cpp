@@ -9,22 +9,19 @@ BlockVectorProvider::BlockVectorProvider(std::vector<char> source){
 	incoming.push_back(0x80);
 
 	long qbyte = 0;
-	long mask = 0x38;
+	long mask = 0x18;
 
 	for(unsigned int i = 0; i < incoming.size(); i++){
-		qbyte |= (static_cast<long>(incoming[i]) & 0xff) << mask;
+		qbyte |= ((static_cast<long>(incoming[i]) & 0xff) << mask);
 
 		if(mask == 0){
 			bytelist.push_back(qbyte);
 			qbyte = 0;
-			mask = 0x40;
+			mask = 0x20;
 		}
 
-		if(mask == 0x28){
-			mask = 0x0;
-		}else{
-			mask -= 0x8;
-		}
+
+		mask -= 0x8;
 	}
 
 	bytelist.push_back(qbyte);

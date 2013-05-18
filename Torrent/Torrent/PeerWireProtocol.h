@@ -13,7 +13,9 @@ namespace network{
 
 					std::vector<char> _info_hash;
 					std::vector<char> _peer_id;
-					std::vector<long> _have;
+					std::vector<char> _incoming;
+					std::vector<bool> _have;
+					std::vector<char> _buffer;
 
 					peer_wire::peer _peer;
 					message::type _last_message;
@@ -25,18 +27,22 @@ namespace network{
 					
 					network::tcp::protocol* _tcp;
 
-					std::vector<char> _buffer;
+					
 					long _piece_length;
 					long _begin;
+					long _offset;
 
 					void initialize();
 					void conversation();
-					void shift();
+					
 
 
-					void request();
+					bool request();
+
 					bool handshake();
 					bool interested();
+
+					bool refresh();
 
 				public:
 					PeerWireProtocol(
@@ -67,6 +73,8 @@ namespace network{
 
 					void response_handle(std::istream* response);
 					void yeild();
+
+					void shift();
 			}protocol;
 		}
 	}

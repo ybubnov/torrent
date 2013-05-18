@@ -18,6 +18,7 @@ namespace network{
 				_request,
 				_unchoke,
 				_piece,
+				_bitfield,
 				_undefined
 			}type;
 

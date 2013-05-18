@@ -54,11 +54,13 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>C:\boost\boost_1_53_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_53_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -80,6 +82,7 @@
     <ClInclude Include="bencode\consumer\BencodeVectorConsumer.h" />
     <ClInclude Include="bencode\provider\BencodeVectorProvider.h" />
     <ClInclude Include="bencode\type\BencodeComparator.h" />
+    <ClInclude Include="BitField.h" />
     <ClInclude Include="encryption\sha\BlockProviderInterface.h" />
     <ClInclude Include="encryption\sha\BlockStreamProvider.h" />
     <ClInclude Include="encryption\sha\BlockStringProvider.h" />
@@ -131,6 +134,7 @@
     <ClCompile Include="bencode\consumer\BencodeStringConsumer.cpp" />
     <ClCompile Include="bencode\consumer\BencodeVectorConsumer.cpp" />
     <ClCompile Include="bencode\provider\BencodeVectorProvider.cpp" />
+    <ClCompile Include="BitField.cpp" />
     <ClCompile Include="encryption\sha\BlockStreamProvider.cpp" />
     <ClCompile Include="encryption\sha\BlockVectorProvider.cpp" />
     <ClCompile Include="Cancel.cpp" />

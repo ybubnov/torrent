@@ -16,7 +16,7 @@ std::vector<char> Unchoke::message(){
 	return data;
 }
 
-bool Unchoke::is(std::vector<char> input){
+bool Unchoke::is(std::vector<char>& input){
 	return ((input[3] == 0x1) && (input[4] == 0x1));
 }
 

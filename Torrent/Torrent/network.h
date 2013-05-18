@@ -17,6 +17,7 @@
 
 /*network::bittorrent::message*/
 #include "MessageInterface.h"
+#include "BitField.h"
 #include "Cancel.h"
 #include "Choke.h"
 #include "Handshake.h"

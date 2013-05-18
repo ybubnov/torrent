@@ -14,7 +14,7 @@ namespace network{
 					static Unchoke create();
 					std::vector<char> message();
 
-					static bool is(std::vector<char> input);
+					static bool is(std::vector<char>& input);
 					type what();
 			}unchoke;
 		}

@@ -64,7 +64,7 @@ std::vector<char> Handshake::message(){
 	return data;
 }
 
-bool Handshake::is(std::vector<char> input){
+bool Handshake::is(std::vector<char>& input){
 	if(input.size() < 19){
 		return false;
 	}
@@ -77,4 +77,12 @@ bool Handshake::is(std::vector<char> input){
 
 type Handshake::what(){
 	return _handshake;
+}
+
+std::vector<char> Handshake::crop(std::vector<char>& incoming){
+	if(incoming.size() > 68){
+		return std::vector<char>(incoming.begin() + 68, incoming.end());
+	}else{
+		throw std::exception();
+	}
 }

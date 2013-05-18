@@ -72,18 +72,13 @@ int main(){
 	PeerParser p(_peers);
 	std::list<Peer> peers = p.peers();*/
 
-	/*Temp t;
+	/*std::vector<char> a;
+	a.push_back('v');
 
-	network::tcp::protocol tcp("192.168.0.100", "6881");
-	//tcp.get(&t);
-	boost::thread tr(boost::bind(&network::tcp::protocol::get, &tcp, &t));
-	tr.yield();*/
+	FinalFile f("e:\\file", 2000, 6);
+	f.write(a, 8);
+	f.write(a, 5);*/
 
-
-	//std::ofstream log("log.txt", std::ios::trunc | std::ios::binary);
-	//std::cout.rdbuf(log.rdbuf());
-
-	//network::bittorrent::peer_wire::protocol p(
 
 	bencode::provider::stream streamprovider("mmm.torrent");
 
@@ -91,16 +86,28 @@ int main(){
 	bencode::element* result = parser.node();
 	TorrentFileProvider tfile(result);
 
-	std::string hash = tfile.info_hash();
 
+	/*PieceControl pc(tfile.pieces(), tfile.piece_length());
+	TorrentPiece* tp;
+	while(true){
+		tp = pc.next_piece();
 
-	std::list<DownloadFile> fileList = tfile.files();
-	DownloadFile dFile = *fileList.begin();
-	FinalFile* downloadFile = new FinalFile("e:\\" + dFile.path, dFile.length, tfile.piece_length());
+		if(pc.last() != 1){
+			pc.downloaded(tp);
+		}
+	}
 
-	/*system("pause");
+	network::bittorrent::peer_wire::peer pr("198.162.0.100", "6881");
+	network::bittorrent::peer_wire::protocol p(pr, &pc, &f, "aaa", "bbb");
+	p.shift();
+	p.shift();
+	p.shift();
+	p.shift();
+	p.shift();*/
 
-	TrackerProtocol protocol(tfile);
+	system("pause");
+
+	/*TrackerProtocol protocol(tfile);
 	protocol.yeild();
 
 	while(true){

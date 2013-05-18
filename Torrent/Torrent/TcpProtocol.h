@@ -34,13 +34,15 @@ namespace network{
 
 				void get_handle(const boost::system::error_code& error);
 				void send_handle(const boost::system::error_code& error);
+				void send_handle(long bytes_to_read, const boost::system::error_code& error);
 
 			public:
 				TcpProtocol(const std::string& address, const std::string& port);
 
 				void get(network::responsible* callback);
-				void send(network::responsible* callback, std::vector<char> buffer);
 				void send(std::vector<char> buffer);
+				void send(network::responsible* callback, std::vector<char> buffer);
+				void send(network::responsible* callback, std::vector<char> buffer, long bytes_to_read);
 
 				void stop();
 		}protocol;

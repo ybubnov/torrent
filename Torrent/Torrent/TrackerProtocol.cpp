@@ -107,9 +107,10 @@ void TrackerProtocol::announce_request(){
 	std::string httpUri;
 	std::string httpRequest;
 
-	/*fileList = torrentFile.files();
+	std::cout << "creating file..." << std::endl;
+	fileList = torrentFile.files();
 	DownloadFile dFile = *fileList.begin();
-	downloadFile = new FinalFile("e:\\" + dFile.path, dFile.length, torrentFile.piece_length());*/
+	downloadFile = new FinalFile("e:\\" + dFile.path, dFile.length, torrentFile.piece_length());
 
 
 	threadStack.push(finish_thread);

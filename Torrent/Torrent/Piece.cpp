@@ -30,22 +30,46 @@ std::vector<char> Piece::message(){
 	return data;
 }
 
+bool Piece::is(std::vector<char>& incoming){
+	if(incoming.size() < 5){
+		return false;
+	}
+
+	return incoming[4] == 0x7;
+}
+
 type Piece::what(){
 	return _piece;
 }
 
-std::vector<char> Piece::block(std::vector<char> incoming){
-	std::stringstream flow;
-	std::string size(incoming.begin(), incoming.begin() + 4);
-	unsigned long block_size;
+std::vector<char> Piece::block(std::vector<char>& incoming){
+	unsigned long block_size = 0;
 
-	flow << size;
-	flow.read((char*)&block_size, sizeof(unsigned long));
+	if(incoming.size() < 13){
+		throw std::exception();
+	}
+
+	block_size |= (((unsigned long)incoming[0] & 0xff) << 0x18);
+	block_size |= (((unsigned long)incoming[1] & 0xff) << 0x10);
+	block_size |= (((unsigned long)incoming[2] & 0xff) << 0x8);
+	block_size |= (((unsigned long)incoming[3] & 0xff));
 
 	block_size -= 9;
 
-	if(incoming.at(4) == 0x7 && incoming.size() > block_size){
-		return std::vector<char>(incoming.begin() + 13, incoming.begin() + block_size);
+	if(incoming[4] == 0x7 && incoming.size() > block_size){
+		return std::vector<char>(incoming.begin() + 13, incoming.begin() + 13 + block_size);
+	}
+
+	throw std::exception();
+}
+
+std::vector<char> Piece::block(std::vector<char>& incoming, long length){
+	if(incoming.size() < (unsigned long)length){
+		throw std::exception();
+	}
+
+	if(incoming[4] == 0x7){
+		return std::vector<char>(incoming.begin() + 13, incoming.begin() + length);
 	}
 
 	throw std::exception();

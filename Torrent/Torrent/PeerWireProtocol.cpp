@@ -6,6 +6,7 @@ using namespace network::bittorrent;
 const long PeerWireProtocol::block_length = 0x4000;
 
 void PeerWireProtocol::initialize(){
+	_offset = 0;
 	_begin = 0;
 	_tcp = 0;
 	_conversation = 0;
@@ -115,45 +116,62 @@ PeerWireProtocol::~PeerWireProtocol(){
 void PeerWireProtocol::response_handle(std::istream* response){
 	char buf[0x7fff];
 	memset(buf, 0, sizeof(buf));
-
-	std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||" << std::endl;
-
-	response->read(buf, _piece_length);
-
-	std::cout << buf << std::endl;
-	std::cout << "done" << std::endl;
-	std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||" << std::endl;
+	response->read(buf, sizeof(buf));
 
 	std::vector<char> incoming(buf, buf + sizeof(buf));
+	_incoming = incoming;
 
 	if(message::handshake::is(incoming)){
 		_last_message = message::_handshake;
+
+		/*if(message::bitfield::is(incoming)){
+			_have = message::bitfield::field(message::handshake::crop(incoming));
+		}*/
+	
 	}else if(message::unchoke::is(incoming)){
 		_last_message = message::_unchoke;
+	}else if(message::piece::is(incoming)){
+		_last_message = message::_piece;
+		std::vector<char> _block;
+
+		try{
+			_block = message::piece::block(incoming);
+		}catch(std::exception e){
+			std::cout << "BLOCK PROBLEM>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
+
+			_last_message = message::_undefined;
+			return;
+		}
+
+		_buffer.insert(_buffer.end(), _block.begin() + _offset, _block.end());
+	}else{
+		_last_message = message::_undefined;
 	}
 }
+
 
 void PeerWireProtocol::shift(){
 
 	if(_begin + _piece_length < _piece_control->piece_length()){
 		_begin += _piece_length;
+		_offset = 0;
 
 		if(_begin + _piece_length > _piece_control->piece_length()){
-			_piece_length = _piece_control->piece_length() - _begin;
+			_offset = _piece_length - (_piece_control->piece_length() - _begin);
+			_begin = _piece_control->piece_length() - _piece_length; 
+			
 		}
-
 	}else{
 		_file->write(_buffer, _current_piece->index());
-		_piece_control->downloaded(*_current_piece);
 
+		std::cout << "has written " << _current_piece->index() << std::endl;
+
+		_buffer = std::vector<char>();
+		_piece_control->downloaded(_current_piece);
 		_begin = 0;
-	
-		try{
-			_current_piece = _piece_control->next_piece();
-		}catch(std::exception e){
-			_last_message = message::_undefined;
-		}
-
+		_offset = 0;
+		_current_piece = _piece_control->next_piece();
+		
 		if(_piece_control->piece_length() < PeerWireProtocol::block_length){
 			_piece_length = _piece_control->piece_length();
 		}else{
@@ -162,35 +180,91 @@ void PeerWireProtocol::shift(){
 	}
 }
 
-void PeerWireProtocol::request(){
-	long piece_begin = _begin;
-	long piece_index = _current_piece->index();
-	long piece_length = _piece_length;
 
+bool PeerWireProtocol::refresh(){
+	long previous_index = _current_piece->index();
 
-	std::cout << "REQUEST" << std::endl;
-	std::cout << "BEGIN = " << piece_begin << " INDEX = " << piece_index << " LENGTH = " << piece_length << std::endl;
+	_buffer = std::vector<char>();
 
-	message::interface& request = message::request::create(piece_index, piece_begin, piece_length);
+	_begin = 0;
+	_offset = 0;
 
 	try{
-		_last_message = message::_request;
-		_tcp->send(this, request.message());
+		_current_piece = _piece_control->next_piece();
+
+		boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+
+		if(previous_index == _current_piece->index() && _piece_control->left() == 1){
+			return false;
+		}
+	}catch(std::exception e){
+		return false;
+	}
+		
+	if(_piece_control->piece_length() < PeerWireProtocol::block_length){
+		_piece_length = _piece_control->piece_length();
+	}else{
+		_piece_length = PeerWireProtocol::block_length;
+	}
+
+	return true;
+}
+
+bool PeerWireProtocol::request(){
+	long piece_begin;
+	long piece_index;
+	long piece_length;
+
+
+	try{
+		piece_begin = _begin;
+		piece_index = _current_piece->index();
+
+		if(_piece_control->left() == 1){
+			piece_length = (long)_file->left() - _buffer.size();
+		}else{
+			piece_length = _piece_length;
+		}
+
+		message::interface& request_message = message::request::create(piece_index, piece_begin, piece_length);
+
+		_last_message = message::_undefined;
+		_tcp->send(this, request_message.message(), piece_length + 0xd);
+
+		if(_last_message != message::_piece){
+			throw std::exception();
+		}
+
+		shift();
+	}catch(boost::system::system_error e){
+		std::cout << "begin = " << piece_begin << " index = " << piece_index << " length = " << piece_length << std::endl;
+		std::cout << "FAILURE" << std::endl;
+		return false;
 	}catch(std::exception e){
 		std::cout << "BAD REQUEST" << std::endl;
-		return;
+
+		/*long _current_index = _current_piece->index();
+
+		message::interface& handshake_message = message::handshake::create(_info_hash, _peer_id);
+		_tcp->send(this, handshake_message.message());*/
+
+		if(_piece_control->left()){
+			return refresh();
+		}
+
+		return false;
 	}
+
+	return true;
 }
 
 bool PeerWireProtocol::handshake(){
-	std::cout << "HANDSHAKE" << std::endl;
-
-	message::interface& handshake = message::handshake::create(_info_hash, _peer_id);
+	std::cout << "handshake" << std::endl;
 
 	try{
-		_tcp->send(this, handshake.message());
+		message::interface& handshake_message = message::handshake::create(_info_hash, _peer_id);
+		_tcp->send(this, handshake_message.message());
 	}catch(std::exception e){
-		std::cout << "BAD HANDSHAKE" << std::endl;
 		return false;
 	}
 
@@ -198,14 +272,12 @@ bool PeerWireProtocol::handshake(){
 }
 
 bool PeerWireProtocol::interested(){
-	std::cout << "INTERESTED" << std::endl;
-
-	message::interface& intereseted = message::interested::create();
+	std::cout << "interested" << std::endl;
 
 	try{
-		_tcp->send(this, intereseted.message());
+		message::interface& intereseted_message = message::interested::create();
+		_tcp->send(this, intereseted_message.message());
 	}catch(std::exception e){
-		std::cout << "BAD INTERESTED" << std::endl;
 		return false;
 	}
 
@@ -227,7 +299,9 @@ void PeerWireProtocol::conversation(){
 		if(interested()){
 			_current_piece = _piece_control->next_piece();
 
-			request();
+			while(request()){
+				boost::this_thread::sleep(boost::posix_time::milliseconds(20));
+			}
 		}
 	}
 }

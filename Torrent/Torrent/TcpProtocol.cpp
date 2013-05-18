@@ -47,9 +47,15 @@ void TcpProtocol::send(std::vector<char> buffer){
 	boost::asio::write(_socket, boost::asio::buffer(buffer));
 }
 
+void TcpProtocol::send(network::responsible* callback, std::vector<char> buffer, long bytes_to_read){
+	send_callback = callback;
+	boost::asio::write(_socket, boost::asio::buffer(buffer));
+
+	send_handle(bytes_to_read, boost::system::error_code());
+}
+
 void TcpProtocol::send(network::responsible* callback, std::vector<char> buffer){
 	send_callback = callback;
-
 	boost::asio::write(_socket, boost::asio::buffer(buffer));
 
 	/*_socket.async_send(
@@ -62,6 +68,21 @@ void TcpProtocol::send(network::responsible* callback, std::vector<char> buffer)
 		);*/
 
 	send_handle(boost::system::error_code());
+}
+
+void TcpProtocol::send_handle(long bytes_to_read, const boost::system::error_code& error){
+	boost::asio::streambuf response;
+
+	try{
+		boost::asio::read(_socket, boost::asio::buffer(_tcp_response), boost::asio::transfer_exactly(bytes_to_read));
+	}catch(std::exception e){
+		_socket.read_some(boost::asio::buffer(_tcp_response));
+
+	}
+
+	response.sputn(_tcp_response.data(), bytes_to_read);
+
+	send_callback->response_handle(new std::istream(&response));
 }
 
 void TcpProtocol::send_handle(const boost::system::error_code& error){
