@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fstream>
-#include "../type.h"
+#include "..\type.h"
 
 namespace bencode{
 	namespace consumer{

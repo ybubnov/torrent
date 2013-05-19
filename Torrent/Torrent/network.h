@@ -1,30 +1,7 @@
-/*network::http*/
-#include "ResponsibleInterface.h"
-#include "HttpAddressParser.h"
-#include "HttpParser.h"
-#include "HttpProtocol.h"
+#pragma once
 
-/*network::tcp*/
-#include "TcpProtocol.h"
-
-/*network::udp*/
-#include "UdpProtocol.h"
-
-/*network::bittorrent::peer_wire*/
-#include "Peer.h"
-#include "PeerParser.h"
-#include "PeerWireProtocol.h"
-
-/*network::bittorrent::message*/
-#include "MessageInterface.h"
-#include "BitField.h"
-#include "Cancel.h"
-#include "Choke.h"
-#include "Handshake.h"
-#include "Have.h"
-#include "Interested.h"
-#include "KeepAlive.h"
-#include "NotInterested.h"
-#include "Request.h"
-#include "Unchoke.h"
-#include "Piece.h"
+#include "network\ResponsibleInterface.h"
+#include "network\http.h"
+#include "network\tcp.h"
+#include "network\udp.h"
+#include "network\bittorrent.h"

@@ -37,15 +37,6 @@
     <Filter Include="Source Files\network\bittorrent">
       <UniqueIdentifier>{3ada68e0-f622-4b6f-b558-151c5a56c829}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\network\bittorrent\Messages">
-      <UniqueIdentifier>{7b944688-29dd-4fd6-95bc-134abe5f062b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\network\bittorrent\Peer">
-      <UniqueIdentifier>{14ebecfe-598f-40cf-a9d7-495f1a77841a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\network\bittorrent\Piece">
-      <UniqueIdentifier>{1ea3bc1f-710b-4a07-be35-9c3113b9c040}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\network\http">
       <UniqueIdentifier>{4d27aa02-1d80-4481-8273-2e459ed7f231}</UniqueIdentifier>
     </Filter>
@@ -55,99 +46,27 @@
     <Filter Include="Source Files\network\udp">
       <UniqueIdentifier>{5f16a0b8-a388-477c-b5ea-29921b15fa33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\network\bittorrent\message">
+      <UniqueIdentifier>{7b944688-29dd-4fd6-95bc-134abe5f062b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\network\bittorrent\piece">
+      <UniqueIdentifier>{1ea3bc1f-710b-4a07-be35-9c3113b9c040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\network\bittorrent\io">
+      <UniqueIdentifier>{9e0a312a-7cfb-48cd-b903-c121633bfabf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\network\bittorrent\peer_wire">
+      <UniqueIdentifier>{14ebecfe-598f-40cf-a9d7-495f1a77841a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TorrentFileProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResponsibleInterface.h">
-      <Filter>Source Files\network</Filter>
-    </ClInclude>
-    <ClInclude Include="TrackerProtocol.h">
-      <Filter>Source Files\network</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpAddressParser.h">
-      <Filter>Source Files\network\http</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpProtocol.h">
-      <Filter>Source Files\network\http</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpParser.h">
-      <Filter>Source Files\network\http</Filter>
-    </ClInclude>
-    <ClInclude Include="TrackerResponse.h">
-      <Filter>Source Files\network</Filter>
-    </ClInclude>
-    <ClInclude Include="TcpProtocol.h">
-      <Filter>Source Files\network\tcp</Filter>
-    </ClInclude>
-    <ClInclude Include="UdpProtocol.h">
-      <Filter>Source Files\network\udp</Filter>
-    </ClInclude>
     <ClInclude Include="network.h">
       <Filter>Source Files\network</Filter>
-    </ClInclude>
-    <ClInclude Include="PieceControl.h">
-      <Filter>Source Files\network\bittorrent\Piece</Filter>
-    </ClInclude>
-    <ClInclude Include="Cancel.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Choke.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Handshake.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Have.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Interested.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="KeepAlive.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageInterface.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="NotInterested.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Request.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Unchoke.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Peer.h">
-      <Filter>Source Files\network\bittorrent\Peer</Filter>
-    </ClInclude>
-    <ClInclude Include="PeerParser.h">
-      <Filter>Source Files\network\bittorrent\Peer</Filter>
-    </ClInclude>
-    <ClInclude Include="PeerWireProtocol.h">
-      <Filter>Source Files\network\bittorrent\Peer</Filter>
-    </ClInclude>
-    <ClInclude Include="FinalFile.h">
-      <Filter>Source Files\network</Filter>
-    </ClInclude>
-    <ClInclude Include="global.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TorrentPiece.h">
-      <Filter>Source Files\network\bittorrent\Piece</Filter>
-    </ClInclude>
-    <ClInclude Include="Piece.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
     </ClInclude>
     <ClInclude Include="encryption\PercentEncoding.h">
       <Filter>Source Files\encryption</Filter>
     </ClInclude>
     <ClInclude Include="encryption\RandomStringGenerator.h">
-      <Filter>Source Files\encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="encryption\Utf8Encoder.h">
       <Filter>Source Files\encryption</Filter>
     </ClInclude>
     <ClInclude Include="encryption\sha\BlockProviderInterface.h">
@@ -171,26 +90,116 @@
     <ClInclude Include="encryption.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="bencode.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="encryption\Converter.h">
+      <Filter>Source Files\encryption</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\BencodeParser.h">
-      <Filter>Source Files\bencode</Filter>
+    <ClInclude Include="network\bittorrent\piece\PieceControl.h">
+      <Filter>Source Files\network\bittorrent\piece</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\type\BencodeDictionary.h">
-      <Filter>Source Files\bencode\type</Filter>
+    <ClInclude Include="network\bittorrent\piece\TorrentPiece.h">
+      <Filter>Source Files\network\bittorrent\piece</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\type\BencodeElement.h">
-      <Filter>Source Files\bencode\type</Filter>
+    <ClInclude Include="network\bittorrent\message\BitField.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\type\BencodeInteger.h">
-      <Filter>Source Files\bencode\type</Filter>
+    <ClInclude Include="network\bittorrent\message\Cancel.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\type\BencodeList.h">
-      <Filter>Source Files\bencode\type</Filter>
+    <ClInclude Include="network\bittorrent\message\Choke.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\type\BencodeString.h">
-      <Filter>Source Files\bencode\type</Filter>
+    <ClInclude Include="network\bittorrent\message\Handshake.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\Have.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\KeepAlive.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\Interested.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\NotInterested.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\Piece.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\Request.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\Unchoke.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message.h">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\piece.h">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent.h">
+      <Filter>Source Files\network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\io\FinalFile.h">
+      <Filter>Source Files\network\bittorrent\io</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\io\LoadAdapter.h">
+      <Filter>Source Files\network\bittorrent\io</Filter>
+    </ClInclude>
+    <ClInclude Include="network\http\HttpAddressParser.h">
+      <Filter>Source Files\network\http</Filter>
+    </ClInclude>
+    <ClInclude Include="network\http\HttpParser.h">
+      <Filter>Source Files\network\http</Filter>
+    </ClInclude>
+    <ClInclude Include="network\http\HttpProtocol.h">
+      <Filter>Source Files\network\http</Filter>
+    </ClInclude>
+    <ClInclude Include="network\tcp\TcpProtocol.h">
+      <Filter>Source Files\network\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="network\udp\UdpProtocol.h">
+      <Filter>Source Files\network\udp</Filter>
+    </ClInclude>
+    <ClInclude Include="network\ResponsibleInterface.h">
+      <Filter>Source Files\network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\message\MessageInterface.h">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\io.h">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="network\tcp.h">
+      <Filter>Source Files\network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\http.h">
+      <Filter>Source Files\network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\udp.h">
+      <Filter>Source Files\network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\BitTorrentProtocol.h">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\TrackerResponseParser.h">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\TorrentFileParser.h">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\peer_wire\Peer.h">
+      <Filter>Source Files\network\bittorrent\peer_wire</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\peer_wire\PeerParser.h">
+      <Filter>Source Files\network\bittorrent\peer_wire</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\peer_wire\PeerWireProtocol.h">
+      <Filter>Source Files\network\bittorrent\peer_wire</Filter>
+    </ClInclude>
+    <ClInclude Include="network\bittorrent\peer_wire.h">
+      <Filter>Source Files\network\bittorrent</Filter>
     </ClInclude>
     <ClInclude Include="bencode\consumer\BencodeConsumerInterface.h">
       <Filter>Source Files\bencode\consumer</Filter>
@@ -207,11 +216,32 @@
     <ClInclude Include="bencode\provider\BencodeProviderInterface.h">
       <Filter>Source Files\bencode\provider</Filter>
     </ClInclude>
+    <ClInclude Include="bencode\provider\BencodeStreamProvider.h">
+      <Filter>Source Files\bencode\provider</Filter>
+    </ClInclude>
     <ClInclude Include="bencode\provider\BencodeVectorProvider.h">
       <Filter>Source Files\bencode\provider</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\provider\BencodeStreamProvider.h">
-      <Filter>Source Files\bencode\provider</Filter>
+    <ClInclude Include="bencode\type\BencodeComparator.h">
+      <Filter>Source Files\bencode\type</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode\type\BencodeDictionary.h">
+      <Filter>Source Files\bencode\type</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode\type\BencodeElement.h">
+      <Filter>Source Files\bencode\type</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode\type\BencodeInteger.h">
+      <Filter>Source Files\bencode\type</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode\type\BencodeList.h">
+      <Filter>Source Files\bencode\type</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode\type\BencodeString.h">
+      <Filter>Source Files\bencode\type</Filter>
+    </ClInclude>
+    <ClInclude Include="bencode\BencodeParser.h">
+      <Filter>Source Files\bencode</Filter>
     </ClInclude>
     <ClInclude Include="bencode\consumer.h">
       <Filter>Source Files\bencode</Filter>
@@ -222,96 +252,21 @@
     <ClInclude Include="bencode\type.h">
       <Filter>Source Files\bencode</Filter>
     </ClInclude>
-    <ClInclude Include="bencode\type\BencodeComparator.h">
-      <Filter>Source Files\bencode\type</Filter>
+    <ClInclude Include="bencode.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="BitField.h">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
+    <ClInclude Include="network\bittorrent\io\NotifiableInterface.h">
+      <Filter>Source Files\network\bittorrent\io</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TorrentFileProvider.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TrackerProtocol.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpAddressParser.cpp">
-      <Filter>Source Files\network\http</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpProtocol.cpp">
-      <Filter>Source Files\network\http</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpParser.cpp">
-      <Filter>Source Files\network\http</Filter>
-    </ClCompile>
-    <ClCompile Include="TrackerResponse.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="TcpProtocol.cpp">
-      <Filter>Source Files\network\tcp</Filter>
-    </ClCompile>
-    <ClCompile Include="UdpProtocol.cpp">
-      <Filter>Source Files\network\udp</Filter>
-    </ClCompile>
-    <ClCompile Include="PieceControl.cpp">
-      <Filter>Source Files\network\bittorrent\Piece</Filter>
-    </ClCompile>
-    <ClCompile Include="Cancel.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Choke.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Handshake.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Have.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Interested.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="KeepAlive.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="NotInterested.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Request.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Unchoke.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Peer.cpp">
-      <Filter>Source Files\network\bittorrent\Peer</Filter>
-    </ClCompile>
-    <ClCompile Include="PeerParser.cpp">
-      <Filter>Source Files\network\bittorrent\Peer</Filter>
-    </ClCompile>
-    <ClCompile Include="PeerWireProtocol.cpp">
-      <Filter>Source Files\network\bittorrent\Peer</Filter>
-    </ClCompile>
-    <ClCompile Include="FinalFile.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="TorrentPiece.cpp">
-      <Filter>Source Files\network\bittorrent\Piece</Filter>
-    </ClCompile>
-    <ClCompile Include="Piece.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
-    </ClCompile>
     <ClCompile Include="encryption\PercentEncoding.cpp">
       <Filter>Source Files\encryption</Filter>
     </ClCompile>
     <ClCompile Include="encryption\RandomStringGenerator.cpp">
-      <Filter>Source Files\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="encryption\Utf8Encoder.cpp">
       <Filter>Source Files\encryption</Filter>
     </ClCompile>
     <ClCompile Include="encryption\sha\BlockStreamProvider.cpp">
@@ -326,8 +281,101 @@
     <ClCompile Include="encryption\sha\SequreHashAlgorithm.cpp">
       <Filter>Source Files\encryption\sha</Filter>
     </ClCompile>
-    <ClCompile Include="bencode\BencodeParser.cpp">
-      <Filter>Source Files\bencode</Filter>
+    <ClCompile Include="encryption\Converter.cpp">
+      <Filter>Source Files\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\piece\PieceControl.cpp">
+      <Filter>Source Files\network\bittorrent\piece</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\piece\TorrentPiece.cpp">
+      <Filter>Source Files\network\bittorrent\piece</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\BitField.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Cancel.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Choke.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Handshake.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Have.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\KeepAlive.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Interested.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\NotInterested.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Piece.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Request.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\message\Unchoke.cpp">
+      <Filter>Source Files\network\bittorrent\message</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\io\FinalFile.cpp">
+      <Filter>Source Files\network\bittorrent\io</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\io\LoadAdapter.cpp">
+      <Filter>Source Files\network\bittorrent\io</Filter>
+    </ClCompile>
+    <ClCompile Include="network\http\HttpAddressParser.cpp">
+      <Filter>Source Files\network\http</Filter>
+    </ClCompile>
+    <ClCompile Include="network\http\HttpParser.cpp">
+      <Filter>Source Files\network\http</Filter>
+    </ClCompile>
+    <ClCompile Include="network\http\HttpProtocol.cpp">
+      <Filter>Source Files\network\http</Filter>
+    </ClCompile>
+    <ClCompile Include="network\tcp\TcpProtocol.cpp">
+      <Filter>Source Files\network\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="network\udp\UdpProtocol.cpp">
+      <Filter>Source Files\network\udp</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\BitTorrentProtocol.cpp">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\TrackerResponseParser.cpp">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\TorrentFileParser.cpp">
+      <Filter>Source Files\network\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\peer_wire\Peer.cpp">
+      <Filter>Source Files\network\bittorrent\peer_wire</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\peer_wire\PeerParser.cpp">
+      <Filter>Source Files\network\bittorrent\peer_wire</Filter>
+    </ClCompile>
+    <ClCompile Include="network\bittorrent\peer_wire\PeerWireProtocol.cpp">
+      <Filter>Source Files\network\bittorrent\peer_wire</Filter>
+    </ClCompile>
+    <ClCompile Include="bencode\consumer\BencodeStreamConsumer.cpp">
+      <Filter>Source Files\bencode\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="bencode\consumer\BencodeStringConsumer.cpp">
+      <Filter>Source Files\bencode\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="bencode\consumer\BencodeVectorConsumer.cpp">
+      <Filter>Source Files\bencode\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="bencode\provider\BencodeStreamProvider.cpp">
+      <Filter>Source Files\bencode\provider</Filter>
+    </ClCompile>
+    <ClCompile Include="bencode\provider\BencodeVectorProvider.cpp">
+      <Filter>Source Files\bencode\provider</Filter>
     </ClCompile>
     <ClCompile Include="bencode\type\BencodeDictionary.cpp">
       <Filter>Source Files\bencode\type</Filter>
@@ -344,23 +392,8 @@
     <ClCompile Include="bencode\type\BencodeString.cpp">
       <Filter>Source Files\bencode\type</Filter>
     </ClCompile>
-    <ClCompile Include="bencode\consumer\BencodeStreamConsumer.cpp">
-      <Filter>Source Files\bencode\consumer</Filter>
-    </ClCompile>
-    <ClCompile Include="bencode\consumer\BencodeStringConsumer.cpp">
-      <Filter>Source Files\bencode\consumer</Filter>
-    </ClCompile>
-    <ClCompile Include="bencode\consumer\BencodeVectorConsumer.cpp">
-      <Filter>Source Files\bencode\consumer</Filter>
-    </ClCompile>
-    <ClCompile Include="bencode\provider\BencodeVectorProvider.cpp">
-      <Filter>Source Files\bencode\provider</Filter>
-    </ClCompile>
-    <ClCompile Include="bencode\provider\BencodeStreamProvider.cpp">
-      <Filter>Source Files\bencode\provider</Filter>
-    </ClCompile>
-    <ClCompile Include="BitField.cpp">
-      <Filter>Source Files\network\bittorrent\Messages</Filter>
+    <ClCompile Include="bencode\BencodeParser.cpp">
+      <Filter>Source Files\bencode</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

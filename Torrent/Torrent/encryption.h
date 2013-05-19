@@ -2,6 +2,6 @@
 
 #include "encryption\PercentEncoding.h"
 #include "encryption\RandomStringGenerator.h"
-#include "encryption\Utf8Encoder.h"
+#include "encryption\Converter.h"
 
 #include "encryption\sha.h"

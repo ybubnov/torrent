@@ -4,7 +4,7 @@ using namespace encryption::sha::provider;
 
 BlockStringProvider::BlockStringProvider(std::string source){
 	length = source.size();
-	source.push_back(0x80);
+	source.push_back((char)0x80);
 
 	std::stringstream stream;
 	stream << source;
