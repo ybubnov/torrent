@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "..\piece.h"
-#include "..\io.h"
-#include "..\message.h"
-#include "..\peer_wire.h"
-#include "..\..\tcp.h"
+#include "../piece.h"
+#include "../io.h"
+#include "../message.h"
+#include "../peer_wire.h"
+#include "../../tcp.h"
 
 
 namespace network{

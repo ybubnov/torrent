@@ -11,6 +11,7 @@ BitTorrentProtocol::BitTorrentProtocol(network::bittorrent::io::notifiable* subs
 
 
 	download_folder = folder;
+    _is_interrupted = false;
 	_active_threads = 0;
 	_subscriber = subscriber;
 
@@ -29,6 +30,10 @@ BitTorrentProtocol::~BitTorrentProtocol(){
 	delete trackerResponse;
 }
 
+bool BitTorrentProtocol::alive(){
+    return !_is_interrupted;
+}
+
 void BitTorrentProtocol::yeild(){
 	trackerRequest = new boost::thread(boost::bind(&BitTorrentProtocol::announce_request, this));
 	trackerRequest->yield();
@@ -39,6 +44,9 @@ void BitTorrentProtocol::interrupt(){
         peer_ptr != peerWireProtocolList.end(); peer_ptr++){
         (*peer_ptr)->interrupt();
     }
+
+    _is_interrupted = true;
+    std::cout << "INTERRUPTED" << std::endl;
 }
 
 void BitTorrentProtocol::execute_downloading(){
@@ -69,6 +77,36 @@ void BitTorrentProtocol::execute_downloading(){
 	}
 
 	_active_threads = peerWireProtocolList.size();
+}
+
+
+void BitTorrentProtocol::resume_downloading(){
+    std::cout << "EXECUTE" << std::endl;
+    std::cout << "PEER " << peerList.size() << std::endl;
+
+    if(peerList.size() == 0){
+        return;
+    }
+
+    peerWireProtocolList.clear();
+
+    for(std::list<network::bittorrent::peer_wire::peer>::iterator it = peerList.begin();
+        it != peerList.end(); it++){
+
+        network::bittorrent::peer_wire::protocol* peerWireProtocol;
+
+        try{
+            peerWireProtocol = new network::bittorrent::peer_wire::protocol((*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
+        }catch(std::exception e){
+            continue;
+        }
+
+        peerWireProtocolList.push_back(peerWireProtocol);
+        peerWireProtocol->yeild();
+
+    }
+
+    _active_threads = peerWireProtocolList.size();
 }
 
 
@@ -119,6 +157,13 @@ void BitTorrentProtocol::response_handle(std::istream& response){
 		peerConversation = new boost::thread(boost::bind(&BitTorrentProtocol::execute_downloading, this));
 		peerConversation->yield();
 	}
+}
+
+void BitTorrentProtocol::restart(){
+    peerConversation = new boost::thread(boost::bind(&BitTorrentProtocol::resume_downloading, this));
+    peerConversation->yield();
+
+    _is_interrupted = false;
 }
 
 

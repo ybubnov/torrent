@@ -2,8 +2,8 @@
 
 #include <algorithm>
 
-#include "..\..\bencode.h"
-#include "..\..\encryption.h"
+#include "../../bencode.h"
+#include "../../encryption.h"
 
 typedef long long int64_t;
 
@@ -26,6 +26,7 @@ namespace network{
 
 			public:
 				TorrentFileParser(bencode::element* dictionary);
+                ~TorrentFileParser();
 
 				/*std::string creation_date();
 				std::string comment();

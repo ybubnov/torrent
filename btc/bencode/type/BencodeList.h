@@ -10,6 +10,8 @@ namespace bencode{
 
 			public:
 				BencodeList(bencode::list list);
+                ~BencodeList();
+
 				void* decode();
 				std::vector<char> bencode();
 				static bencode::list decode(BencodeElement* decoded);

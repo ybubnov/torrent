@@ -6,6 +6,13 @@ BencodeDictionary::BencodeDictionary(bencode::map dictionary){
 	this->dictionary.insert(dictionary.begin(), dictionary.end());
 }
 
+BencodeDictionary::~BencodeDictionary(){
+    /*for(bencode::map::iterator element_ptr = dictionary.begin(); element_ptr != dictionary.end(); element_ptr++){
+        delete element_ptr->first;
+        delete element_ptr->second;
+    }*/
+}
+
 void* BencodeDictionary::decode(){
 	return static_cast<void*>(&dictionary);
 }

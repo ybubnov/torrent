@@ -99,7 +99,11 @@
     </property>
     <layout class="QHBoxLayout" name="downloadHorizontalLayout">
      <item>
-      <widget class="QLineEdit" name="downloadFodlerLineEdit"/>
+      <widget class="QLineEdit" name="downloadFodlerLineEdit">
+       <property name="text">
+        <string>e:/</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="browsePushButton">
@@ -212,13 +216,6 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="torrentHorizontalLayout">
-       <item>
-        <widget class="QCheckBox" name="selectAllCheckBox">
-         <property name="text">
-          <string>Select All</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <spacer name="torrentHorizontalSpacer">
          <property name="orientation">

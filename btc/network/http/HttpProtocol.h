@@ -4,13 +4,13 @@
 #include <istream>
 #include <ostream>
 #include <string>
-#include <boost\array.hpp>
-#include <boost\asio.hpp>
-#include <boost\bind.hpp>
-#include <boost\function.hpp>
-#include <boost\thread.hpp>
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
+#include <boost/thread.hpp>
 
-#include "..\ResponsibleInterface.h"
+#include "../ResponsibleInterface.h"
 
 namespace network{
 	namespace http{

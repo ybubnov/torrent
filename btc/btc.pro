@@ -66,7 +66,6 @@ SOURCES += main.cpp \
     network/tcp/TcpProtocol.cpp \
     network/udp/UdpProtocol.cpp \
     interface/TorrentWindow.cpp \
-    interface/TorrentRow.cpp \
     interface/DownloadDialog.cpp
 
 HEADERS += \
@@ -138,8 +137,9 @@ HEADERS += \
     network/udp/UdpProtocol.h \
     interface.h \
     interface/TorrentWindow.h \
-    interface/TorrentRow.h \
-    interface/DownloadDialog.h
+    interface/DownloadDialog.h \
+    interface/ATreeWidgetItem.h \
+    interface/TorrentUpdater.h
 
 FORMS += \
     interface/DownloadDialog.ui \

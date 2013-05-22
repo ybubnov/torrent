@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <stack>
-#include <boost\thread.hpp>
+#include <boost/thread.hpp>
 #include <boost/interprocess/exceptions.hpp>
 
 #include "TorrentPiece.h"

@@ -5,14 +5,14 @@
 #include <iostream>
 #include <ostream>
 #include <string>
-#include <boost\array.hpp>
-#include <boost\asio.hpp>
-#include <boost\bind.hpp>
-#include <boost\function.hpp>
-#include <boost\thread.hpp>
-#include <boost\enable_shared_from_this.hpp>
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
+#include <boost/thread.hpp>
+#include <boost/enable_shared_from_this.hpp>
 
-#include "..\ResponsibleInterface.h"
+#include "../ResponsibleInterface.h"
 
 namespace network{
 	namespace tcp{

@@ -16,6 +16,10 @@ namespace bencode{
 
 		public:
 			BencodeElement();
+            virtual ~BencodeElement(){
+
+            }
+
 			int compare(BencodeElement* belement);
 			int get_hash();
 

@@ -23,6 +23,10 @@ TorrentFileParser::TorrentFileParser(bencode::element* dictionary){
 	info_dictionary = bencode::type::dictionary::decode(info->second);
 }
 
+TorrentFileParser::~TorrentFileParser(){
+
+}
+
 std::list<DownloadFile> TorrentFileParser::files(){
 	std::vector<char> value;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\bencode.h"
+#include "../../bencode.h"
 
 namespace network{
 	namespace bittorrent{

@@ -1,4 +1,4 @@
 #pragma once
 
-#include "piece\PieceControl.h"
-#include "piece\TorrentPiece.h"
+#include "piece/PieceControl.h"
+#include "piece/TorrentPiece.h"

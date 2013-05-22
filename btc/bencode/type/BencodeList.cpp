@@ -6,6 +6,12 @@ BencodeList::BencodeList(bencode::list list){
 	this->list.insert(this->list.end(), list.begin(), list.end());
 }
 
+BencodeList::~BencodeList(){
+    /*for(bencode::list::iterator element_ptr = list.begin(); element_ptr != list.end(); element_ptr++){
+        delete *element_ptr;
+    }*/
+}
+
 void* BencodeList::decode(){
 	return static_cast<void*>(&list);
 }

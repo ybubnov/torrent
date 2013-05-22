@@ -10,6 +10,8 @@ namespace bencode{
 
 			public:
 				BencodeDictionary(bencode::map dictionary);
+                ~BencodeDictionary();
+
 				void* decode();
 				std::vector<char> bencode();
 				static bencode::map decode(BencodeElement* decoded);

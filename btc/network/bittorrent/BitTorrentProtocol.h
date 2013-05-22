@@ -5,7 +5,7 @@
 
 #include "io.h"
 #include "peer_wire.h"
-#include "..\http.h"
+#include "../http.h"
 
 #include <vector>
 #include <sstream>
@@ -50,16 +50,22 @@ namespace network{
 
 				std::stack<int> threadStack;
 
+                bool _is_interrupted;
+
 			protected:
 				void announce_request();
 				void execute_downloading();
+                void resume_downloading();
 
 			public:
 				BitTorrentProtocol(network::bittorrent::io::notifiable* subscriber, network::bittorrent::file_parser file, std::wstring folder);
 				~BitTorrentProtocol();
 
+                bool alive();
+
 				void response_handle(std::istream& response);
                 void interrupt();
+                void restart();
 				void yeild();	
 		}protocol;
 	}
