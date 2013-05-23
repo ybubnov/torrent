@@ -20,7 +20,7 @@ void PeerWireProtocol::initialize(){
 }
 
 PeerWireProtocol::PeerWireProtocol(
-    game_overable* dad,
+    network::game_overable* dad,
     peer_wire::peer stranger,
     network::bittorrent::piece::control* piece_control,
     network::bittorrent::io::load_adapter* file,
@@ -37,7 +37,7 @@ PeerWireProtocol::PeerWireProtocol(
 }
 
 PeerWireProtocol::PeerWireProtocol(
-    game_overable* dad,
+    network::game_overable* dad,
 	peer_wire::peer stranger, 
 	network::bittorrent::piece::control* piece_control, 
 	network::bittorrent::io::load_adapter* file,
@@ -75,7 +75,7 @@ PeerWireProtocol::PeerWireProtocol(
 }
 
 PeerWireProtocol::PeerWireProtocol(
-    game_overable *dad,
+    network::game_overable *dad,
     peer_wire::peer stranger,
     network::bittorrent::piece::control* piece_control,
     network::bittorrent::io::load_adapter* file,
