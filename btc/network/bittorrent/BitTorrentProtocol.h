@@ -14,7 +14,7 @@
 
 namespace network{
 	namespace bittorrent{
-		typedef class BitTorrentProtocol : public network::responsible{
+        typedef class BitTorrentProtocol : public network::responsible, public network::game_overable{
 			private:
 				static const char question_mark;								//const value of question mark letter
 				static const int active_thread;
@@ -51,6 +51,7 @@ namespace network{
 				std::stack<int> threadStack;
 
                 bool _is_interrupted;
+                bool _repeated;
 
 			protected:
 				void announce_request();
@@ -63,10 +64,14 @@ namespace network{
 
                 bool alive();
 
+                void game_over();
 				void response_handle(std::istream& response);
+
                 void interrupt();
                 void restart();
 				void yeild();	
+
+                std::wstring folder();
 		}protocol;
 	}
 }

@@ -11,6 +11,7 @@ BitTorrentProtocol::BitTorrentProtocol(network::bittorrent::io::notifiable* subs
 
 
 	download_folder = folder;
+    _repeated = false;
     _is_interrupted = false;
 	_active_threads = 0;
 	_subscriber = subscriber;
@@ -27,7 +28,25 @@ BitTorrentProtocol::BitTorrentProtocol(network::bittorrent::io::notifiable* subs
 }
 
 BitTorrentProtocol::~BitTorrentProtocol(){
+    for(std::list<network::bittorrent::io::file*>::iterator file_ptr = finalFiles.begin();
+        file_ptr != finalFiles.end(); file_ptr++){
+        delete (*file_ptr);
+    }
+
+    for(std::list<network::http::protocol*>::iterator http_ptr = httpList.begin();
+        http_ptr != httpList.end(); http_ptr++){
+        delete (*http_ptr);
+    }
+
+    delete trackerRequest;
+    delete peerConversation;
+    delete loadAdapter;
 	delete trackerResponse;
+    delete pieceControl;
+}
+
+std::wstring BitTorrentProtocol::folder(){
+    return download_folder;
 }
 
 bool BitTorrentProtocol::alive(){
@@ -66,7 +85,7 @@ void BitTorrentProtocol::execute_downloading(){
 		network::bittorrent::peer_wire::protocol* peerWireProtocol;
 
 		try{
-			peerWireProtocol = new network::bittorrent::peer_wire::protocol((*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
+            peerWireProtocol = new network::bittorrent::peer_wire::protocol(this, (*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
 		}catch(std::exception e){
 			continue;
 		}
@@ -96,7 +115,7 @@ void BitTorrentProtocol::resume_downloading(){
         network::bittorrent::peer_wire::protocol* peerWireProtocol;
 
         try{
-            peerWireProtocol = new network::bittorrent::peer_wire::protocol((*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
+            peerWireProtocol = new network::bittorrent::peer_wire::protocol(this, (*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
         }catch(std::exception e){
             continue;
         }
@@ -109,6 +128,17 @@ void BitTorrentProtocol::resume_downloading(){
     _active_threads = peerWireProtocolList.size();
 }
 
+
+void BitTorrentProtocol::game_over(){
+    _active_threads -= 1;
+
+    if(_active_threads == 0 && pieceControl->left()){
+        if(!_repeated){
+            _repeated = true;
+            restart();
+        }
+    }
+}
 
 void BitTorrentProtocol::response_handle(std::istream& response){
 	std::cout << "response handle" << std::endl;

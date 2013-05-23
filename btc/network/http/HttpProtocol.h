@@ -11,6 +11,7 @@
 #include <boost/thread.hpp>
 
 #include "../ResponsibleInterface.h"
+#include "../GameOverableInterface.h"
 
 namespace network{
 	namespace http{

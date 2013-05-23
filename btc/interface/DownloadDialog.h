@@ -1,8 +1,9 @@
 #pragma once
 
 #include <QDialog>
-#include <QFileIconProvider>
 #include <QFileDialog>
+
+#include "FileIconProvider.h"
 #include "network.h"
 
 namespace Ui{

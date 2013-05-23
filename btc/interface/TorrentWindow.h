@@ -3,10 +3,13 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QModelIndex>
+#include <QDesktopServices>
+#include <QUrl>
 #include <list>
 
 #include "DownloadDialog.h"
-#include "ATreeWidgetItem.h"
+#include "TreeWidgetItem.h"
 #include "TorrentUpdater.h"
 
 namespace Ui {
@@ -32,6 +35,8 @@ namespace interface{
 
             void start_new_handle();
             void cancel_handle();
+
+            void open_folder(QModelIndex index);
 
         private:
             std::vector<network::bittorrent::protocol*> protocol_list;

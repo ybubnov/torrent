@@ -20,21 +20,24 @@ void PeerWireProtocol::initialize(){
 }
 
 PeerWireProtocol::PeerWireProtocol(
-	peer_wire::peer stranger, 
-	network::bittorrent::piece::control* piece_control, 
-	network::bittorrent::io::load_adapter* file,
-	std::vector<char> info_hash, 
-	std::vector<char> peer_id) : _peer(stranger){
+    game_overable* dad,
+    peer_wire::peer stranger,
+    network::bittorrent::piece::control* piece_control,
+    network::bittorrent::io::load_adapter* file,
+    std::vector<char> info_hash,
+    std::vector<char> peer_id) : _peer(stranger){
 
 	_piece_control = piece_control;
 	_info_hash = info_hash;
 	_peer_id = peer_id;
 	_file = file;
+    _dad = dad;
 
 	initialize();
 }
 
 PeerWireProtocol::PeerWireProtocol(
+    game_overable* dad,
 	peer_wire::peer stranger, 
 	network::bittorrent::piece::control* piece_control, 
 	network::bittorrent::io::load_adapter* file,
@@ -42,6 +45,7 @@ PeerWireProtocol::PeerWireProtocol(
 	std::vector<char> peer_id) : _peer(stranger){
 	
 	_piece_control = piece_control;
+    _dad = dad;
 
 	std::stringstream hash_flow;
 	std::vector<char> hash;
@@ -71,13 +75,15 @@ PeerWireProtocol::PeerWireProtocol(
 }
 
 PeerWireProtocol::PeerWireProtocol(
-	peer_wire::peer stranger, 
-	network::bittorrent::piece::control* piece_control, 
-	network::bittorrent::io::load_adapter* file,
-	std::string info_hash, 
-	std::string peer_id) : _peer(stranger){
+    game_overable *dad,
+    peer_wire::peer stranger,
+    network::bittorrent::piece::control* piece_control,
+    network::bittorrent::io::load_adapter* file,
+    std::string info_hash,
+    std::string peer_id) : _peer(stranger){
 
 	_piece_control = piece_control;
+    _dad = dad;
 
 	std::stringstream hash_flow;
 	std::vector<char> hash;
@@ -253,12 +259,16 @@ bool PeerWireProtocol::request(){
 
 		message::request request_message = message::request::create(piece_index, piece_begin, piece_length);
 
+        boost::this_thread::interruption_point();
+
 		_last_message = message::_undefined;
 		_tcp->send(this, request_message.message(), piece_length + 0xd);
 
 		if(_last_message != message::_piece){
 			throw std::exception();
 		}
+
+        boost::this_thread::interruption_point();
 
 		shift();
 	}catch(boost::system::system_error e){
@@ -277,6 +287,7 @@ bool PeerWireProtocol::request(){
 	}catch(std::exception e){
 		std::cout << "BAD REQUEST" << std::endl;
 
+        boost::this_thread::interruption_point();
 		if(_piece_control->left()){
 			return refresh();
 		}
@@ -326,6 +337,7 @@ void PeerWireProtocol::conversation(){
 			_tcp = new network::tcp::protocol(_peer.ip(), _peer.port());
 		}
 	}catch(std::exception e){
+        _dad->game_over();
 		std::cout << "BAD CONNECTION DETECTED" << std::endl;
 		return;
 	}
@@ -341,7 +353,10 @@ void PeerWireProtocol::conversation(){
 				}
 			}
 		}
+
+        _dad->game_over();
 	}catch(std::exception e){
+        _dad->game_over();
 		std::cout << "UNEXPECTED ERROR" << std::endl;
 	}
 }

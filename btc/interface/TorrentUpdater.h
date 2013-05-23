@@ -5,7 +5,7 @@
 #include <QString>
 
 #include "network.h"
-#include "ATreeWidgetItem.h"
+#include "TreeWidgetItem.h"
 
 namespace interface{
     typedef class TorrentUpdater : public QObject, public network::bittorrent::io::notifiable{
@@ -13,10 +13,10 @@ namespace interface{
 
         private:
             QProgressBar* _bar;
-            ATreeWidgetItem* _item;
+            TreeWidgetItem* _item;
 
         public:
-            TorrentUpdater(QProgressBar* bar, ATreeWidgetItem* item){
+            TorrentUpdater(QProgressBar* bar, TreeWidgetItem* item){
                 _bar = bar;
                 _item = item;
 

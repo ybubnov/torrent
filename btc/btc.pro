@@ -20,6 +20,13 @@ LIBS += -LC:\boost\boost_1_53_0\stage\lib \
     -lws2_32 \
     -lmswsock
 
+#INCLUDEPATH += /usr/include/boost
+#
+#LIBS += -L/usr/bin \
+#    -lboost_system \
+#    -lboost_filesystem \
+#    -lboost_thread
+
 SOURCES += main.cpp \
     bencode/BencodeParser.cpp \
     bencode/consumer/BencodeVectorConsumer.cpp \
@@ -66,7 +73,8 @@ SOURCES += main.cpp \
     network/tcp/TcpProtocol.cpp \
     network/udp/UdpProtocol.cpp \
     interface/TorrentWindow.cpp \
-    interface/DownloadDialog.cpp
+    interface/DownloadDialog.cpp \
+    interface/FileIconProvider.cpp
 
 HEADERS += \
     network.h \
@@ -138,8 +146,10 @@ HEADERS += \
     interface.h \
     interface/TorrentWindow.h \
     interface/DownloadDialog.h \
-    interface/ATreeWidgetItem.h \
-    interface/TorrentUpdater.h
+    interface/TorrentUpdater.h \
+    interface/TreeWidgetItem.h \
+    interface/FileIconProvider.h \
+    network/GameOverableInterface.h
 
 FORMS += \
     interface/DownloadDialog.ui \

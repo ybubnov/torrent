@@ -28,6 +28,7 @@ namespace network{
 					network::bittorrent::piece::torrent_piece* _current_piece;
 					network::bittorrent::io::load_adapter* _file;
 					
+                    network::game_overable* _dad;
 					network::tcp::protocol* _tcp;
 					boost::thread* _conversation;
 					
@@ -50,6 +51,7 @@ namespace network{
 
 				public:
 					PeerWireProtocol(
+                        network::game_overable* dad,
 						network::bittorrent::peer_wire::peer stranger, 
 						network::bittorrent::piece::control* piece_control,
 						network::bittorrent::io::load_adapter* file,
@@ -58,6 +60,7 @@ namespace network{
 					);
 
 					PeerWireProtocol(
+                        network::game_overable* dad,
 						network::bittorrent::peer_wire::peer stranger, 
 						network::bittorrent::piece::control* piece_control, 
 						io::load_adapter* file,
@@ -66,6 +69,7 @@ namespace network{
 					);
 
 					PeerWireProtocol(
+                        network::game_overable* dad,
 						network::bittorrent::peer_wire::peer stranger, 
 						network::bittorrent::piece::control* piece_control,
 						network::bittorrent::io::load_adapter* file,

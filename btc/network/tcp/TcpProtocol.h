@@ -13,6 +13,7 @@
 #include <boost/enable_shared_from_this.hpp>
 
 #include "../ResponsibleInterface.h"
+#include "../GameOverableInterface.h"
 
 namespace network{
 	namespace tcp{
