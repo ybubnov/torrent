@@ -11,7 +11,7 @@ void BencodeVectorConsumer::set(bencode::element* encoded){
 }
 
 void BencodeVectorConsumer::dispose(){
-
+    destination.clear();
 }
 
 std::vector<char> BencodeVectorConsumer::vector(){
