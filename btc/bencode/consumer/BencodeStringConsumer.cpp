@@ -10,14 +10,17 @@ BencodeStringConsumer::~BencodeStringConsumer(){
 }
 
 void BencodeStringConsumer::set(bencode::element* encoded){
-    std::vector<char> vdata = encoded->bencode();
-    destination.insert(destination.end(), vdata.begin(), vdata.end());
+	/*void* data = encoded->bencode();
+
+	destination.write(static_cast<char*>(data), 
+		std::strlen(static_cast<char*>(data)));*/
 }
 
 void BencodeStringConsumer::dispose(){
-    destination.clear();
+
 }
 
 std::vector<char> BencodeStringConsumer::vector(){
-    return std::vector<char>(destination.begin(), destination.end());
+	//return const_cast<char*>(destination.str().c_str());
+	return std::vector<char>();
 }

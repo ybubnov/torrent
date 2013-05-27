@@ -2,16 +2,9 @@
 
 using namespace bencode::consumer;
 
-BencodeStreamConsumer::BencodeStreamConsumer(std::wstring path){
-    _path = path;
-
-    destination.open(path);
-
-    if(!destination.is_open()){
-        throw std::bad_exception();
-    }
-
-    destination.close();
+BencodeStreamConsumer::BencodeStreamConsumer(std::string path){
+	this->path = path;
+	destination.open(path.c_str(), std::fstream::binary | std::fstream::trunc);
 }
 
 BencodeStreamConsumer::~BencodeStreamConsumer(){
@@ -21,51 +14,48 @@ BencodeStreamConsumer::~BencodeStreamConsumer(){
 }
 
 void BencodeStreamConsumer::set(bencode::element* encoded){
-    destination.open(_path);
+	/*void* data = encoded->bencode();
 
-    if(!destination.is_open()){
-        throw std::bad_exception();
-    }
-
-    std::vector<char> vdata = encoded->bencode();
-    char* buf = new char[vdata.size() + 1];
-
-    std::copy(vdata.begin(), vdata.end(), buf);
-
-    destination.write(buf, vdata.size());
-    destination.close();
+	destination.write(static_cast<char*>(data), 
+		std::strlen(static_cast<char*>(data)));*/
 }
 
 void BencodeStreamConsumer::dispose(){
-    if(destination.is_open()){
-        destination.close();
-    }
+	destination.close();
 }
 
 std::vector<char> BencodeStreamConsumer::vector(){
-    std::vector<char> vdata;
-    char sbuf[65535];
+	/*if(!destination.is_open()){
+		throw std::bad_exception("access denied");	
+	}
 
-    boost::filesystem::ifstream source;
+	std::streampos position = destination.tellp();
+	std::ifstream stream;
+	std::string tostring;
+	char sbuffer[65535];
 
-    source.open(_path);
+	destination.close();
+	stream.open(path, std::fstream::binary);
+	if(!stream.is_open()){
+		stream.close();
+		throw std::bad_exception("unextected end");
+	}
 
-    if(!source.is_open()){
-        throw std::bad_exception();
-    }
+	while(!destination.eof()){
+		memset(static_cast<void*>(sbuffer), 0, sizeof(sbuffer));
+		stream.read(sbuffer, sizeof(sbuffer));
+		tostring.append(std::string(sbuffer));
+	}
 
+	stream.close();
+	destination.open(path, std::fstream::binary);
+	if(!destination.is_open()){
+		destination.close();
+		throw std::bad_exception("unextected end");
+	}
 
-    while(!source.eof()){
-        source.read(sbuf, sizeof(sbuf));
+	destination.seekp(position);
 
-        if(source.gcount() < sizeof(sbuf)){
-            vdata.insert(vdata.end(), sbuf, sbuf + source.gcount());
-            break;
-        }else{
-            vdata.insert(vdata.end(), sbuf, sbuf + sizeof(sbuf));
-        }
-    }
-
-    source.close();
-    return vdata;
+	return const_cast<char*>(tostring.c_str());*/
+	return std::vector<char>();
 }

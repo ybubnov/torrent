@@ -1,18 +1,17 @@
 #pragma once
 
 #include <cstring>
-#include <boost/filesystem/fstream.hpp>
 #include "BencodeConsumerInterface.h"
 
 namespace bencode{
 	namespace consumer{
 		typedef class BencodeStreamConsumer : BencodeConsumerInterface{
 			private:
-                std::wstring _path;
-                boost::filesystem::ofstream destination;
+				std::string path;
+				std::ofstream destination;
 
 			public:
-                BencodeStreamConsumer(std::wstring path);
+				BencodeStreamConsumer(std::string path);
 				~BencodeStreamConsumer();
 
 				void set(bencode::element* encoded);

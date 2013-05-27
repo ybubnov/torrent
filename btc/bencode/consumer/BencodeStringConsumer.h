@@ -7,7 +7,7 @@ namespace bencode{
 	namespace consumer{
 		typedef class BencodeStringConsumer : BencodeConsumerInterface{
 			private:
-                std::string destination;
+				std::stringstream destination;
 
 			public:
 				BencodeStringConsumer();
