@@ -40,7 +40,7 @@ std::list<long> BlockVectorProvider::block(){
 	
 
 	if(size < 16){
-		std::list<long> byteblock(16 - size);
+        std::list<long> byteblock(16 - size, 0);
 		std::list<long>::iterator it;
 
 		byteblock.insert(byteblock.begin(), bytelist.begin(), bytelist.end());

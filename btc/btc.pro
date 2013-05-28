@@ -13,6 +13,7 @@ INCLUDEPATH += C:\boost\boost_1_53_0\stage\lib
 INCLUDEPATH += C:\Qt\Qt5.0.2\Tools\MinGW\bin
 INCLUDEPATH += C:\Qt\Qt5.0.2\Tools\QtCreator\bin
 
+#Win32
 LIBS += -LC:\boost\boost_1_53_0\stage\lib \
     -lboost_system-mgw47-mt-1_53 \
     -lboost_filesystem-mgw47-mt-1_53 \
@@ -20,6 +21,8 @@ LIBS += -LC:\boost\boost_1_53_0\stage\lib \
     -lws2_32 \
     -lmswsock
 
+
+#Linux
 #INCLUDEPATH += /usr/include/boost
 #
 #LIBS += -L/usr/bin \
