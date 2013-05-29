@@ -3,6 +3,9 @@
 #include <vector>
 #include <sstream>
 
+/*bittorrent message interface
+ */
+
 namespace network{
 	namespace bittorrent{
 		namespace message{
@@ -25,8 +28,8 @@ namespace network{
 
 			typedef class MessageInterface{
 				public:
-					virtual std::vector<char> message() = 0;
-					virtual type what() = 0;
+                    virtual std::vector<char> message() = 0;                        //returns message as a sequence of bytes
+                    virtual type what() = 0;                                        //returns type of the message
 			}interface;
 		}
 	}

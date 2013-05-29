@@ -2,6 +2,9 @@
 
 #include "BencodeElement.h"
 
+/*format: d<bencoded string><bencoded element>e
+ */
+
 namespace bencode{
 	namespace type{
 		typedef class BencodeDictionary : public BencodeElement{

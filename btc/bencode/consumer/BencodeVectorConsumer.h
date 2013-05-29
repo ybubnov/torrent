@@ -3,9 +3,12 @@
 #include <sstream>
 #include "BencodeConsumerInterface.h"
 
+/*allows you to write bencoded data to a vector
+ */
+
 namespace bencode{
 	namespace consumer{
-		typedef class BencodeVectorConsumer : BencodeConsumerInterface{
+        typedef class BencodeVectorConsumer : public BencodeConsumerInterface{
 			private:
 				std::vector<char> destination;
 

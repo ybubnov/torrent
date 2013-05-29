@@ -6,6 +6,9 @@
 #include <vector>
 #include <map>
 
+/*the base class of the bencode types
+ */
+
 typedef long long int64_t;
 
 namespace bencode{
@@ -23,13 +26,13 @@ namespace bencode{
 			int compare(BencodeElement* belement);
 			int get_hash();
 
-			static void gc();
+            static void gc();                                                       //creates a new generation of hashes
 
-			virtual void* decode() = 0;												//convert to real type
-			virtual std::vector<char> bencode() = 0;								//convert to bencode
+            virtual void* decode() = 0;												//converts into a sequence of bytes
+            virtual std::vector<char> bencode() = 0;								//converts into bencoded data
 	}element;
 
-	class comparator{
+    class comparator{                                                               //hash comparator
 		public:
 			bool operator()(bencode::element* first, bencode::element* second) const {
 				if(first->compare(second) < 0){

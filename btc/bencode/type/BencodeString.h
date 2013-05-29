@@ -2,6 +2,9 @@
 
 #include "BencodeElement.h"
 
+/*format: <string length encoded in base ten ASCII>:<string data>
+ */
+
 namespace bencode{
 	namespace type{
 		typedef class BencodeString : public BencodeElement{

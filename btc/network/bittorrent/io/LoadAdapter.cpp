@@ -22,8 +22,8 @@ LoadAdapter::LoadAdapter(network::bittorrent::io::notifiable* subscriber, std::l
 			count++;
 		}
 
-		_length_list.push_back(file_length + _length_list[i]);
-		_block_list.push_back((long)count + _block_list[i]);
+        _length_list.push_back(file_length + _length_list[i]);                      //length of the file in bytes
+        _block_list.push_back((long)count + _block_list[i]);                        //length of the file in pices
 	}
 
 	_loaded = 0;
@@ -54,21 +54,22 @@ void LoadAdapter::write(std::vector<char>& data, long piece_number){
 
 	for(unsigned int i = 0; i < _block_list.size() - 1; i++){
 		if(_block_list[i] <= piece_number && _block_list[i + 1] > piece_number){
-
-			if(_file_list[i]->left() <= 0){
+                                                                                    //necessary block has found
+            if(_file_list[i]->left() <= 0){                                         //all pieces have been recorded
 				return;
-			}else if(data.size() > _file_list[i]->left()){
+            }else if(data.size() > _file_list[i]->left()){                          //multifile downloading
 				std::vector<char> low_data(data.begin(), data.begin() + (long)_file_list[i]->left());
 				std::vector<char> high_data(data.begin() + (long)_file_list[i]->left(), data.end());
 
-				if(i + 1 < _file_list.size()){
+                if(i + 1 < _file_list.size()){                                      //write first piece to the [i] file
 					_file_list[i]->write(low_data, absolute_position - _length_list[i]);
+                                                                                    //write second piece to the [i+1] file
 					_file_list[i + 1]->write(high_data, (int64_t)0);
 				}else{
 					return;
 				}
 
-			}else{
+            }else{                                                                  //singlefile downloading
 				if(i < _file_list.size()){
 					_file_list[i]->write(data, absolute_position - _length_list[i]);
 				}else{
@@ -78,7 +79,7 @@ void LoadAdapter::write(std::vector<char>& data, long piece_number){
 
 			_loaded = 0;
 			for(unsigned int i = 0; i < _file_list.size(); i++){
-				_loaded += _file_list[i]->downloaded();
+                _loaded += _file_list[i]->downloaded();                             //current state
 			}
 
 			try{

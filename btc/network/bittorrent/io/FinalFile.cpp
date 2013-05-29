@@ -19,7 +19,7 @@ FinalFile::FinalFile(std::wstring path, int64_t file_length, long piece_size){
 
 		if(_file.is_open()){
 			_file.seekp(_file_length - sizeof(buffer), std::ios::beg);
-			_file.write(buffer, sizeof(buffer));
+            _file.write(buffer, sizeof(buffer));                                    //specify file length
 			_file.close();
 		}
 	}catch(std::exception e){
@@ -82,7 +82,8 @@ void FinalFile::write(std::vector<char>& data, long piece_number){
 void FinalFile::write(std::vector<char>& data, int64_t absolute_position){
 	//boost::mutex::scoped_lock lock(_guard);
 
-	if(std::find(_loaded.begin(), _loaded.end(), absolute_position) != _loaded.end() || !data.size()){
+    if(std::find(_loaded.begin(), _loaded.end(),
+                 absolute_position) != _loaded.end() || !data.size()){
 		return;
 	}
 
@@ -102,7 +103,7 @@ void FinalFile::write(std::vector<char>& data, int64_t absolute_position){
 			_loaded.push_back(absolute_position);
 		}
 		
-		delete[] data_ptr;
+        delete[] data_ptr;
 	}catch(std::exception e){
 		delete[] data_ptr;
 

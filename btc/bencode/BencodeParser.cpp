@@ -107,4 +107,3 @@ BencodeElement* BencodeParser::dictionary(){
 	source.get();
 	return new type::dictionary(streamdictionary);
 }
-

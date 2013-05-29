@@ -15,7 +15,7 @@ namespace network{
 					std::vector<char> message();
 					type what();
 					static bool is(std::vector<char>& incoming);
-					static std::vector<char> block(std::vector<char>& incoming);
+                    static std::vector<char> block(std::vector<char>& incoming);    //returns data block
 					static std::vector<char> block(std::vector<char>& incomimg, long length);
 			}piece;
 		}

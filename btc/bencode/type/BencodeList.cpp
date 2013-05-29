@@ -7,9 +7,10 @@ BencodeList::BencodeList(bencode::list list){
 }
 
 BencodeList::~BencodeList(){
-    /*for(bencode::list::iterator element_ptr = list.begin(); element_ptr != list.end(); element_ptr++){
+    for(bencode::list::iterator element_ptr = list.begin();
+        element_ptr != list.end(); element_ptr++){
         delete *element_ptr;
-    }*/
+    }
 }
 
 void* BencodeList::decode(){

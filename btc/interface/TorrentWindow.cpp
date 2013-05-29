@@ -24,12 +24,29 @@ TorrentWindow::TorrentWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::
     connect(ui->actionStopTorrent, SIGNAL(triggered()), this, SLOT(stop_handle()));
     connect(ui->actionStartTorrent, SIGNAL(triggered()), this, SLOT(start_handle()));
     connect(ui->actionRemoveTorrent, SIGNAL(triggered()), this, SLOT(delete_handle()));
+    connect(this, SIGNAL(destroyed()), this, SLOT(garbage_collect()));
 
     connect(ui->torrentListTreeWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(open_folder(QModelIndex)));
 }
 
 TorrentWindow::~TorrentWindow(){
     delete ui;
+}
+
+void TorrentWindow::garbage_collect(){
+    for(std::vector<network::bittorrent::protocol*>::iterator protocol_ptr = waste_list.begin();
+        protocol_ptr != waste_list.end(); protocol_ptr++){
+
+        if(!(*protocol_ptr)->alive()){
+            delete (*protocol_ptr);
+            *protocol_ptr = 0;
+        }
+    }
+
+    std::vector<network::bittorrent::protocol*>::iterator ptr
+            = std::remove(waste_list.begin(), waste_list.end(), (network::bittorrent::protocol*)0);
+
+    waste_list.erase(ptr, waste_list.end());
 }
 
 void TorrentWindow::open_folder(QModelIndex index){
@@ -73,17 +90,23 @@ void TorrentWindow::delete_handle(){
 
         protocol_list[index - 1]->interrupt();
 
+        network::bittorrent::protocol* ptr = protocol_list[index - 1];
+        waste_list.push_back(ptr);
 
+        std::cout << "1: " << (long)ptr << std::endl;
 
-        delete protocol_list[index - 1];
         delete parser_list[index - 1];
         delete updater_list[index - 1];
         delete bar_list[index - 1];
+
+        std::cout << "2: " << (long)ptr << std::endl;
 
         protocol_list[index - 1] = 0;
         parser_list[index - 1] = 0;
         updater_list[index - 1] = 0;
         bar_list[index - 1] = 0;
+
+        std::cout << "3: " << (long)ptr << std::endl;
 
         std::vector<network::bittorrent::protocol*>::iterator protocol_ptr
                 = std::remove(protocol_list.begin(), protocol_list.end(), (network::bittorrent::protocol*)0);
@@ -97,10 +120,14 @@ void TorrentWindow::delete_handle(){
         std::vector<QProgressBar*>::iterator bar_ptr
                 = std::remove(bar_list.begin(), bar_list.end(), (QProgressBar*)0);
 
+        std::cout << "4: " << (long)ptr << std::endl;
+
         protocol_list.erase(protocol_ptr, protocol_list.end());
         parser_list.erase(parser_ptr, parser_list.end());
         updater_list.erase(updated_ptr, updater_list.end());
         bar_list.erase(bar_ptr, bar_list.end());
+
+        std::cout << "5: " << (long)ptr << std::endl;
 
         delete ui->torrentListTreeWidget->topLevelItem(index - 1);
 
@@ -113,6 +140,8 @@ void TorrentWindow::delete_handle(){
 }
 
 void TorrentWindow::stop_handle(){
+    //garbage_collect();
+
     QList<QTreeWidgetItem*> selected = ui->torrentListTreeWidget->selectedItems();
     QString index_str;
     unsigned long index;
@@ -129,6 +158,8 @@ void TorrentWindow::stop_handle(){
 }
 
 void TorrentWindow::start_handle(){
+    //garbage_collect();
+
     QList<QTreeWidgetItem*> selected = ui->torrentListTreeWidget->selectedItems();
     QString index_str;
     unsigned long index;
@@ -147,6 +178,8 @@ void TorrentWindow::start_handle(){
 }
 
 void TorrentWindow::add_handle(){
+    //garbage_collect();
+
     QString file_name = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Files (*.torrent)"));
 
     if(file_name.size()){
@@ -198,7 +231,7 @@ void TorrentWindow::add_row(std::wstring file_name, std::string file_size){
     item->setText(0, QString::fromStdString(position));
     item->setText(1, QString::fromStdWString(file_name));
     item->setText(2, DownloadDialog::size(file_size));
-    item->setText(4, QString("0 %"));
+    item->setText(4, QString("0.00 %"));
     item->setText(5, tr("Started"));
 
     updater_list.push_back(new torrent_updater(bar, item));

@@ -17,7 +17,7 @@ namespace network{
 					static Handshake create(std::vector<char> info_hash, std::vector<char> peer_id);
 					
 					static bool is(std::vector<char>& input);
-					static std::vector<char> crop(std::vector<char>& incoming);
+                    static std::vector<char> crop(std::vector<char>& incoming);     //cut message from the incoming
 
 					std::vector<char> message();
 					type what();

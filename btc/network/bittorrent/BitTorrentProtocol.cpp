@@ -38,6 +38,11 @@ BitTorrentProtocol::~BitTorrentProtocol(){
         delete (*http_ptr);
     }
 
+    for(std::list<network::bittorrent::peer_wire::protocol*>::iterator peer_ptr = peerWireProtocolList.begin();
+        peer_ptr != peerWireProtocolList.end(); peer_ptr++){
+        delete(*peer_ptr);
+    }
+
     delete trackerRequest;
     delete peerConversation;
     delete loadAdapter;
@@ -132,7 +137,7 @@ void BitTorrentProtocol::resume_downloading(){
 void BitTorrentProtocol::game_over(){
     _active_threads -= 1;
 
-    if(_active_threads == 0 && pieceControl->left()){
+    if(_active_threads == 0 && pieceControl->left() && !_is_interrupted){
         if(!_repeated){
             _repeated = true;
             restart();
@@ -169,8 +174,8 @@ void BitTorrentProtocol::response_handle(std::istream& response){
 			throw std::exception();
 		}
 
-		std::vector<char> peers = trackerResponse->binary_peers();					//get peers in binary-style
-		network::bittorrent::peer_wire::parser peerParser(peers);					//get 'normal' ipv4 addresses
+        std::vector<char> peers = trackerResponse->binary_peers();					//get peers in the binary-style
+        network::bittorrent::peer_wire::parser peerParser(peers);					//get IPv4 addresses
 		std::list<network::bittorrent::peer_wire::peer> additionalPeers = peerParser.peers();
 		peerList.insert(peerList.end(), additionalPeers.begin(), additionalPeers.end());
 
@@ -185,13 +190,15 @@ void BitTorrentProtocol::response_handle(std::istream& response){
 
 	if(nextAction == BitTorrentProtocol::finish_thread){
 		peerConversation = new boost::thread(boost::bind(&BitTorrentProtocol::execute_downloading, this));
-		peerConversation->yield();
+        peerConversation->yield();                                                  //energize
 	}
 }
 
 void BitTorrentProtocol::restart(){
     peerConversation = new boost::thread(boost::bind(&BitTorrentProtocol::resume_downloading, this));
     peerConversation->yield();
+
+    std::cout << "RESTART" << std::endl;
 
     _is_interrupted = false;
 }
@@ -208,7 +215,7 @@ void BitTorrentProtocol::announce_request(){
 	
 	for(std::list<DownloadFile>::iterator it = fileList.begin(); it != fileList.end(); it++){
 		finalFiles.push_back(new network::bittorrent::io::file(
-			download_folder + it->path, it->length, torrentFile.piece_length()));
+            download_folder + it->path, it->length, torrentFile.piece_length()));   //files to download
 	}
 	
 	loadAdapter = new network::bittorrent::io::load_adapter(_subscriber, finalFiles, torrentFile.piece_length());
@@ -216,7 +223,7 @@ void BitTorrentProtocol::announce_request(){
 	threadStack.push(finish_thread);
 	
 	for(unsigned int i = 0; i < torrentFile.announce_size(); i++){
-		httpList.push_back(new network::http::protocol(this));
+        httpList.push_back(new network::http::protocol(this));                      //create protocol for every announce address
 		threadStack.push(active_thread);
 	}
 
@@ -259,7 +266,7 @@ void BitTorrentProtocol::announce_request(){
 
 		std::cout << request.str() << std::endl << std::endl;
 
-		httpRequest = request.str();
+        httpRequest = request.str();                                                //send request via HTTP to announce address
 		http->get(httpDomain, httpRequest);
 	}
 }

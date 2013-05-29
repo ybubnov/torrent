@@ -23,12 +23,14 @@ namespace network{
 				network::responsible* listener;
 
 
-				void read_handler(const boost::system::error_code& ec, std::size_t bytes_transferred);
+                void read_handler(const boost::system::error_code& ec,
+                                  std::size_t bytes_transferred);
 
 			public:
 				HttpProtocol(network::responsible* listener_object);
 				~HttpProtocol();
-				void get(std::string host, std::string uri);
+
+                void get(std::string host, std::string uri);
 		}protocol;
 	}
 }

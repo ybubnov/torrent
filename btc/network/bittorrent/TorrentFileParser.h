@@ -22,16 +22,19 @@ namespace network{
 				}
 		}download_file;
 
+
+        /*allows you to get the standard fields of the torrent-file
+         */
 		typedef class TorrentFileParser{
 
 			public:
-				TorrentFileParser(bencode::element* dictionary);
+                TorrentFileParser(bencode::element* dictionary);                    //use parser.node() as an initializer
                 ~TorrentFileParser();
 
-				/*std::string creation_date();
-				std::string comment();
-				std::string created_by();
-				std::string encoding();*/
+                /*
+                 *std::wstring created_by();
+                 *std::wstring encoding();
+                 */
 
                 std::wstring name();
                 std::wstring comment();

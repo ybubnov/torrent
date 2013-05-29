@@ -7,10 +7,11 @@ BencodeDictionary::BencodeDictionary(bencode::map dictionary){
 }
 
 BencodeDictionary::~BencodeDictionary(){
-    /*for(bencode::map::iterator element_ptr = dictionary.begin(); element_ptr != dictionary.end(); element_ptr++){
+    for(bencode::map::iterator element_ptr = dictionary.begin();
+        element_ptr != dictionary.end(); element_ptr++){
         delete element_ptr->first;
         delete element_ptr->second;
-    }*/
+    }
 }
 
 void* BencodeDictionary::decode(){

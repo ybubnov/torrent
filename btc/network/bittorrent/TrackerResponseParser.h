@@ -2,6 +2,9 @@
 
 #include "../../bencode.h"
 
+/*allows you to parse the torrent-tracker response
+ */
+
 namespace network{
 	namespace bittorrent{
 		typedef class TrackerResponseParser{

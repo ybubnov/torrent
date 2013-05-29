@@ -27,18 +27,6 @@ void DownloadDialog::name(std::wstring value){
     ui->torrentNameLabel->setText(QString::fromStdWString(value).left(50));
 }
 
-std::vector<std::wstring> DownloadDialog::split(std::wstring &wstring, wchar_t delimeter){
-    std::wstringstream flow(wstring);
-    std::vector<std::wstring> elements;
-    std::wstring item;
-
-    while(std::getline(flow, item, delimeter)) {
-        elements.push_back(item);
-    }
-
-    return elements;
-}
-
 QString DownloadDialog::size(int64_t length){
     double num = (double)length;
     QStringList list;
@@ -144,10 +132,8 @@ void DownloadDialog::download_list(std::list<network::bittorrent::download_file>
     if(list.size() == 1){
         ui->torrentSizeLabel->setText(tr("1 file, ") + size(total_length));
     }else{
-        ui->torrentSizeLabel->setText(QString::number(list.size()) + tr(" file, ") + size(total_length));
+        ui->torrentSizeLabel->setText(QString::number(list.size()) + tr(" files, ") + size(total_length));
     }
-
-
 }
 
 DownloadDialog::~DownloadDialog(){

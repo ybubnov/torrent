@@ -3,8 +3,6 @@
 using namespace encryption::sha::provider;
 
 BlockStreamProvider::BlockStreamProvider(std::string path){
-	//source.push_back(0x80);
-
 	std::fstream stream(path, std::fstream::binary | std::fstream::in | std::fstream::out);
 	if(!stream.is_open()){
 		stream.close();
@@ -69,7 +67,7 @@ std::list<long> BlockStreamProvider::block(){
 			bytelist = std::list<long>(14);	
 		}
 
-		byteblock.push_back((long)((length * 8) / pow(2.0, 32.0)));
+        byteblock.push_back((long)((length * 8) / pow(2.0, 32.0)));                 //write length of the sequence in bytes
 		byteblock.push_back(length * 8);
 
 		length = -1;

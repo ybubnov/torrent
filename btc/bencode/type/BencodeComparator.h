@@ -2,6 +2,10 @@
 
 #include "BencodeElement.h"
 
+/*allows you to find necessary item in the bencode::map
+ *using the string as comparison
+ */
+
 namespace bencode{
 	class string_comparator : public std::unary_function<std::string, bool>{
 		private:

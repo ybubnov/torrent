@@ -37,7 +37,6 @@ TrackerResponseParser::~TrackerResponseParser(){
 
 std::string TrackerResponseParser::failure_reason(){
 	std::vector<char> key;
-	std::string value;
 
 	if(_fr){
 		return _failure_reason;
@@ -45,23 +44,18 @@ std::string TrackerResponseParser::failure_reason(){
 
 	_fr = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator failure_ptr = response.find("failure reason");
 
-		if(!value.compare("failure reason")){
-			key = bencode::type::string::decode(it->second);
-			_failure_reason = std::string(key.begin(), key.end());
-
-			break;
-		}
-	}
+    if(failure_ptr != response.end()){
+        key = bencode::type::string::decode(failure_ptr->second);
+        _failure_reason = std::string(key.begin(), key.end());
+    }
 
 	return _failure_reason;
 }
 
 std::string TrackerResponseParser::warning_message(){
 	std::vector<char> key;
-	std::string value;
 
 	if(_wm){
 		return _warning_message;
@@ -69,127 +63,94 @@ std::string TrackerResponseParser::warning_message(){
 
 	_wm = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator warning_ptr = response.find("warning message");
 
-		if(!value.compare("warning message")){
-			key = bencode::type::string::decode(it->second);
-			_warning_message = std::string(key.begin(), key.end());
-
-			break;
-		}
-	}
+    if(warning_ptr != response.end()){
+        key = bencode::type::string::decode(warning_ptr->second);
+        _warning_message = std::string(key.begin(), key.end());
+    }
 
 	return _warning_message;
 }
 
 std::vector<char> TrackerResponseParser::tracker_id(){
-	std::vector<char> key;
-	std::string value;
-
 	if(_ti){
 		return _tracker_id;
 	}
 
 	_ti = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator id_ptr = response.find("tracker id");
 
-		if(!value.compare("tracker id")){
-			_tracker_id = bencode::type::string::decode(it->second);
-			break;
-		}
-	}
+    if(id_ptr != response.end()){
+        _tracker_id = bencode::type::string::decode(id_ptr->second);
+    }
 
 	return _tracker_id;
 }
 
 std::vector<char> TrackerResponseParser::binary_peers(){
-	std::vector<char> key;
-	std::string value;
-
 	if(_bp){
 		return _bpeers;
 	}
 
 	_bp = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
 
-		if(!value.compare("peers")){
-			_bpeers = bencode::type::string::decode(it->second);
-			break;
-		}
-	}
+    std::map<std::string, bencode::element*>::iterator peers_ptr = response.find("peers");
+
+    if(peers_ptr != response.end()){
+        _bpeers = bencode::type::string::decode(peers_ptr->second);
+    }
 
 	return _bpeers;
 }
 
 
 long TrackerResponseParser::interval(){
-	std::vector<char> key;
-	std::string value;
-
 	if(_i){
 		return _interval;
 	}
 
 	_i = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator interval_ptr = response.find("interval");
 
-		if(!value.compare("interval")){
-			_interval = (long)bencode::type::integer::decode(it->second);
-			break;
-		}
-	}
+    if(interval_ptr != response.end()){
+        _interval = (long)bencode::type::integer::decode(interval_ptr->second);
+    }
 
 	return _interval;
 }
 
 long TrackerResponseParser::min_interval(){
-	std::vector<char> key;
-	std::string value;
-
 	if(_mi){
 		return _min_interval;
 	}
 
 	_mi = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator min_ptr = response.find("min interval");
 
-		if(!value.compare("min interval")){
-			_min_interval = (long)bencode::type::integer::decode(it->second);
-			break;
-		}
-	}
+    if(min_ptr != response.end()){
+        _min_interval = (long)bencode::type::integer::decode(min_ptr->second);
+    }
 
 	return _min_interval;
 }
 
 long TrackerResponseParser::complete(){
-	std::vector<char> key;
-	std::string value;
-
 	if(_c){
 		return _complete;
 	}
 
 	_c = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator complete_ptr = response.find("complete");
 
-		if(!value.compare("complete")){
-			_complete = (long)bencode::type::integer::decode(it->second);
-			break;
-		}
-	}
+    if(complete_ptr != response.end()){
+        _complete = (long)bencode::type::integer::decode(complete_ptr->second);
+    }
 
 	return _complete;
 }
@@ -204,14 +165,11 @@ long TrackerResponseParser::incomplete(){
 
 	_ic = true;
 
-	for(std::map<std::string, bencode::element*>::iterator it = response.begin(); it != response.end(); it++){
-		value = it->first;
+    std::map<std::string, bencode::element*>::iterator incomplete_ptr = response.find("incomplete");
 
-		if(!value.compare("incomplete")){
-			_incomplete = (long)bencode::type::integer::decode(it->second);
-			break;
-		}
-	}
+    if(incomplete_ptr != response.end()){
+        _incomplete = (long)bencode::type::integer::decode(incomplete_ptr->second);
+    }
 
 	return _incomplete;
 }

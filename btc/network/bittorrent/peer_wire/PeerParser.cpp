@@ -23,12 +23,12 @@ std::list<Peer> PeerParser::peers(){
 			std::stringstream port;
 			std::stringstream integer_port;
 
-			ip << num(*it++) << ".";
+            ip << num(*it++) << ".";                                                //first four bytes as ip
 			ip << num(*it++) << ".";
 			ip << num(*it++) << ".";
 			ip << num(*it++);
 
-			port << std::hex << num(*it++);
+            port << std::hex << num(*it++);                                         //second two bytes as port
 			port << std::hex << num(*it);
 
 			port >> std::hex >> port_number;

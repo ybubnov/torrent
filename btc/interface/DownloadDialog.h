@@ -18,15 +18,15 @@ namespace interface{
             explicit DownloadDialog(QWidget *parent = 0);
             ~DownloadDialog();
 
-            static QString size(int64_t length);
+            static QString size(int64_t length);                                    //format file size in human readable format
             static QString size(std::string& length);
 
-            void name(std::wstring value);
+            void name(std::wstring value);                                          //window attributes
             void comment(std::wstring value);
             void date(std::string value);
 
-            void download_list(std::list<network::bittorrent::download_file> list);
-            std::wstring get_folder();
+            void download_list(std::list<network::bittorrent::download_file> list); //list of downloadable files
+            std::wstring get_folder();                                              //load folder
 
         public slots:
             void browse_handle();
@@ -36,7 +36,6 @@ namespace interface{
             void cancel_signal();
 
         private:
-            std::vector<std::wstring> split(std::wstring& str, wchar_t delimeter);
 
             QString directory;
             Ui::DownloadDialog *ui;

@@ -6,6 +6,9 @@
 #include <boost/filesystem/fstream.hpp>
 #include "BencodeProviderInterface.h"
 
+/*allows you a serial access to bencoded data file
+ */
+
 namespace bencode{
 	namespace provider{
 		typedef class BencodeStreamProvider : public BencodeProviderInterface{

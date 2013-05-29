@@ -22,16 +22,16 @@ namespace bencode{
 			const static std::vector<char> _list;
 			const static std::vector<char> _dictionary;
 
-			bencode::provider::interface& source;
+            bencode::provider::interface& source;                                   //serial provider
 			static std::vector<char> init(const char* array);
 
 		public:
 			BencodeParser(bencode::provider::interface& source);
-			bencode::element* node();
+            bencode::element* node();                                               //try to parse
 
-			bencode::element* string();
-			bencode::element* integer();
-			bencode::element* list();
-			bencode::element* dictionary();
+            bencode::element* string();                                             //try to parse as string
+            bencode::element* integer();                                            //as integer
+            bencode::element* list();                                               //as list
+            bencode::element* dictionary();                                         //as dictionary
 	}parser;
 }

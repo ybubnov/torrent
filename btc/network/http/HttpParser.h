@@ -9,6 +9,9 @@
 #include <sstream>
 #include <cstring>
 
+/*allows you to parse the http response
+ */
+
 namespace network{
 	namespace http{
 		typedef class HttpParser{

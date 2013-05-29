@@ -12,8 +12,8 @@ namespace encryption{
 
 			public:
 				SecureHashAlgorithm(provider::interface* source);
-				std::string hash();
-				std::string url_hash();
+                std::string hash();                                                 //returns sha1 hash
+                std::string url_hash();                                             //returns percent encoding of the sha1 hash
 		}algorithm;
 	}
 }

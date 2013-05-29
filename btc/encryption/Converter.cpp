@@ -6,8 +6,6 @@ std::wstring wstring_convert::codecvt_utf8_utf16(std::vector<char> data){
 	short next_symbol;
 	std::wstring converted;
 
-	
-
 	for(unsigned long i = 0; i < data.size(); i++){
 		next_symbol = 0;
 

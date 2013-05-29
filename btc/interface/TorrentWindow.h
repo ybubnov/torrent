@@ -25,8 +25,6 @@ namespace interface{
             explicit TorrentWindow(QWidget *parent = 0);
             ~TorrentWindow();
 
-            void add_row(std::wstring file_name, std::string file_size);
-
         private slots:
             void add_handle();
             void start_handle();
@@ -37,8 +35,12 @@ namespace interface{
             void cancel_handle();
 
             void open_folder(QModelIndex index);
+            void garbage_collect();
 
         private:
+            void add_row(std::wstring file_name, std::string file_size);
+
+            std::vector<network::bittorrent::protocol*> waste_list;
             std::vector<network::bittorrent::protocol*> protocol_list;
             std::vector<network::bittorrent::file_parser*> parser_list;
             std::vector<torrent_updater*> updater_list;

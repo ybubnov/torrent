@@ -3,6 +3,9 @@
 #include <string>
 #include <sstream>
 
+/*separates domain and uri of the link
+ */
+
 namespace network{
 	namespace http{
 		typedef class HttpAddressParser{

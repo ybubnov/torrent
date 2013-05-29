@@ -7,6 +7,8 @@
 #include "../peer_wire.h"
 #include "../../tcp.h"
 
+/*bittorrent peer wire
+ */
 
 namespace network{
 	namespace bittorrent{
@@ -28,9 +30,9 @@ namespace network{
 					network::bittorrent::piece::torrent_piece* _current_piece;
 					network::bittorrent::io::load_adapter* _file;
 					
-                    network::game_overable* _dad;
+                    network::game_overable* _dad;                                   //object's parent
 					network::tcp::protocol* _tcp;
-					boost::thread* _conversation;
+                    boost::thread* _conversation;                                   //thread descriptor
 					
 					long _piece_length;
 					long _begin;
@@ -41,13 +43,13 @@ namespace network{
 					
 
 
-					bool request();
+                    bool request();                                                 //send request message to the peer
 
-					bool handshake();
-					bool interested();
+                    bool handshake();                                               //send handshake message to the peer
+                    bool interested();                                              //send interested message to the peer
 
-					bool refresh();
-					void shift();
+                    bool refresh();                                                 //recovering
+                    void shift();                                                   //piece more than _block_length
 
 				public:
 					PeerWireProtocol(
@@ -80,8 +82,8 @@ namespace network{
 					~PeerWireProtocol();
 
 					void response_handle(std::istream& response);
-                    void interrupt();
-					void yeild();
+                    void interrupt();                                               //stop the thread
+                    void yeild();                                                   //run the new thread
 
 			}protocol;
 		}

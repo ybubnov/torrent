@@ -7,6 +7,9 @@
 #include "network.h"
 #include "TreeWidgetItem.h"
 
+/*updates the UI downloads
+ */
+
 namespace interface{
     typedef class TorrentUpdater : public QObject, public network::bittorrent::io::notifiable{
         Q_OBJECT

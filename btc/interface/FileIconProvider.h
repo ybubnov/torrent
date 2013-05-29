@@ -13,6 +13,4 @@ class FileIconProvider{
 
         QIcon icon(QString path);
         QIcon icon(QFileIconProvider::IconType type);
-
 };
-

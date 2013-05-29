@@ -1,5 +1,8 @@
 #pragma once
 
+/*provides an interface to inform that the process is ended
+ */
+
 namespace network{
     typedef class GameOverableInterface{
         public:

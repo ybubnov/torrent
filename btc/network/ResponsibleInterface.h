@@ -2,6 +2,9 @@
 
 #include <ostream>
 
+/*provides an interface to report that data has recived
+ */
+
 namespace network{
 	typedef class ResponsibleInterface{
 		public:

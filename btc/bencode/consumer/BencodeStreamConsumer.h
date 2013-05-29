@@ -4,9 +4,12 @@
 #include <boost/filesystem/fstream.hpp>
 #include "BencodeConsumerInterface.h"
 
+/*allows you to write bencoded data to a file
+ */
+
 namespace bencode{
 	namespace consumer{
-		typedef class BencodeStreamConsumer : BencodeConsumerInterface{
+        typedef class BencodeStreamConsumer : public BencodeConsumerInterface{
 			private:
                 std::wstring _path;
                 boost::filesystem::ofstream destination;

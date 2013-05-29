@@ -4,6 +4,9 @@
 #include <algorithm>
 #include "BencodeProviderInterface.h"
 
+/*allows you to get a serial access to a bencoded data vector
+ */
+
 namespace bencode{
 	namespace provider{
 		typedef class BencodeVectorProvider : public BencodeProviderInterface{

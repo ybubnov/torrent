@@ -349,7 +349,7 @@ void PeerWireProtocol::conversation(){
 				_current_piece = _piece_control->next_piece();
 
 				while(request()){
-					boost::this_thread::sleep(boost::posix_time::milliseconds(20));
+                    boost::this_thread::sleep(boost::posix_time::milliseconds(20)); //slowly
 				}
 			}
 		}

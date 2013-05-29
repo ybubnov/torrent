@@ -9,18 +9,19 @@
 
 typedef long long int64_t;
 
+/*writes the downloaded pieces of the file in
+ */
+
 namespace network{
 	namespace bittorrent{
 		namespace io{
 			typedef class FinalFile{
-				private:
-					//boost::mutex _guard;
+                private:
 
-					std::vector<int> _writed;
-					std::vector<int64_t> _loaded;
+                    std::vector<int> _writed;                                       //recorded pieces
+                    std::vector<int64_t> _loaded;                                   //recorded in the predetermined position
 
-					boost::filesystem::fstream _file;
-					//std::fstream _file;
+                    boost::filesystem::fstream _file;
 					std::wstring _path;
 					long _piece_size;
 					int64_t _file_length;

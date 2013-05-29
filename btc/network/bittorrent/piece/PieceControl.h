@@ -8,12 +8,15 @@
 
 #include "TorrentPiece.h"
 
+/*distributes the pieces of the downloadable files
+ */
+
 namespace network{
 	namespace bittorrent{
 		namespace piece{
 			typedef class PieceControl{
 				private:
-					boost::mutex _guard;
+                    boost::mutex _guard;                                            //thread safety
 					std::vector<char> _pieces;
 					size_t _piece_length;
 
@@ -27,11 +30,11 @@ namespace network{
 					PieceControl(std::vector<char> pieces, size_t piece_length);
 					~PieceControl();
 
-					void downloaded(TorrentPiece* piece);
-					int piece_length();
-					long left();
+                    void downloaded(TorrentPiece* piece);                           //mark piece as downloaded
+                    int piece_length();
+                    long left();
 
-					TorrentPiece* next_piece();
+                    TorrentPiece* next_piece();                                     //get the new piece
 			}control;
 		}
 	}

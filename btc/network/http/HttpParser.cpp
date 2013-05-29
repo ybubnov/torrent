@@ -20,7 +20,6 @@ HttpParser::~HttpParser(){
 void HttpParser::parse(){
 	std::string item;
 	std::stringstream stream;
-	long read_size = 0;
 	char buffer[0xffff];
 
 	memset(buffer, 0, sizeof(buffer));
