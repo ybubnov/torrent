@@ -28,7 +28,7 @@ namespace interface{
             void download_list(std::list<network::bittorrent::download_file> list); //list of downloadable files
             std::wstring get_folder();                                              //load folder
 
-        public slots:
+        private slots:
             void browse_handle();
 
         signals:

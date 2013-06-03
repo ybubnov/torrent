@@ -11,9 +11,9 @@ namespace bencode{
 	namespace consumer{
 		typedef class BencodeConsumerInterface{
 			public:
-                virtual void set(element*) = 0;                     //append new bencoded element
+                virtual void set(element*) = 0;                                     //append new bencoded element
 				virtual void dispose() = 0;
-                std::vector<char> vector();                         //get data as byte sequence
+                virtual std::vector<char> vector() = 0;                             //get data as byte sequence
 		}interface;
 	}
 }
