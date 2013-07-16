@@ -24,7 +24,6 @@ TorrentWindow::TorrentWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::
     connect(ui->actionStopTorrent, SIGNAL(triggered()), this, SLOT(stop_handle()));
     connect(ui->actionStartTorrent, SIGNAL(triggered()), this, SLOT(start_handle()));
     connect(ui->actionRemoveTorrent, SIGNAL(triggered()), this, SLOT(delete_handle()));
-    connect(this, SIGNAL(destroyed()), this, SLOT(garbage_collect()));
 
     connect(ui->torrentListTreeWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(open_folder(QModelIndex)));
 }
@@ -33,13 +32,31 @@ TorrentWindow::~TorrentWindow(){
     delete ui;
 }
 
-void TorrentWindow::garbage_collect(){
+void TorrentWindow::closeEvent(QCloseEvent *event){
+    this->hide();
+    while(!garbage_collect()){
+        boost::this_thread::sleep(boost::posix_time::milliseconds(700));
+        std::cout << "TICK" << std::endl;
+    }
+
+    std::cout << "GARBAGE COLLECTED!!!" << std::endl;
+
+}
+
+bool TorrentWindow::garbage_collect(){
+    bool collected = true;
+
     for(std::vector<network::bittorrent::protocol*>::iterator protocol_ptr = waste_list.begin();
         protocol_ptr != waste_list.end(); protocol_ptr++){
 
         if(!(*protocol_ptr)->alive()){
             delete (*protocol_ptr);
+            collected = true;
             *protocol_ptr = 0;
+
+            std::cout << "DELETED" << std::endl;
+        }else{
+            collected = false;
         }
     }
 
@@ -47,6 +64,10 @@ void TorrentWindow::garbage_collect(){
             = std::remove(waste_list.begin(), waste_list.end(), (network::bittorrent::protocol*)0);
 
     waste_list.erase(ptr, waste_list.end());
+
+    std::cout << "LAST = " << waste_list.size() << std::endl;
+
+    return collected;
 }
 
 void TorrentWindow::open_folder(QModelIndex index){
@@ -158,7 +179,7 @@ void TorrentWindow::stop_handle(){
 }
 
 void TorrentWindow::start_handle(){
-    //garbage_collect();
+    garbage_collect();
 
     QList<QTreeWidgetItem*> selected = ui->torrentListTreeWidget->selectedItems();
     QString index_str;

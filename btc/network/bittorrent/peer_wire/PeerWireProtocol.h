@@ -83,6 +83,7 @@ namespace network{
 
 					void response_handle(std::istream& response);
                     void interrupt();                                               //stop the thread
+                    void timed_join();
                     void yeild();                                                   //run the new thread
 
 			}protocol;

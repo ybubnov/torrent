@@ -114,9 +114,8 @@ PeerWireProtocol::PeerWireProtocol(
 }
 
 PeerWireProtocol::~PeerWireProtocol(){
-	_tcp->stop();
+    //_tcp->stop();
 	delete _tcp;
-	delete _current_piece;
 	delete _conversation;
 }
 
@@ -365,9 +364,14 @@ void PeerWireProtocol::interrupt(){
     _conversation->interrupt();
 }
 
+void PeerWireProtocol::timed_join(){
+    _conversation->timed_join(boost::posix_time::milliseconds(10));
+}
+
 void PeerWireProtocol::yeild(){
 	if(!_conversation){
 		_conversation = new boost::thread(boost::bind(&PeerWireProtocol::conversation, this));
+        //_conversation->
 	}
 	_conversation->yield();
 }

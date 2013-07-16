@@ -40,7 +40,7 @@ BitTorrentProtocol::~BitTorrentProtocol(){
 
     for(std::list<network::bittorrent::peer_wire::protocol*>::iterator peer_ptr = peerWireProtocolList.begin();
         peer_ptr != peerWireProtocolList.end(); peer_ptr++){
-        delete(*peer_ptr);
+        delete (*peer_ptr);
     }
 
     delete trackerRequest;
@@ -67,6 +67,7 @@ void BitTorrentProtocol::interrupt(){
     for(std::list<network::bittorrent::peer_wire::protocol*>::iterator peer_ptr = peerWireProtocolList.begin();
         peer_ptr != peerWireProtocolList.end(); peer_ptr++){
         (*peer_ptr)->interrupt();
+        (*peer_ptr)->timed_join();
     }
 
     _is_interrupted = true;

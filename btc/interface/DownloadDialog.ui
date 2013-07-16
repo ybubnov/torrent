@@ -70,7 +70,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>11</x>
@@ -110,7 +110,7 @@
         <item>
          <widget class="QLineEdit" name="downloadFodlerLineEdit">
           <property name="text">
-           <string>e:/</string>
+           <string>e:/test/</string>
           </property>
          </widget>
         </item>

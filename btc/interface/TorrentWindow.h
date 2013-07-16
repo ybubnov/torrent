@@ -25,6 +25,9 @@ namespace interface{
             explicit TorrentWindow(QWidget *parent = 0);
             ~TorrentWindow();
 
+        protected:
+            void closeEvent(QCloseEvent *event);
+
         private slots:
             void add_handle();
             void start_handle();
@@ -35,7 +38,7 @@ namespace interface{
             void cancel_handle();
 
             void open_folder(QModelIndex index);
-            void garbage_collect();
+            bool garbage_collect();
 
         private:
             void add_row(std::wstring file_name, std::string file_size);
