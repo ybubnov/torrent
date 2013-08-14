@@ -171,10 +171,10 @@ void TorrentWindow::stop_handle(){
         index_str = (*item_ptr)->text(0);
         index = index_str.toLong();
 
-        if(index - 1 < protocol_list.size()){
+        //if(index - 1 < protocol_list.size()){
             protocol_list[index - 1]->interrupt();
             (*item_ptr)->setText(5, tr("Stopped"));
-        }
+        //}
     }
 }
 

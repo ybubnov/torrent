@@ -5,31 +5,19 @@
 #include "../../bencode.h"
 #include "../../encryption.h"
 
+#include "basic_parser.h"
+
 typedef long long int64_t;
 
 namespace network{
 	namespace bittorrent{
-		typedef class DownloadFile{
-			public:
-				int64_t length;
-				std::wstring path;
-				std::string md5sum;
-
-				DownloadFile(int64_t length, std::wstring path, std::string md5sum = ""){
-					this->length = length;
-					this->path = path;
-					this->md5sum = md5sum;
-				}
-		}download_file;
-
-
         /*allows you to get the standard fields of the torrent-file
          */
-		typedef class TorrentFileParser{
+        class file_parser : public basic_parser{
 
 			public:
-                TorrentFileParser(bencode::element* dictionary);                    //use parser.node() as an initializer
-                ~TorrentFileParser();
+                file_parser(bencode::element* dictionary);                    //use parser.node() as an initializer
+                ~file_parser();
 
                 /*
                  *std::wstring created_by();
@@ -40,14 +28,13 @@ namespace network{
                 std::wstring comment();
                 std::string creation_date();
 
-				std::list<DownloadFile> files();
+                std::list<file_stat> files();
 				std::string size();
 				std::string info_hash();
 				std::list<std::string> announce_list();
 				std::vector<char> pieces();
 
-				size_t piece_length();
-				size_t announce_size();
+                size_t piece_length();
 
 			private:
 				std::map<std::string, bencode::element*> map;
@@ -56,7 +43,7 @@ namespace network{
 
 				std::string hash;
 				std::list<std::string> announceList;
-				std::list<DownloadFile> fileList;
-		}file_parser;
+                std::list<file_stat> fileList;
+        };
 	}
 }

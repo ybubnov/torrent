@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TorrentFileParser.h"
+#include "file_parser.h"
 #include "TrackerResponseParser.h"
 
 #include "io.h"
@@ -23,15 +23,14 @@ namespace network{
                 std::list<network::http::protocol*> httpList;                       //list of the announce http addresses
                 std::vector<char> responseData;                                     //http-style response on the http protocol announce request
                 std::list<network::bittorrent::peer_wire::peer> peerList;           //list of the active peers
-                std::list<DownloadFile> fileList;                                   //list of the files in torrent file
-				std::list<network::bittorrent::io::file*> finalFiles;
+                std::list<network::bittorrent::io::basic_file*> finalFiles;
 
 
-                network::bittorrent::file_parser torrentFile;                       //torrent file wrapper
+                network::bittorrent::basic_parser& torrentFile;                       //torrent file wrapper
                 network::bittorrent::tracker_response_parser* trackerResponse;      //torrent tracker responce wrapper
 				network::bittorrent::io::notifiable* _subscriber;
 
-				network::bittorrent::io::load_adapter* loadAdapter;
+                network::bittorrent::io::basic_file* loadAdapter;
 
                 boost::thread* trackerRequest;                                      //tracker requests
                 boost::thread* peerConversation;                                    //conversations with peers
@@ -39,7 +38,6 @@ namespace network{
 
 				long _active_threads;
 
-				std::string info_hash;
 				std::wstring download_folder;
 				std::string peer_id;
 				std::vector<char> raw_peer_id;
@@ -60,7 +58,7 @@ namespace network{
 
 			public:
                 BitTorrentProtocol(network::bittorrent::io::notifiable* subscriber,
-                                   network::bittorrent::file_parser file, std::wstring folder);
+                                   network::bittorrent::basic_parser& file, std::wstring folder);
 				~BitTorrentProtocol();
 
                 bool alive();                                                       //is threads alive

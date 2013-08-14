@@ -1,16 +1,16 @@
-#include "Peer.h"
+#include "peer.h"
 
 using namespace network::bittorrent::peer_wire;
 
-Peer::Peer(std::string ip, std::string port){
+peer::peer(std::string ip, std::string port){
 	_ip = ip;
 	_port = port;
 }
 
-std::string Peer::ip(){
+std::string peer::ip(){
 	return _ip;
 }
 
-std::string Peer::port(){
+std::string peer::port(){
 	return _port;
 }

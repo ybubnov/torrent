@@ -1,16 +1,16 @@
-#include "PeerParser.h"
+#include "parser.h"
 
 using namespace network::bittorrent::peer_wire;
 
-PeerParser::PeerParser(std::vector<char> peers){
+parser::parser(std::vector<char> peers){
 	_peers_vector = peers;
 }
 
-int PeerParser::num(char value){
+int parser::num(char value){
 	return(int)(value & 0xff);
 }
 
-std::list<Peer> PeerParser::peers(){
+std::list<peer> parser::peers(){
 	if(_peers_list.size()){
 		return _peers_list;
 	}
@@ -34,7 +34,7 @@ std::list<Peer> PeerParser::peers(){
 			port >> std::hex >> port_number;
 			integer_port << port_number;
 
-			_peers_list.push_back(Peer(ip.str(), integer_port.str()));
+            _peers_list.push_back(peer(ip.str(), integer_port.str()));
 		}
 	}catch(std::bad_exception e){
 

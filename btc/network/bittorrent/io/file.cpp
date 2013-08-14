@@ -1,8 +1,8 @@
-#include "FinalFile.h"
+#include "file.h"
 
 using namespace network::bittorrent::io;
 
-FinalFile::FinalFile(std::wstring path, int64_t file_length, long piece_size){
+file::file(std::wstring path, int64_t file_length, long piece_size){
 	_path = path;
 	_downloaded = 0;
 	_file_length = file_length;
@@ -29,22 +29,22 @@ FinalFile::FinalFile(std::wstring path, int64_t file_length, long piece_size){
 	}
 }
 
-FinalFile::~FinalFile(){
+file::~file(){
 }
 
-int64_t FinalFile::left(){
+int64_t file::left(){
 	return _file_length - _downloaded;
 }
 
-int64_t FinalFile::downloaded(){
+int64_t file::downloaded(){
 	return _downloaded;
 }
 
-int64_t FinalFile::length(){
+int64_t file::length(){
 	return _file_length;
 }
 
-void FinalFile::write(std::vector<char>& data, long piece_number){
+/*void file::write(std::vector<char>& data, long piece_number){
 	//boost::mutex::scoped_lock lock(_guard);
 
 	if(std::find(_writed.begin(), _writed.end(), piece_number) != _writed.end() || !data.size()){
@@ -77,9 +77,9 @@ void FinalFile::write(std::vector<char>& data, long piece_number){
 			_file.close();
 		}
 	}
-}
+}*/
 
-void FinalFile::write(std::vector<char>& data, int64_t absolute_position){
+void file::write(std::vector<char>& data, int64_t absolute_position){
 	//boost::mutex::scoped_lock lock(_guard);
 
     if(std::find(_loaded.begin(), _loaded.end(),

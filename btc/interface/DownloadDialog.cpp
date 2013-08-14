@@ -74,14 +74,14 @@ void DownloadDialog::browse_handle(){
 }
 
 
-void DownloadDialog::download_list(std::list<network::bittorrent::download_file> list){
+void DownloadDialog::download_list(std::list<network::bittorrent::file_stat> list){
     int64_t total_length = 0;
 
     QTreeWidgetItem* top_item = 0;
     FileIconProvider provider;
 
-    for(std::list<network::bittorrent::download_file>::iterator it = list.begin(); it != list.end(); it++){
-        network::bittorrent::download_file df = *it;
+    for(std::list<network::bittorrent::file_stat>::iterator it = list.begin(); it != list.end(); it++){
+        network::bittorrent::file_stat df = *it;
 
         total_length += df.length;
 

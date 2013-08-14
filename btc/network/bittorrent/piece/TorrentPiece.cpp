@@ -2,16 +2,16 @@
 
 using namespace network::bittorrent::piece;
 
-TorrentPiece::TorrentPiece(std::vector<char> piece, int index){
+TorrentPiece::TorrentPiece(std::vector<char> piece, long index){
 	_piece = piece;
 	_index = index;
 }
 
-TorrentPiece* TorrentPiece::create(std::vector<char> piece, int index){
+TorrentPiece* TorrentPiece::create(std::vector<char> piece, long index){
 	return new TorrentPiece(piece, index);
 }
 
-int TorrentPiece::index(){
+long TorrentPiece::index(){
 	return _index;
 }
 

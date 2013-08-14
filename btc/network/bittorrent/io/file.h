@@ -7,6 +7,8 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/interprocess/exceptions.hpp>
 
+#include "basic_file.h"
+
 typedef long long int64_t;
 
 /*writes the downloaded pieces of the file in
@@ -15,7 +17,7 @@ typedef long long int64_t;
 namespace network{
 	namespace bittorrent{
 		namespace io{
-			typedef class FinalFile{
+            class file : public basic_file{
                 private:
 
                     std::vector<int> _writed;                                       //recorded pieces
@@ -28,15 +30,15 @@ namespace network{
 					int64_t _downloaded;
 
 				public:
-					FinalFile(std::wstring path, int64_t file_length, long piece_size);
-					~FinalFile();
+                    file(std::wstring path, int64_t file_length, long piece_size);
+                    ~file();
 					int64_t left();
 					int64_t length();
 					int64_t downloaded();
 
-					void write(std::vector<char>& data, long piece_number);
+                    //void write(std::vector<char>& data, long piece_number);
 					void write(std::vector<char>& data, int64_t absolute_position);
-			}file;
+            };
 		}
 	}
 }

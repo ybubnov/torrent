@@ -50,10 +50,7 @@ SOURCES += main.cpp \
     encryption/sha/BlockStringProvider.cpp \
     encryption/sha/BlockStreamProvider.cpp \
     network/bittorrent/TrackerResponseParser.cpp \
-    network/bittorrent/TorrentFileParser.cpp \
     network/bittorrent/BitTorrentProtocol.cpp \
-    network/bittorrent/io/LoadAdapter.cpp \
-    network/bittorrent/io/FinalFile.cpp \
     network/bittorrent/message/Unchoke.cpp \
     network/bittorrent/message/Request.cpp \
     network/bittorrent/message/Piece.cpp \
@@ -66,8 +63,6 @@ SOURCES += main.cpp \
     network/bittorrent/message/Cancel.cpp \
     network/bittorrent/message/BitField.cpp \
     network/bittorrent/peer_wire/PeerWireProtocol.cpp \
-    network/bittorrent/peer_wire/PeerParser.cpp \
-    network/bittorrent/peer_wire/Peer.cpp \
     network/bittorrent/piece/TorrentPiece.cpp \
     network/bittorrent/piece/PieceControl.cpp \
     network/http/HttpProtocol.cpp \
@@ -77,7 +72,12 @@ SOURCES += main.cpp \
     network/udp/UdpProtocol.cpp \
     interface/TorrentWindow.cpp \
     interface/DownloadDialog.cpp \
-    interface/FileIconProvider.cpp
+    interface/FileIconProvider.cpp \
+    network/bittorrent/io/file.cpp \
+    network/bittorrent/io/file_splitter.cpp \
+    network/bittorrent/peer_wire/peer.cpp \
+    network/bittorrent/peer_wire/parser.cpp \
+    network/bittorrent/file_parser.cpp
 
 HEADERS += \
     network.h \
@@ -115,15 +115,11 @@ HEADERS += \
     network/http.h \
     network/bittorrent.h \
     network/bittorrent/TrackerResponseParser.h \
-    network/bittorrent/TorrentFileParser.h \
     network/bittorrent/piece.h \
     network/bittorrent/peer_wire.h \
     network/bittorrent/message.h \
     network/bittorrent/io.h \
     network/bittorrent/BitTorrentProtocol.h \
-    network/bittorrent/io/NotifiableInterface.h \
-    network/bittorrent/io/LoadAdapter.h \
-    network/bittorrent/io/FinalFile.h \
     network/bittorrent/message/Unchoke.h \
     network/bittorrent/message/Request.h \
     network/bittorrent/message/Piece.h \
@@ -137,8 +133,6 @@ HEADERS += \
     network/bittorrent/message/Cancel.h \
     network/bittorrent/message/BitField.h \
     network/bittorrent/peer_wire/PeerWireProtocol.h \
-    network/bittorrent/peer_wire/PeerParser.h \
-    network/bittorrent/peer_wire/Peer.h \
     network/bittorrent/piece/TorrentPiece.h \
     network/bittorrent/piece/PieceControl.h \
     network/http/HttpProtocol.h \
@@ -152,7 +146,15 @@ HEADERS += \
     interface/TorrentUpdater.h \
     interface/TreeWidgetItem.h \
     interface/FileIconProvider.h \
-    network/GameOverableInterface.h
+    network/GameOverableInterface.h \
+    network/bittorrent/io/basic_file.h \
+    network/bittorrent/io/file.h \
+    network/bittorrent/io/file_splitter.h \
+    network/bittorrent/io/notifiable.h \
+    network/bittorrent/peer_wire/peer.h \
+    network/bittorrent/peer_wire/parser.h \
+    network/bittorrent/basic_parser.h \
+    network/bittorrent/file_parser.h
 
 FORMS += \
     interface/DownloadDialog.ui \

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FinalFile.h"
-#include "NotifiableInterface.h"
+#include "file.h"
+#include "notifiable.h"
 
 /*allows you to record pieces of the files in
  */
@@ -9,9 +9,9 @@
 namespace network{
 	namespace bittorrent{
 		namespace io{
-			typedef class LoadAdapter{
+            class file_splitter : public basic_file{
 				private:
-                    std::vector<FinalFile*> _file_list;                             //list of the downloadable files
+                    std::vector<basic_file*> _file_list;                             //list of the downloadable files
                     std::vector<long> _block_list;                                  //blocks per file
                     std::vector<int64_t> _length_list;                              //bytes per file
 
@@ -23,15 +23,18 @@ namespace network{
                     boost::mutex _guard;                                            //thread safety
 
 				public:
-                    LoadAdapter(network::bittorrent::io::notifiable* subscriber,
-                                std::list<FinalFile*>& file_list, long piece_length);
+                    file_splitter(network::bittorrent::io::notifiable* subscriber,
+                                std::list<basic_file*>& file_list, long piece_length);
 
-					~LoadAdapter();
+                    ~file_splitter();
 
 					int64_t left();
 					int64_t downloaded();
-					void write(std::vector<char>& data, long piece_number);
-			}load_adapter;
+                    int64_t length();
+
+                    void write(std::vector<char>& data, long piece_number);
+                    void write(std::vector<char>& data, int64_t piece_number);
+            };
 		}
 	}
 }

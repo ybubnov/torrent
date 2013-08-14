@@ -31,7 +31,7 @@ namespace network{
 					~PieceControl();
 
                     void downloaded(TorrentPiece* piece);                           //mark piece as downloaded
-                    int piece_length();
+                    long piece_length();
                     long left();
 
                     TorrentPiece* next_piece();                                     //get the new piece

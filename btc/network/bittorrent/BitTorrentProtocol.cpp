@@ -7,7 +7,7 @@ const int BitTorrentProtocol::active_thread = 0;
 const int BitTorrentProtocol::finish_thread = -1;
 
 BitTorrentProtocol::BitTorrentProtocol(network::bittorrent::io::notifiable* subscriber, 
-	network::bittorrent::file_parser file, std::wstring folder) : torrentFile(file){
+    network::bittorrent::basic_parser& file, std::wstring folder) : torrentFile(file){
 
 
 	download_folder = folder;
@@ -28,7 +28,7 @@ BitTorrentProtocol::BitTorrentProtocol(network::bittorrent::io::notifiable* subs
 }
 
 BitTorrentProtocol::~BitTorrentProtocol(){
-    for(std::list<network::bittorrent::io::file*>::iterator file_ptr = finalFiles.begin();
+    for(std::list<network::bittorrent::io::basic_file*>::iterator file_ptr = finalFiles.begin();
         file_ptr != finalFiles.end(); file_ptr++){
         delete (*file_ptr);
     }
@@ -91,7 +91,8 @@ void BitTorrentProtocol::execute_downloading(){
 		network::bittorrent::peer_wire::protocol* peerWireProtocol;
 
 		try{
-            peerWireProtocol = new network::bittorrent::peer_wire::protocol(this, (*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
+            peerWireProtocol = new network::bittorrent::peer_wire::protocol(
+                        this, (*it), pieceControl, loadAdapter, torrentFile.info_hash(), raw_peer_id);
 		}catch(std::exception e){
 			continue;
 		}
@@ -121,7 +122,8 @@ void BitTorrentProtocol::resume_downloading(){
         network::bittorrent::peer_wire::protocol* peerWireProtocol;
 
         try{
-            peerWireProtocol = new network::bittorrent::peer_wire::protocol(this, (*it), pieceControl, loadAdapter, info_hash, raw_peer_id);
+            peerWireProtocol = new network::bittorrent::peer_wire::protocol(
+                        this, (*it), pieceControl, loadAdapter, torrentFile.info_hash(), raw_peer_id);
         }catch(std::exception e){
             continue;
         }
@@ -212,18 +214,18 @@ void BitTorrentProtocol::announce_request(){
 	std::string httpRequest;
 
 	std::cout << "creating files..." << std::endl;
-	fileList = torrentFile.files();
+    std::list<file_stat> files = torrentFile.files();
 	
-	for(std::list<DownloadFile>::iterator it = fileList.begin(); it != fileList.end(); it++){
+    for(std::list<file_stat>::iterator it = files.begin(); it != files.end(); it++){
 		finalFiles.push_back(new network::bittorrent::io::file(
             download_folder + it->path, it->length, torrentFile.piece_length()));   //files to download
 	}
 	
-	loadAdapter = new network::bittorrent::io::load_adapter(_subscriber, finalFiles, torrentFile.piece_length());
+    loadAdapter = new network::bittorrent::io::file_splitter(_subscriber, finalFiles, torrentFile.piece_length());
 
 	threadStack.push(finish_thread);
 	
-	for(unsigned int i = 0; i < torrentFile.announce_size(); i++){
+    for(unsigned int i = 0; i < torrentFile.announce_list().size(); i++){
         httpList.push_back(new network::http::protocol(this));                      //create protocol for every announce address
 		threadStack.push(active_thread);
 	}
@@ -231,9 +233,7 @@ void BitTorrentProtocol::announce_request(){
 	std::cout << "STACK SIZE " << threadStack.size() << std::endl;
 
 	std::list<network::http::protocol*>::iterator httpItem = httpList.begin();
-	info_hash = torrentFile.info_hash();
-
-	std::string percent_info_hash = encryption::percent_encoding::encode(info_hash);
+    std::string percent_info_hash = encryption::percent_encoding::encode(torrentFile.info_hash());
 
 	for(std::list<std::string>::iterator it = announce.begin(); it != announce.end(); it++, httpItem++){
 		std::string httpAddress = *it;

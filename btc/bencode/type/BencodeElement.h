@@ -12,7 +12,7 @@
 typedef long long int64_t;
 
 namespace bencode{
-	typedef class BencodeElement{
+    typedef class BencodeElement{
 		private:
 			static int64_t elements;
 			int64_t hash;
@@ -20,7 +20,6 @@ namespace bencode{
 		public:
 			BencodeElement();
             virtual ~BencodeElement(){
-
             }
 
 			int compare(BencodeElement* belement);

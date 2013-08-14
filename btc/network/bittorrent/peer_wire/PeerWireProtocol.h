@@ -28,7 +28,7 @@ namespace network{
 					
 					network::bittorrent::piece::control* _piece_control;
 					network::bittorrent::piece::torrent_piece* _current_piece;
-					network::bittorrent::io::load_adapter* _file;
+                    network::bittorrent::io::basic_file* _file;
 					
                     network::game_overable* _dad;                                   //object's parent
 					network::tcp::protocol* _tcp;
@@ -56,7 +56,7 @@ namespace network{
                         network::game_overable* dad,
 						network::bittorrent::peer_wire::peer stranger, 
 						network::bittorrent::piece::control* piece_control,
-						network::bittorrent::io::load_adapter* file,
+                        network::bittorrent::io::basic_file* file,
 						std::vector<char> info_hash, 
 						std::vector<char> peer_id
 					);
@@ -65,7 +65,7 @@ namespace network{
                         network::game_overable* dad,
 						network::bittorrent::peer_wire::peer stranger, 
 						network::bittorrent::piece::control* piece_control, 
-						io::load_adapter* file,
+                        io::basic_file* file,
 						std::string info_hash, 
 						std::string peer_id
 					);
@@ -74,7 +74,7 @@ namespace network{
                         network::game_overable* dad,
 						network::bittorrent::peer_wire::peer stranger, 
 						network::bittorrent::piece::control* piece_control,
-						network::bittorrent::io::load_adapter* file,
+                        network::bittorrent::io::basic_file* file,
 						std::string info_hash, 
 						std::vector<char> peer_id
 					);

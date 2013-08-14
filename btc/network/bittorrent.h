@@ -6,5 +6,5 @@
 #include "bittorrent/piece.h"
 
 #include "bittorrent/BitTorrentProtocol.h"
-#include "bittorrent/TorrentFileParser.h"
+#include "bittorrent/file_parser.h"
 #include "bittorrent/TrackerResponseParser.h"

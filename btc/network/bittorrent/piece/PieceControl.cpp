@@ -33,7 +33,7 @@ void PieceControl::downloaded(TorrentPiece* piece){
 	_piece_map.erase(piece->index());
 }
 
-int PieceControl::piece_length(){
+long PieceControl::piece_length(){
 	return _piece_length;
 }
 

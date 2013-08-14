@@ -11,13 +11,13 @@ namespace network{
 			typedef class TorrentPiece{
 				private:
 					std::vector<char> _piece;
-					int _index;
+                    long _index;
 
 				public:
-					TorrentPiece(std::vector<char> piece, int index);
-					static TorrentPiece* create(std::vector<char>, int index);
+                    TorrentPiece(std::vector<char> piece, long index);
+                    static TorrentPiece* create(std::vector<char>, long index);
 
-                    int index();                                                    //get index
+                    long index();                                                    //get index
                     std::vector<char> piece();                                      //get sha1 hash
 			}torrent_piece;
 		}

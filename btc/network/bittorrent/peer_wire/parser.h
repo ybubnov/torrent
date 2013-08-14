@@ -5,22 +5,22 @@
 #include <sstream>
 #include <iomanip>
 
-#include "Peer.h"
+#include "peer.h"
 
 namespace network{
 	namespace bittorrent{
 		namespace peer_wire{
-			typedef class PeerParser{
+            class parser{
 				private:
 					std::vector<char> _peers_vector;
-					std::list<Peer> _peers_list;
+                    std::list<peer> _peers_list;
 
 					int num(char value);
 
 				public:
-					PeerParser(std::vector<char> peers);
-					std::list<Peer> peers();
-			}parser;
+                    parser(std::vector<char> peers);
+                    std::list<peer> peers();
+            };
 		}
 	}
 }

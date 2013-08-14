@@ -25,7 +25,7 @@ namespace interface{
             void comment(std::wstring value);
             void date(std::string value);
 
-            void download_list(std::list<network::bittorrent::download_file> list); //list of downloadable files
+            void download_list(std::list<network::bittorrent::file_stat> list); //list of downloadable files
             std::wstring get_folder();                                              //load folder
 
         private slots:

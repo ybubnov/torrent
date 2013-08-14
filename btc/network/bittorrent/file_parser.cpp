@@ -1,10 +1,10 @@
-#include "TorrentFileParser.h"
+#include "file_parser.h"
 #include <fstream>
 #include <ctime>
 
 using namespace network::bittorrent;
 
-TorrentFileParser::TorrentFileParser(bencode::element* dictionary){
+file_parser::file_parser(bencode::element* dictionary){
 	source = bencode::type::dictionary::decode(dictionary);
 	std::string key;
 	std::vector<char> vkey;
@@ -23,11 +23,11 @@ TorrentFileParser::TorrentFileParser(bencode::element* dictionary){
 	info_dictionary = bencode::type::dictionary::decode(info->second);
 }
 
-TorrentFileParser::~TorrentFileParser(){
+file_parser::~file_parser(){
 
 }
 
-std::list<DownloadFile> TorrentFileParser::files(){
+std::list<file_stat> file_parser::files(){
 	std::vector<char> value;
 
 	bencode::map bencode_map(info_dictionary.begin(), info_dictionary.end());
@@ -98,7 +98,7 @@ std::list<DownloadFile> TorrentFileParser::files(){
 				md5sum = std::string(value.begin(), value.end());
 			}
 
-			fileList.push_back(DownloadFile(length, path, md5sum));
+            fileList.push_back(file_stat(length, path, md5sum));
 		}
 
 		return fileList;
@@ -132,12 +132,12 @@ std::list<DownloadFile> TorrentFileParser::files(){
 	}
 
 
-	fileList.push_back(DownloadFile(length, path, md5sum));
+    fileList.push_back(file_stat(length, path, md5sum));
 
 	return fileList;
 }
 
-std::wstring TorrentFileParser::name(){
+std::wstring file_parser::name(){
     std::vector<char> value;
     std::wstring path;
 
@@ -159,7 +159,7 @@ std::wstring TorrentFileParser::name(){
     return path;
 }
 
-std::string TorrentFileParser::creation_date(){
+std::string file_parser::creation_date(){
     std::stringstream flow;
     int64_t value;
 
@@ -175,7 +175,7 @@ std::string TorrentFileParser::creation_date(){
     return result.substr(0, result.size() - 1);
 }
 
-std::wstring TorrentFileParser::comment(){
+std::wstring file_parser::comment(){
     std::vector<char> value;
     std::wstring path;
 
@@ -190,15 +190,7 @@ std::wstring TorrentFileParser::comment(){
     return path;
 }
 
-size_t TorrentFileParser::announce_size(){
-	if(!announceList.size()){
-		announceList = announce_list();
-	}
-
-	return announceList.size();
-}
-
-std::list<std::string> TorrentFileParser::announce_list(){
+std::list<std::string> file_parser::announce_list(){
 	std::string value;
 	bencode::list bencode_list;
 	std::vector<char> decode;
@@ -240,7 +232,7 @@ std::list<std::string> TorrentFileParser::announce_list(){
 }
 
 
-std::vector<char> TorrentFileParser::pieces(){
+std::vector<char> file_parser::pieces(){
 	std::vector<char> value;
 
 	bencode::map::iterator pieces_iterator = std::find_if(
@@ -256,7 +248,7 @@ std::vector<char> TorrentFileParser::pieces(){
 	return value;
 }
 
-size_t TorrentFileParser::piece_length(){
+size_t file_parser::piece_length(){
 	size_t length;
 
 	bencode::map::iterator piece_iterator = std::find_if(
@@ -274,7 +266,7 @@ size_t TorrentFileParser::piece_length(){
 
 
 
-std::string TorrentFileParser::size(){
+std::string file_parser::size(){
 	std::stringstream length;
 	int64_t size = 0;
 	bencode::list files_list;
@@ -309,7 +301,7 @@ std::string TorrentFileParser::size(){
 	return std::string(length.str());
 }
 
-std::string TorrentFileParser::info_hash(){
+std::string file_parser::info_hash(){
 	bencode::element* dictionary = 0;
 
 	if(hash.size()){

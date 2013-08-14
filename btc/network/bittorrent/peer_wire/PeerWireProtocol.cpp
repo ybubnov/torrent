@@ -23,7 +23,7 @@ PeerWireProtocol::PeerWireProtocol(
     network::game_overable* dad,
     peer_wire::peer stranger,
     network::bittorrent::piece::control* piece_control,
-    network::bittorrent::io::load_adapter* file,
+    network::bittorrent::io::basic_file* file,
     std::vector<char> info_hash,
     std::vector<char> peer_id) : _peer(stranger){
 
@@ -40,7 +40,7 @@ PeerWireProtocol::PeerWireProtocol(
     network::game_overable* dad,
 	peer_wire::peer stranger, 
 	network::bittorrent::piece::control* piece_control, 
-	network::bittorrent::io::load_adapter* file,
+    network::bittorrent::io::basic_file* file,
 	std::string info_hash, 
 	std::vector<char> peer_id) : _peer(stranger){
 	
@@ -78,7 +78,7 @@ PeerWireProtocol::PeerWireProtocol(
     network::game_overable *dad,
     peer_wire::peer stranger,
     network::bittorrent::piece::control* piece_control,
-    network::bittorrent::io::load_adapter* file,
+    network::bittorrent::io::basic_file* file,
     std::string info_hash,
     std::string peer_id) : _peer(stranger){
 
