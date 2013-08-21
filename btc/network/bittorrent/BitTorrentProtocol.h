@@ -4,6 +4,7 @@
 #include "TrackerResponseParser.h"
 
 #include "io.h"
+#include "core.h"
 #include "peer_wire.h"
 #include "../http.h"
 
@@ -45,6 +46,7 @@ namespace network{
 
 				network::bittorrent::piece::control* pieceControl;
 				std::list<network::bittorrent::peer_wire::protocol*> peerWireProtocolList;
+                std::list<network::bittorrent::core::executable*> _incoming_threads;
 
 				std::stack<int> threadStack;
 

@@ -77,7 +77,9 @@ SOURCES += main.cpp \
     network/bittorrent/io/file_splitter.cpp \
     network/bittorrent/peer_wire/peer.cpp \
     network/bittorrent/peer_wire/parser.cpp \
-    network/bittorrent/file_parser.cpp
+    network/bittorrent/file_parser.cpp \
+    network/bittorrent/peer_wire/incoming_protocol.cpp \
+    network/bittorrent/peer_wire/incoming_runner.cpp
 
 HEADERS += \
     network.h \
@@ -154,7 +156,13 @@ HEADERS += \
     network/bittorrent/peer_wire/peer.h \
     network/bittorrent/peer_wire/parser.h \
     network/bittorrent/basic_parser.h \
-    network/bittorrent/file_parser.h
+    network/bittorrent/file_parser.h \
+    network/bittorrent/peer_wire/incoming_communicatable.h \
+    network/bittorrent/peer_wire/outcoming_communicatable.h \
+    network/bittorrent/core/executable.h \
+    network/bittorrent/core.h \
+    network/bittorrent/peer_wire/incoming_protocol.h \
+    network/bittorrent/peer_wire/incoming_runner.h
 
 FORMS += \
     interface/DownloadDialog.ui \
@@ -162,4 +170,6 @@ FORMS += \
 
 RESOURCES += \
     interface/icons.qrc
+
+OTHER_FILES +=
 
