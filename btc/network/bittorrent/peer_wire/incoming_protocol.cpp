@@ -9,9 +9,13 @@ void incoming_protocol::initialize(){
     _offset = 0;
     _begin = 0;
     _tcp = 0;
-    _conversation = 0;
+    _current_piece = 0;
+
     _last_message = message::_undefined;
 
+    //in case when piece length defined in torrent file larger than
+    //piece avaliable for download via 'peer' protocol
+    //set length of downloadable part of piece
     if(_piece_control->piece_length() < incoming_protocol::block_length){
         _piece_length = _piece_control->piece_length();
     }else{
@@ -140,67 +144,130 @@ void incoming_protocol::response_handle(std::istream& response){
         std::vector<char> _block;
 
         try{
+            //rip information block from message
             _block = message::piece::block(incoming);
+
+            //save information block in buffer
+            _buffer.insert(_buffer.end(), _block.begin() + _offset, _block.end());
         }catch(std::exception e){
-            std::cout << "BLOCK PROBLEM" << std::endl;
+            std::cout << "INVALID BLOCK RECIEVED, block size:" << _block.size() << " offset:" << _offset << std::endl;
 
             _last_message = message::_undefined;
             return;
         }
 
-        _buffer.insert(_buffer.end(), _block.begin() + _offset, _block.end());
     }else{
+        std::cout << "GET UNDEFINED MESSAGE" << std::endl;
         _last_message = message::_undefined;
     }
 }
 
+void incoming_protocol::pull_piece(){
+    //write to file if buffer is full
+    _file->write(_buffer, _current_piece->index());
 
-void incoming_protocol::shift(){
-    if(_begin + _piece_length < _piece_control->piece_length()){
-        _begin += _piece_length;
-        _offset = 0;
+    //reset all variables
+    _buffer = std::vector<char>();
+    _begin = 0;
+    _offset = 0;
 
-        if(_begin + _piece_length > _piece_control->piece_length()){
-            _offset = _piece_length - (_piece_control->piece_length() - _begin);
-            _begin = _piece_control->piece_length() - _piece_length;
+    //mark piece as downloaded
+    _piece_control->downloaded(_current_piece);
 
+    //get next piece to download
+    next_piece();
+}
+
+void incoming_protocol::next_piece(){
+    //get new instance of piece
+    _current_piece = _piece_control->next_piece();
+
+    int64_t last_piece_length = _file->length() -
+            (_piece_control->count() - 1) * _piece_control->piece_length();
+
+    //if that piece is the last
+    if((_piece_control->count() - 1) == _current_piece->index()){
+        std::cout << "LAST INDEX:" << _current_piece->index()
+                  << " last_piece_length:" << last_piece_length << std::endl;
+
+        //and longer than '_piece_length'
+        if(_piece_length > last_piece_length){
+            std::cout << "LENGTH HAS CHANGED" << std::endl;
+            _piece_length = last_piece_length;
         }
-    }else{
-        _file->write(_buffer, _current_piece->index());
 
-        //std::cout << "has written " << _current_piece->index() << std::endl;
+    }
+}
 
-        _buffer = std::vector<char>();
-        _piece_control->downloaded(_current_piece);
-        _begin = 0;
-        _offset = 0;
+bool incoming_protocol::last_piece(){
+    int64_t last_piece_length = _file->length() -
+            (_piece_control->count() - 1) * _piece_control->piece_length();
 
-        _current_piece = _piece_control->next_piece();
+    //if downloadable piece is the last
+    if((_piece_control->count() - 1) == _current_piece->index()){
+        if(_begin + _piece_length < last_piece_length){
+            //next part of the last peice
+            _begin += _piece_length;
+            _offset = 0;
 
-        if(_piece_control->piece_length() < incoming_protocol::block_length){
-            _piece_length = _piece_control->piece_length();
+            //edge part of the last piece
+            if(_begin + _piece_length > last_piece_length){
+                _offset = _begin;
+                _begin = last_piece_length - _piece_length;
+                _offset -=  _begin;
+            }
+
         }else{
-            _piece_length = incoming_protocol::block_length;
+            std::cout << "LAST PIECE HAS WRITTEN" << std::endl;
+            //write loaded piece to file
+            pull_piece();
         }
+
+        return true;
+    }
+
+    return false;
+}
+
+void incoming_protocol::part_piece(){
+    if(last_piece()){
+        return;
+    }
+
+    if(_begin + _piece_length < _piece_control->piece_length()){
+        //download next part of piece
+        _begin += _piece_length;
+
+        //offset in piece buffer
+        _offset = 0;
+
+        //if next part is out of piece length
+        //then load edge part
+        if(_begin + _piece_length > _piece_control->piece_length()){
+            _offset = _begin;
+            _begin = _piece_control->piece_length() - _piece_length;
+            _offset -= _begin;
+        }
+
+    }else{
+        //write buffer to file
+        pull_piece();
     }
 }
 
 
 bool incoming_protocol::refresh(){
-
     long previous_index = _current_piece->index();
 
     _buffer = std::vector<char>();
-
     _begin = 0;
     _offset = 0;
 
     try{
+        //get new 'piece' instance to download
+        next_piece();
 
-        _current_piece = _piece_control->next_piece();
-
-        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-
+        //twice request of the last part is unnecessary
         if(previous_index == _current_piece->index() && _piece_control->left() == 1){
             return false;
         }
@@ -208,71 +275,40 @@ bool incoming_protocol::refresh(){
         return false;
     }
 
-    if(_piece_control->piece_length() < incoming_protocol::block_length){
-        _piece_length = _piece_control->piece_length();
-    }else{
-        _piece_length = incoming_protocol::block_length;
-    }
-
     return true;
 }
 
 bool incoming_protocol::request(){
-    long piece_begin;
-    long piece_index;
-    long piece_length;
-    int64_t left_length;
 
-    _current_piece = _piece_control->next_piece();
+    if(!_current_piece){
+        next_piece();
+    }
 
     try{
-        piece_begin = _begin;
-        piece_index = _current_piece->index();
-
-        left_length = _file->left() - (int64_t)_buffer.size();
-
-        if(left_length <= 0){
-            throw std::bad_exception();
-        }else if(left_length < (int64_t)_piece_length){
-            std::cout << "left :" << left_length << std::endl;
-
-            piece_length = (long)left_length;
-        }else{
-            piece_length = _piece_length;
-        }
-
-
-        message::request request_message = message::request::create(piece_index, piece_begin, piece_length);
-
-
+        //send 'request' message to 'peer'
+        message::request request_message = message::request::create(_current_piece->index(), _begin, _piece_length);
         _last_message = message::_undefined;
-        _tcp->send(this, request_message.message(), piece_length + 0xd);
+        _tcp->send(this, request_message.message(), _piece_length + 0xd);
 
         //imaginary 'request_handle' call
+        //if response on 'piece' message is not really 'piece'
         if(_last_message != message::_piece){
+            std::cout << "BAD REQUEST: NOT A PIECE" << std::endl;
             throw std::exception();
         }
 
+        part_piece();
 
-        shift();
     }catch(boost::system::system_error e){
-        std::cout << "FAILURE" << std::endl;
+        //mean network problmes; 'tcp::socket' usually raise 'boost::system::system_error'
+        //user should try to reconnect to 'peer'
+        std::cout << "FAILURE index: " << _current_piece->index() << " begin: "
+                  << _begin << " length: " << _piece_length
+                  << " loaded:" << _file->downloaded() << " buffer: " << _buffer.size() << std::endl;
 
         throw e;
-
-        /*std::cout << "begin = " << piece_begin << " index = " << piece_index << " length = " << piece_length << std::endl;
-        std::cout << "FAILURE" << std::endl;
-
-        _tcp->stop();
-        delete _tcp;
-        _tcp = 0;
-
-
-        connect();
-
-        return false;*/
     }catch(std::exception e){
-        std::cout << "BAD REQUEST" << std::endl;
+        std::cout << "UNEXPECTED EXCEPTION" << std::endl;
 
         if(_piece_control->left()){
             return refresh();
@@ -310,14 +346,12 @@ bool incoming_protocol::interested(){
     return _last_message == message::_unchoke;
 }
 
-
 bool incoming_protocol::connect(){
     try{
         if(!_tcp){
             _tcp = new network::tcp::protocol(_peer.ip(), _peer.port());
         }
-    }catch(std::exception e){
-        //_dad->game_over();
+    }catch(std::exception){
         std::cout << "BAD CONNECTION DETECTED" << std::endl;
         return false;
     }
@@ -330,7 +364,7 @@ bool incoming_protocol::disconnect(){
         _tcp->stop();
         delete _tcp;
         _tcp = 0;
-    }catch(boost::system::system_error e){
+    }catch(boost::system::system_error){
         std::cout << "DISCONNECTION PROBLEMS" << std::endl;
         return false;
     }

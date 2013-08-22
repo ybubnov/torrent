@@ -3,6 +3,7 @@
 
 #include "incoming_protocol.h"
 #include "../core.h"
+#include "../../tcp.h"
 
 /*bittorrent peer wire
  */

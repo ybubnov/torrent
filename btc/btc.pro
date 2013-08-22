@@ -62,7 +62,6 @@ SOURCES += main.cpp \
     network/bittorrent/message/Choke.cpp \
     network/bittorrent/message/Cancel.cpp \
     network/bittorrent/message/BitField.cpp \
-    network/bittorrent/peer_wire/PeerWireProtocol.cpp \
     network/bittorrent/piece/TorrentPiece.cpp \
     network/bittorrent/piece/PieceControl.cpp \
     network/http/HttpProtocol.cpp \
@@ -134,7 +133,6 @@ HEADERS += \
     network/bittorrent/message/Choke.h \
     network/bittorrent/message/Cancel.h \
     network/bittorrent/message/BitField.h \
-    network/bittorrent/peer_wire/PeerWireProtocol.h \
     network/bittorrent/piece/TorrentPiece.h \
     network/bittorrent/piece/PieceControl.h \
     network/http/HttpProtocol.h \

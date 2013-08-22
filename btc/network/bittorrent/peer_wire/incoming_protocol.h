@@ -31,7 +31,6 @@ namespace network{
                     network::bittorrent::io::basic_file* _file;
 
                     network::tcp::protocol* _tcp;
-                    boost::thread* _conversation;                                   //thread descriptor
 
                     long _piece_length;
                     long _begin;
@@ -39,8 +38,11 @@ namespace network{
 
                     void initialize();
 
-                    bool refresh();                                                 //recovering
-                    void shift();                                                   //piece more than _block_length
+                    bool refresh();
+                    void pull_piece();
+                    void next_piece();
+                    void part_piece();
+                    bool last_piece();
 
                 public:
                     incoming_protocol(

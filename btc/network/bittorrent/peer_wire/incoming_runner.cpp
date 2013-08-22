@@ -55,7 +55,7 @@ incoming_runner::~incoming_runner(){
 
 
 void incoming_runner::invoke(){
-    for(unsigned int times = 0; times < 1; times++){
+    for(unsigned int times = 0; times < 2; times++){
         if(!_incoming->connect()){
             return;
         }

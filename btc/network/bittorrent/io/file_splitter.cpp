@@ -84,10 +84,12 @@ void file_splitter::write(std::vector<char> &data, int64_t piece_number){
                 }
             }
 
-            _loaded = 0;
+            int64_t $loaded = 0;
             for(unsigned int i = 0; i < _file_list.size(); i++){
-                _loaded += _file_list[i]->downloaded();                             //current state
+                $loaded += _file_list[i]->downloaded();                             //current state
             }
+
+            _loaded = $loaded;
 
             try{
                 if(_subscriber){

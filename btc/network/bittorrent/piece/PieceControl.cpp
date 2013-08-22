@@ -6,12 +6,12 @@ PieceControl::PieceControl(std::vector<char> pieces, size_t piece_length){
 	_pieces = pieces;
 	_piece_length = piece_length;
 
-	int piece_count = _pieces.size() / 20;
+    _piece_count = _pieces.size() / 20;
 	std::vector<char> piece;
 	std::vector<char>::iterator first;
 	std::vector<char>::iterator last;
 
-	for(int i = 0; i < piece_count; i++){
+    for(long i = 0; i < _piece_count; i++){
 		first = pieces.begin() + i * 20;
 		last = first + 20;
 
@@ -43,6 +43,10 @@ long PieceControl::left(){
 	return _piece_map.size();
 }
 
+long PieceControl::count(){
+    return _piece_count;
+}
+
 TorrentPiece* PieceControl::next_piece(){
 	boost::mutex::scoped_lock lock(_guard);
 
@@ -66,7 +70,7 @@ TorrentPiece* PieceControl::next_piece(){
 			piece = _next_piece->second;
 			_next_piece++;
 		}else{
-			std::cout << "THROW" << std::endl;
+            std::cout << "THERE IS NO MORE PIECES TO LOAD" << std::endl;
 			throw std::exception();
 		}
 	}

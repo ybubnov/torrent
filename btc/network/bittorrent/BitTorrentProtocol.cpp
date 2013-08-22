@@ -38,11 +38,6 @@ BitTorrentProtocol::~BitTorrentProtocol(){
         delete (*http_ptr);
     }
 
-    /*for(std::list<network::bittorrent::peer_wire::protocol*>::iterator peer_ptr = peerWireProtocolList.begin();
-        peer_ptr != peerWireProtocolList.end(); peer_ptr++){
-        delete (*peer_ptr);
-    }*/
-
     for(std::list<network::bittorrent::core::executable*>::iterator peer_ptr = _incoming_threads.begin();
         peer_ptr != _incoming_threads.end(); peer_ptr++){
         delete (*peer_ptr);
@@ -69,15 +64,9 @@ void BitTorrentProtocol::yeild(){
 }
 
 void BitTorrentProtocol::interrupt(){
-    /*for(std::list<network::bittorrent::peer_wire::protocol*>::iterator peer_ptr = peerWireProtocolList.begin();
-        peer_ptr != peerWireProtocolList.end(); peer_ptr++){
-        (*peer_ptr)->interrupt();
-        (*peer_ptr)->timed_join();
-    }*/
-
-    for(std::list<network::bittorrent::peer_wire::protocol*>::iterator peer_ptr = _incoming_threads.begin();
-        peer_ptr != _incoming_threads.end(); peer_ptr++){
-        (*peer_ptr)->interrupt();
+    for(std::list<network::bittorrent::core::executable*>::iterator thread_ptr = _incoming_threads.begin();
+        thread_ptr != _incoming_threads.end(); thread_ptr++){
+        (*thread_ptr)->interrupt();
     }
 
     _is_interrupted = true;
@@ -98,28 +87,23 @@ void BitTorrentProtocol::execute_downloading(){
 		it != peerList.end(); it++){
 
 
-        //network::bittorrent::peer_wire::protocol* peerWireProtocol;
         network::bittorrent::peer_wire::incoming_runner* peer_wire_protocol;
 
 		try{
-            /*peerWireProtocol = new network::bittorrent::peer_wire::protocol(
-                        this, (*it), pieceControl, loadAdapter, torrentFile.info_hash(), raw_peer_id);*/
+
             peer_wire_protocol = new network::bittorrent::peer_wire::incoming_runner(
                         this, (*it), pieceControl, loadAdapter, torrentFile.info_hash(), raw_peer_id);
+
 		}catch(std::exception e){
 			continue;
 		}
 
-        //peerWireProtocolList.push_back(peerWireProtocol);
         _incoming_threads.push_back(peer_wire_protocol);
         peer_wire_protocol->yeild();
-
-        //peerWireProtocol->yeild();
 
 	}
 
     _active_threads = _incoming_threads.size();
-    //_active_threads = peerWireProtocolList.size();
 }
 
 
@@ -132,18 +116,13 @@ void BitTorrentProtocol::resume_downloading(){
     }
 
     _incoming_threads.clear();
-    //peerWireProtocolList.clear();
 
     for(std::list<network::bittorrent::peer_wire::peer>::iterator it = peerList.begin();
         it != peerList.end(); it++){
 
-        //network::bittorrent::peer_wire::protocol* peerWireProtocol;
         network::bittorrent::peer_wire::incoming_runner* peer_wire_protocol;
 
         try{
-            /*peerWireProtocol = new network::bittorrent::peer_wire::protocol(
-                        this, (*it), pieceControl, loadAdapter, torrentFile.info_hash(), raw_peer_id);*/
-
             peer_wire_protocol = new network::bittorrent::peer_wire::incoming_runner(
                         this, (*it), pieceControl, loadAdapter, torrentFile.info_hash(), raw_peer_id);
         }catch(std::exception e){
@@ -153,13 +132,9 @@ void BitTorrentProtocol::resume_downloading(){
         _incoming_threads.push_back(peer_wire_protocol);
         peer_wire_protocol->yeild();
 
-        /*peerWireProtocolList.push_back(peerWireProtocol);
-        peerWireProtocol->yeild();*/
-
     }
 
     _active_threads = _incoming_threads.size();
-    //_active_threads = peerWireProtocolList.size();
 }
 
 

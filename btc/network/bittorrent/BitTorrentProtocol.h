@@ -44,8 +44,7 @@ namespace network{
 				std::vector<char> raw_peer_id;
                 std::string key;                                                    //announe request field
 
-				network::bittorrent::piece::control* pieceControl;
-				std::list<network::bittorrent::peer_wire::protocol*> peerWireProtocolList;
+                network::bittorrent::piece::control* pieceControl;
                 std::list<network::bittorrent::core::executable*> _incoming_threads;
 
 				std::stack<int> threadStack;
