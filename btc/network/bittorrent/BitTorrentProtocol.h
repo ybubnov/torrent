@@ -14,12 +14,12 @@
 #include <stack>
 
 namespace network{
-	namespace bittorrent{
+    namespace bittorrent{
         typedef class BitTorrentProtocol : public network::responsible, public network::game_overable{
-			private:
+            private:
                 static const char question_mark;                                    //const value of question mark letter
-				static const int active_thread;
-				static const int finish_thread;
+                static const int active_thread;
+                static const int finish_thread;
 
                 std::list<network::http::protocol*> httpList;                       //list of the announce http addresses
                 std::vector<char> responseData;                                     //http-style response on the http protocol announce request
@@ -29,38 +29,38 @@ namespace network{
 
                 network::bittorrent::basic_parser& torrentFile;                       //torrent file wrapper
                 network::bittorrent::tracker_response_parser* trackerResponse;      //torrent tracker responce wrapper
-				network::bittorrent::io::notifiable* _subscriber;
+                network::bittorrent::io::notifiable* _subscriber;
 
                 network::bittorrent::io::basic_file* loadAdapter;
 
                 boost::thread* trackerRequest;                                      //tracker requests
                 boost::thread* peerConversation;                                    //conversations with peers
-				boost::mutex _guard;
+                boost::mutex _guard;
 
-				long _active_threads;
+                long _active_threads;
 
-				std::wstring download_folder;
-				std::string peer_id;
-				std::vector<char> raw_peer_id;
+                std::wstring download_folder;
+                std::string peer_id;
+                std::vector<char> raw_peer_id;
                 std::string key;                                                    //announe request field
 
                 network::bittorrent::piece::control* pieceControl;
                 std::list<network::bittorrent::core::executable*> _incoming_threads;
 
-				std::stack<int> threadStack;
+                std::stack<int> threadStack;
 
                 bool _is_interrupted;
                 bool _repeated;
 
-			protected:
-				void announce_request();
-				void execute_downloading();
+            protected:
+                void announce_request();
+                void execute_downloading();
                 void resume_downloading();
 
-			public:
+            public:
                 BitTorrentProtocol(network::bittorrent::io::notifiable* subscriber,
                                    network::bittorrent::basic_parser& file, std::wstring folder);
-				~BitTorrentProtocol();
+                ~BitTorrentProtocol();
 
                 bool alive();                                                       //is threads alive
 
@@ -72,6 +72,6 @@ namespace network{
                 void yeild();                                                       //invoke conversation
 
                 std::wstring folder();                                              //target folder
-		}protocol;
-	}
+        }protocol;
+    }
 }

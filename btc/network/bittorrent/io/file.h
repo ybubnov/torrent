@@ -15,8 +15,8 @@ typedef long long int64_t;
  */
 
 namespace network{
-	namespace bittorrent{
-		namespace io{
+    namespace bittorrent{
+        namespace io{
             class file : public basic_file{
                 private:
 
@@ -24,21 +24,21 @@ namespace network{
                     std::vector<int64_t> _loaded;                                   //recorded in the predetermined position
 
                     boost::filesystem::fstream _file;
-					std::wstring _path;
-					long _piece_size;
-					int64_t _file_length;
-					int64_t _downloaded;
+                    std::wstring _path;
+                    long _piece_size;
+                    int64_t _file_length;
+                    int64_t _downloaded;
 
-				public:
+                public:
                     file(std::wstring path, int64_t file_length, long piece_size);
                     ~file();
-					int64_t left();
-					int64_t length();
-					int64_t downloaded();
+                    int64_t left();
+                    int64_t length();
+                    int64_t downloaded();
 
                     //void write(std::vector<char>& data, long piece_number);
-					void write(std::vector<char>& data, int64_t absolute_position);
+                    void write(std::vector<char>& data, int64_t absolute_position);
             };
-		}
-	}
+        }
+    }
 }

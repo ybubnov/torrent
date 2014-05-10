@@ -8,19 +8,19 @@
  */
 
 namespace bencode{
-	namespace consumer{
+    namespace consumer{
         typedef class BencodeStreamConsumer : public BencodeConsumerInterface{
-			private:
+            private:
                 std::wstring _path;
                 boost::filesystem::ofstream destination;
 
-			public:
+            public:
                 BencodeStreamConsumer(std::wstring path);
-				~BencodeStreamConsumer();
+                ~BencodeStreamConsumer();
 
-				void set(bencode::element* encoded);
-				void dispose();
-				std::vector<char> vector();
-		}stream;
-	}
+                void set(bencode::element* encoded);
+                void dispose();
+                std::vector<char> vector();
+        }stream;
+    }
 }

@@ -10,19 +10,19 @@
  */
 
 namespace bencode{
-	namespace provider{
-		typedef class BencodeStreamProvider : public BencodeProviderInterface{
-			private:
+    namespace provider{
+        typedef class BencodeStreamProvider : public BencodeProviderInterface{
+            private:
                 boost::filesystem::ifstream source;
 
-			public:
-				BencodeStreamProvider(std::string path);
+            public:
+                BencodeStreamProvider(std::string path);
                 BencodeStreamProvider(std::wstring path);
-				~BencodeStreamProvider();
+                ~BencodeStreamProvider();
 
-				std::vector<char> get();
-				std::vector<char> get(int length);
-				std::vector<char> peek();
-		}stream;
-	}
+                std::vector<char> get();
+                std::vector<char> get(int length);
+                std::vector<char> peek();
+        }stream;
+    }
 }

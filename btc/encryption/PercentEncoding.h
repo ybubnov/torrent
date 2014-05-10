@@ -6,9 +6,9 @@
 #include <iomanip>
 
 namespace encryption{
-	typedef class PercentEncoding{
-		public:
-			static std::string encode(std::string source);
-			static std::string encode(std::vector<char> source);
-	}percent_encoding;
+    typedef class PercentEncoding{
+        public:
+            static std::string encode(std::string source);
+            static std::string encode(std::vector<char> source);
+    }percent_encoding;
 }

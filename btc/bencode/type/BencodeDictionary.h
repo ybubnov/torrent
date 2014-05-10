@@ -6,18 +6,18 @@
  */
 
 namespace bencode{
-	namespace type{
-		typedef class BencodeDictionary : public BencodeElement{
-			private:
-				bencode::map dictionary;
+    namespace type{
+        typedef class BencodeDictionary : public BencodeElement{
+            private:
+                bencode::map dictionary;
 
-			public:
-				BencodeDictionary(bencode::map dictionary);
+            public:
+                BencodeDictionary(bencode::map dictionary);
                 ~BencodeDictionary();
 
-				void* decode();
-				std::vector<char> bencode();
-				static bencode::map decode(BencodeElement* decoded);
-		}dictionary;
-	}
+                void* decode();
+                std::vector<char> bencode();
+                static bencode::map decode(BencodeElement* decoded);
+        }dictionary;
+    }
 }

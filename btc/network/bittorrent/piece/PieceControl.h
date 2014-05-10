@@ -12,24 +12,24 @@
  */
 
 namespace network{
-	namespace bittorrent{
-		namespace piece{
-			typedef class PieceControl{
-				private:
+    namespace bittorrent{
+        namespace piece{
+            typedef class PieceControl{
+                private:
                     boost::mutex _guard;                                            //thread safety
-					std::vector<char> _pieces;
-					size_t _piece_length;
+                    std::vector<char> _pieces;
+                    size_t _piece_length;
                     size_t _piece_count;
 
-					std::map<int, std::vector<char> > _piece_map;
-					std::list<std::pair<long, std::vector<char> > > _shadow_map;
+                    std::map<int, std::vector<char> > _piece_map;
+                    std::list<std::pair<long, std::vector<char> > > _shadow_map;
 
-					std::list<std::pair<long, std::vector<char> > >::iterator _next_piece;
+                    std::list<std::pair<long, std::vector<char> > >::iterator _next_piece;
 
 
-				public:
-					PieceControl(std::vector<char> pieces, size_t piece_length);
-					~PieceControl();
+                public:
+                    PieceControl(std::vector<char> pieces, size_t piece_length);
+                    ~PieceControl();
 
                     void downloaded(TorrentPiece* piece);                           //mark piece as downloaded
                     long piece_length();
@@ -37,7 +37,7 @@ namespace network{
                     long count();
 
                     TorrentPiece* next_piece();                                     //get the new piece
-			}control;
-		}
-	}
+            }control;
+        }
+    }
 }

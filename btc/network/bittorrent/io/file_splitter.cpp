@@ -7,30 +7,30 @@ file_splitter::file_splitter(
         std::list<basic_file*>& file_list, long piece_length){
 
     _file_list = std::vector<basic_file*>(file_list.begin(), file_list.end());
-	_piece_length = piece_length;
-	_subscriber = subscriber;
+    _piece_length = piece_length;
+    _subscriber = subscriber;
 
-	int64_t file_length;
-	int64_t count;
+    int64_t file_length;
+    int64_t count;
 
-	_block_list.push_back(0);
-	_length_list.push_back(0);
+    _block_list.push_back(0);
+    _length_list.push_back(0);
 
-	for(unsigned int i = 0; i < _file_list.size(); i++){
-		file_length = _file_list[i]->length();
+    for(unsigned int i = 0; i < _file_list.size(); i++){
+        file_length = _file_list[i]->length();
 
-		count = file_length / (int64_t)_piece_length;
+        count = file_length / (int64_t)_piece_length;
 
-		if(file_length % (int64_t)_piece_length){
-			count++;
-		}
+        if(file_length % (int64_t)_piece_length){
+            count++;
+        }
 
         _length_list.push_back(file_length + _length_list[i]);                      //length of the file in bytes
         _block_list.push_back((long)count + _block_list[i]);                        //length of the file in pices
-	}
+    }
 
-	_loaded = 0;
-	_total_length = _length_list[_length_list.size() - 1];
+    _loaded = 0;
+    _total_length = _length_list[_length_list.size() - 1];
 
     for(unsigned int i = 0; i < _file_list.size(); i++){
         _loaded += _file_list[i]->downloaded();
@@ -41,11 +41,11 @@ file_splitter::~file_splitter(){
 }
 
 int64_t file_splitter::downloaded(){
-	return _loaded;
+    return _loaded;
 }
 
 int64_t file_splitter::left(){
-	return _total_length - _loaded;
+    return _total_length - _loaded;
 }
 
 int64_t file_splitter::length(){

@@ -6,12 +6,12 @@
 #include <algorithm>
 
 namespace encryption{
-	typedef class RandomStringGenerator{
-		private:
+    typedef class RandomStringGenerator{
+        private:
 
-		public:
-			RandomStringGenerator();
-			std::vector<char> random_string(int length);
-			std::string ascii_string(int length);
-	}random_string_generator;
+        public:
+            RandomStringGenerator();
+            std::vector<char> random_string(int length);
+            std::string ascii_string(int length);
+    }random_string_generator;
 }

@@ -8,19 +8,19 @@
  */
 
 namespace bencode{
-	namespace provider{
-		typedef class BencodeVectorProvider : public BencodeProviderInterface{
-			private:
-				std::vector<char> source;
-				long index;
+    namespace provider{
+        typedef class BencodeVectorProvider : public BencodeProviderInterface{
+            private:
+                std::vector<char> source;
+                long index;
 
-			public:
-				BencodeVectorProvider(std::vector<char> source);
-				~BencodeVectorProvider();
+            public:
+                BencodeVectorProvider(std::vector<char> source);
+                ~BencodeVectorProvider();
 
-				std::vector<char> get();
-				std::vector<char> get(int length);
-				std::vector<char> peek();
-		}vector;
-	}
+                std::vector<char> get();
+                std::vector<char> get(int length);
+                std::vector<char> peek();
+        }vector;
+    }
 }

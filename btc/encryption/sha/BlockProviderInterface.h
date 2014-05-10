@@ -10,12 +10,12 @@
  */
 
 namespace encryption{
-	namespace sha{
-		namespace provider{
-			typedef class BlockProviderInterface{
-				public:
+    namespace sha{
+        namespace provider{
+            typedef class BlockProviderInterface{
+                public:
                     virtual std::list<long> block() = 0;                            //returns sixteen 4-bytes words
-			}interface;
-		}
-	}
+            }interface;
+        }
+    }
 }

@@ -15,9 +15,9 @@ BencodeStreamConsumer::BencodeStreamConsumer(std::wstring path){
 }
 
 BencodeStreamConsumer::~BencodeStreamConsumer(){
-	if(destination.is_open()){
-		destination.close();
-	}
+    if(destination.is_open()){
+        destination.close();
+    }
 }
 
 void BencodeStreamConsumer::set(bencode::element* encoded){

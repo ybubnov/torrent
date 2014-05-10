@@ -3,17 +3,17 @@
 using namespace network::bittorrent::message;
 
 KeepAlive::KeepAlive(){
-	data = std::vector<char>(4, 0);
+    data = std::vector<char>(4, 0);
 }
 
 KeepAlive KeepAlive::create(){
-	return KeepAlive();
+    return KeepAlive();
 }
 
 std::vector<char> KeepAlive::message(){
-	return data;
+    return data;
 }
 
 type KeepAlive::what(){
-	return _keep_alive;
+    return _keep_alive;
 }

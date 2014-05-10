@@ -6,7 +6,7 @@ BencodeStringConsumer::BencodeStringConsumer(){
 }
 
 BencodeStringConsumer::~BencodeStringConsumer(){
-	destination.clear();
+    destination.clear();
 }
 
 void BencodeStringConsumer::set(bencode::element* encoded){

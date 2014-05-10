@@ -7,17 +7,17 @@
  */
 
 namespace bencode{
-	namespace consumer{
+    namespace consumer{
         typedef class BencodeVectorConsumer : public BencodeConsumerInterface{
-			private:
-				std::vector<char> destination;
+            private:
+                std::vector<char> destination;
 
-			public:
-				BencodeVectorConsumer();
+            public:
+                BencodeVectorConsumer();
 
-				void set(bencode::element* encoded);
-				void dispose();
-				std::vector<char> vector();
-		}vector;
-	}
+                void set(bencode::element* encoded);
+                void dispose();
+                std::vector<char> vector();
+        }vector;
+    }
 }
