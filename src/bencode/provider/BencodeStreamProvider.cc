@@ -1,4 +1,4 @@
-#include "BencodeStreamProvider.h"
+#include "bencode/provider/stream.h"
 
 using namespace bencode::provider;
 

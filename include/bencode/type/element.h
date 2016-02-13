@@ -9,7 +9,7 @@
 /*the base class of the bencode types
  */
 
-typedef long long int64_t;
+// typedef long long int64_t;
 
 namespace bencode{
     typedef class BencodeElement{

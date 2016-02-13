@@ -1,4 +1,4 @@
-#include "BencodeVectorProvider.h"
+#include "bencode/provider/vector.h"
 
 using namespace bencode::provider;
 

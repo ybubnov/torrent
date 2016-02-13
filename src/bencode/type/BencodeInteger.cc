@@ -1,4 +1,4 @@
-#include "BencodeInteger.h"
+#include "bencode/type/integer.h"
 
 using namespace bencode::type;
 

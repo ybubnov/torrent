@@ -1,4 +1,4 @@
-#include "BencodeVectorConsumer.h"
+#include "bencoder/consumer/vector.h"
 
 using namespace bencode::consumer;
 

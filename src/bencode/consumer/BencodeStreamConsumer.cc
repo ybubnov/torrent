@@ -1,4 +1,5 @@
-#include "BencodeStreamConsumer.h"
+#include "bencoder/consumer/stream.h"
+#if 0
 
 using namespace bencode::consumer;
 
@@ -69,3 +70,5 @@ std::vector<char> BencodeStreamConsumer::vector(){
     source.close();
     return vdata;
 }
+
+#endif

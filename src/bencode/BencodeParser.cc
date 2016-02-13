@@ -1,4 +1,4 @@
-#include "BencodeParser.h"
+#include "bencode/parser.h"
 
 using namespace bencode;
 

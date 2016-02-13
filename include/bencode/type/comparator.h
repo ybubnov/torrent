@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BencodeElement.h"
+#include "bencode/type/element.h"
 
 /*allows you to find necessary item in the bencode::map
  *using the string as comparison

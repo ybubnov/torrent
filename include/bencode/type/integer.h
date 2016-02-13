@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BencodeElement.h"
+#include "bencode/type/element.h"
 
 /*format: i<integer encoded in base ten ASCII>e
  */

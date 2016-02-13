@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sstream>
-#include "BencodeConsumerInterface.h"
+#include "bencode/consumer/interface.h"
 
 /*allows you to write bencoded data to a vector
  */

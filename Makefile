@@ -2,10 +2,10 @@
 
 BUILD   := build
 INCLUDE := -Iinclude
-INCLUDE := -Iinclude/bencode
-INCLUDE := -Iinclude/bencode/consumer
-INCLUDE := -Iinclude/bencode/provider
-INCLUDE := -Iinclude/bencode/type
+INCLUDE += -Iinclude/bencode
+INCLUDE += -Iinclude/bencode/consumer
+INCLUDE += -Iinclude/bencode/provider
+INCLUDE += -Iinclude/bencode/type
 
 SOURCE  := src/bencode/*.c
 SOURCE  += src/bencode/consumer/*.c
@@ -17,7 +17,7 @@ WARNING += -Wpedantic
 WARNING += -Werror
 WARNING += -Wunused
 
-CCFLAGS  := $(WARNING) $(INCLUDE) -g
+CCFLAGS  := $(WARNING) $(INCLUDE) -g -std=c++11
 
 # Object file names
 OBJECTS := $(wildcard $(SOURCE))
@@ -31,7 +31,7 @@ $(BUILD):
 	mkdir -p $(BUILD)
 
 $(BUILD)/$(NAME): main.c $(OBJECTS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CCFLAGS) $^ -o $@
 
 clean:
 	rm -rf $(BUILD)

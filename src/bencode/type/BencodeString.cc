@@ -1,4 +1,4 @@
-#include "BencodeString.h"
+#include "bencode/type/string.h"
 
 using namespace bencode::type;
 

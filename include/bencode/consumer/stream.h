@@ -1,3 +1,5 @@
+#if 0
+
 #pragma once
 
 #include <cstring>
@@ -24,3 +26,5 @@ namespace bencode{
         }stream;
     }
 }
+
+#endif

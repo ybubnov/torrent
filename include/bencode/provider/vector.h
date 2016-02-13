@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <algorithm>
-#include "BencodeProviderInterface.h"
+#include "bencode/provider/interface.h"
 
 /*allows you to get a serial access to a bencoded data vector
  */

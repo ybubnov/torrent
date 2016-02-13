@@ -1,4 +1,4 @@
-#include "BencodeDictionary.h"
+#include "bencoder/type/dictionary.h"
 
 using namespace bencode::type;
 

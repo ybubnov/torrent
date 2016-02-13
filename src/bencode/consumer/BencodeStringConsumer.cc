@@ -1,4 +1,6 @@
-#include "BencodeStringConsumer.h"
+#include "bencode/consumer/string.h"
+
+#if 0
 
 using namespace bencode::consumer;
 
@@ -21,3 +23,5 @@ void BencodeStringConsumer::dispose(){
 std::vector<char> BencodeStringConsumer::vector(){
     return std::vector<char>(destination.begin(), destination.end());
 }
+
+#endif

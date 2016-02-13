@@ -15,7 +15,7 @@
 
 namespace bencode{
 
-typedef class {
+typedef class BencodeParser {
 private:
 
     const static char _delimeter;
